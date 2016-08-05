@@ -4,5 +4,5 @@
   ~ Created by dlight on 2016-08-04.
   -->
 <resources>
-    <string name="app_name">PayForm</string>
+    <style name="Theme.NoTitle" parent="@android:style/Theme.NoTitleBar"></style>
 </resources>

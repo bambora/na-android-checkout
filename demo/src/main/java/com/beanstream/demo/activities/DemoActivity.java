@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
- *
- * Created by dlight on 2016-08-04.
  */
 
-package com.beanstream.payform.demo.activities;
+package com.beanstream.demo.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,8 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.beanstream.payform.demo.R;
-
+import com.beanstream.demo.R;
 
 public class DemoActivity extends Activity implements View.OnClickListener {
 
@@ -37,5 +35,8 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         TextView tokenText = (TextView)findViewById(R.id.demo_pay_token);
         tokenText.setText("Token: new token");
         tokenText.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent("payform.LAUNCH");
+        startActivity(intent);
     }
 }
