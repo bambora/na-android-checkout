@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.beanstream.payform.demo.activities.DemoActivity">
+    tools:context="com.beanstream.payform.demo.activities.DemoActivity" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/bic_logo"
-            android:background="@color/bicDark"
+            android:background="@color/bicHeaderBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
