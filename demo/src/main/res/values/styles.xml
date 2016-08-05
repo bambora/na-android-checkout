@@ -1,5 +1,6 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
 <resources>
-    <style name="Theme.Default" parent="@android:style/Theme.NoTitleBar"></style>
     <style name="Theme.NoTitle" parent="@android:style/Theme.NoTitleBar"></style>
-    <style name="Theme.FullScreen" parent="@android:style/Theme.NoTitleBar.Fullscreen"></style>
 </resources>
