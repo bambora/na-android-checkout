@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Beanstream Colors -->
+    <color name="bicPrimary">#067AED</color>
+    <color name="bicPrimaryPressed">#33AEDF</color>
+
+    <color name="bicSecondary">#6ED700</color>
+    <color name="bicSecondaryPressed">#ACDF33</color>
+    <color name="bicButtonText">#ffffff</color>
+
+
+    <color name="bicDark">#000000</color>
 </resources>

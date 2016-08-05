@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PayForm</string>
+
+    <string name="title_activity_demo">PayForm Demo</string>
+    <string name="demo_pay_button">Pay by Card</string>
+    <string name="demo_pay_label">Tap to launch the PayForm demo</string>
+    <string name="demo_pay_token">Token</string>
 </resources>
