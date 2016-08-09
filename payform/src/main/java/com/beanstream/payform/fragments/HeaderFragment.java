@@ -5,7 +5,6 @@
 package com.beanstream.payform.fragments;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Purchase;
 
 import java.text.NumberFormat;
 
@@ -25,12 +25,8 @@ import java.text.NumberFormat;
  * create an instance of this fragment.
  */
 public class HeaderFragment extends Fragment {
-    private Double mAmount;
-    private String mCurrency;
-    private String mDescription;
-
-    private String mName;
-    private String mColor;
+    private Purchase purchase;
+    private int color;
 
     public HeaderFragment() {
         // Required empty public constructor
@@ -40,21 +36,16 @@ public class HeaderFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param purchaseAmount      Purchase amount.
-     * @param purchaseCurrency    Currency code.
-     * @param purchaseDescription Purchase description.
-     * @param companyName         Company name.
-     * @param primaryColor        Parameter 2.
+     * @param purchase  Purchase info.
+     * @param color     Primary color.
+     *
      * @return A new instance of fragment HeaderFragment.
      */
-    public static HeaderFragment newInstance(Double purchaseAmount, String purchaseCurrency, String purchaseDescription, String companyName, String primaryColor) {
+    public static HeaderFragment newInstance(Purchase purchase, int color) {
         HeaderFragment fragment = new HeaderFragment();
         Bundle args = new Bundle();
-        args.putDouble(PayFormActivity.EXTRA_PURCHASE_AMOUNT, purchaseAmount);
-        args.putString(PayFormActivity.EXTRA_PURCHASE_CURRENCY_CODE, purchaseCurrency);
-        args.putString(PayFormActivity.EXTRA_PURCHASE_DESCRIPTION, purchaseDescription);
-        args.putString(PayFormActivity.EXTRA_COMPANY_NAME, companyName);
-        args.putString(PayFormActivity.EXTRA_PRIMARY_COLOR, primaryColor);
+        args.putParcelable(PayFormActivity.EXTRA_PURCHASE, purchase);
+        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,11 +54,8 @@ public class HeaderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mAmount = getArguments().getDouble(PayFormActivity.EXTRA_PURCHASE_AMOUNT);
-            mCurrency = getArguments().getString(PayFormActivity.EXTRA_PURCHASE_CURRENCY_CODE);
-            mDescription = getArguments().getString(PayFormActivity.EXTRA_PURCHASE_DESCRIPTION);
-            mName = getArguments().getString(PayFormActivity.EXTRA_COMPANY_NAME);
-            mColor = getArguments().getString(PayFormActivity.EXTRA_PRIMARY_COLOR);
+            purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
+            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
         }
     }
 
@@ -76,17 +64,12 @@ public class HeaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_header, container, false);
 
-        if (mColor != null) {
-            ((RelativeLayout) inflatedView.findViewById(R.id.fragment_header)).setBackgroundColor(Color.parseColor(mColor));
-        }
-        ((TextView) inflatedView.findViewById(R.id.pay_merchant_name)).setText(mName);
+        ((RelativeLayout) inflatedView.findViewById(R.id.fragment_header)).setBackgroundColor(color);
 
-        if (mAmount != null) {
-            ((TextView) inflatedView.findViewById(R.id.pay_amount)).setText(NumberFormat.getCurrencyInstance().format(mAmount));
-        }
-
-        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(mCurrency);
-        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(mDescription);
+        ((TextView) inflatedView.findViewById(R.id.pay_merchant_name)).setText(purchase.getCompanyName());
+        ((TextView) inflatedView.findViewById(R.id.pay_amount)).setText(NumberFormat.getCurrencyInstance().format(purchase.getAmount()));
+        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(purchase.getCurrency()); //TODO: add currency tag
+        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(purchase.getDescription());
 
         return inflatedView;
     }
