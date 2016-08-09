@@ -8,12 +8,13 @@
     <!-- Beanstream Colors -->
     <color name="bicPrimary">#067AED</color>
     <color name="bicPrimaryPressed">#33AEDF</color>
+    <color name="bicPrimaryText">@android:color/white</color>
 
     <color name="bicSecondary">#6ED700</color>
     <color name="bicSecondaryPressed">#ACDF33</color>
 
     <color name="bicButtonText">@android:color/white</color>
 
-    <color name="bicHeaderBackground">@android:color/black</color>
+    <color name="bicSecureBackground">@android:color/black</color>
     <color name="bicActivityBackground">@android:color/white</color>
 </resources>

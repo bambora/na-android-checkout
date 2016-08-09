@@ -1,0 +1,53 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bicPrimary"
+    android:padding="@dimen/header_padding"
+    tools:context="com.beanstream.payform.fragments.HeaderFragment" >
+
+    <ImageView
+        android:id="@+id/pay_merchant_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/default_merchant_logo"
+        android:padding="@dimen/logo_padding" />
+
+    <TextView
+        android:id="@+id/pay_merchant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/pay_merchant_logo"
+        android:text=""
+        android:textSize="@dimen/pay_text_size_merchant_name"
+        android:textColor="@color/bicPrimaryText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pay_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pay_merchant_name"
+        android:layout_toRightOf="@id/pay_merchant_logo"
+        android:text=""
+        android:textSize="@dimen/pay_text_size_purchase_amount"
+        android:textColor="@color/bicPrimaryText"
+        android:textStyle="bold"  />
+
+    <TextView
+        android:id="@+id/pay_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pay_amount"
+        android:layout_toRightOf="@id/pay_merchant_logo"
+        android:text=""
+        android:textSize="@dimen/pay_text_size_purchase_description"
+        android:textColor="@color/bicPrimaryText"
+        android:textStyle="bold"  />
+</RelativeLayout>

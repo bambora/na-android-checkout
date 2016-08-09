@@ -8,9 +8,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="pay_text_size">25dp</dimen>
+    <dimen name="header_padding">10dp</dimen>
+    <dimen name="pay_merchant_logo_padding">10dp</dimen>
+    <dimen name="pay_text_size_merchant_name">18dp</dimen>
+    <dimen name="pay_text_size_purchase_amount">12dp</dimen>
+    <dimen name="pay_text_size_purchase_description">10dp</dimen>
+
     <dimen name="button_text_size">30dp</dimen>
     <dimen name="button_margin">15dp</dimen>
     <dimen name="button_padding">15dp</dimen>
+
     <dimen name="logo_padding">10dp</dimen>
 </resources>
