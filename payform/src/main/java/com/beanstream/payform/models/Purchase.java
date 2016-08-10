@@ -12,6 +12,19 @@ import android.os.Parcelable;
  */
 public class Purchase implements Parcelable {
 
+    public static final Parcelable.Creator<Purchase> CREATOR
+            = new Parcelable.Creator<Purchase>() {
+
+        @Override
+        public Purchase createFromParcel(Parcel in) {
+            return new Purchase(in);
+        }
+
+        @Override
+        public Purchase[] newArray(int size) {
+            return new Purchase[size];
+        }
+    };
     private String companyName;
     private Double amount; // required
     private String currency; // required
@@ -27,6 +40,14 @@ public class Purchase implements Parcelable {
         this.amount = amount;
         this.currency = currency;
         this.description = description;
+    }
+
+    //region Parcelable Implementation
+    private Purchase(Parcel parcel) {
+        companyName = parcel.readString();
+        amount = parcel.readDouble();
+        currency = parcel.readString();
+        description = parcel.readString();
     }
 
     //region Getters and Setters
@@ -53,6 +74,7 @@ public class Purchase implements Parcelable {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+    //endregion
 
     public String getDescription() {
         return description;
@@ -60,15 +82,6 @@ public class Purchase implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-    //endregion
-
-    //region Parcelable Implementation
-    private Purchase(Parcel parcel) {
-        companyName = parcel.readString();
-        amount = parcel.readDouble();
-        currency = parcel.readString();
-        description = parcel.readString();
     }
 
     @Override
@@ -83,19 +96,5 @@ public class Purchase implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Parcelable.Creator<Purchase> CREATOR
-            = new Parcelable.Creator<Purchase>() {
-
-        @Override
-        public Purchase createFromParcel(Parcel in) {
-            return new Purchase(in);
-        }
-
-        @Override
-        public Purchase[] newArray(int size) {
-            return new Purchase[size];
-        }
-    };
     //endregion
 }

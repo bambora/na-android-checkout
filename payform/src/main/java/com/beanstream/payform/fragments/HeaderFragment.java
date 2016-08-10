@@ -5,8 +5,8 @@
 package com.beanstream.payform.fragments;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +36,8 @@ public class HeaderFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param purchase  Purchase info.
-     * @param color     Primary color.
-     *
+     * @param purchase Purchase info.
+     * @param color    Primary color.
      * @return A new instance of fragment HeaderFragment.
      */
     public static HeaderFragment newInstance(Purchase purchase, int color) {
@@ -66,10 +65,10 @@ public class HeaderFragment extends Fragment {
 
         ((RelativeLayout) inflatedView.findViewById(R.id.fragment_header)).setBackgroundColor(color);
 
-        ((TextView) inflatedView.findViewById(R.id.pay_merchant_name)).setText(purchase.getCompanyName());
-        ((TextView) inflatedView.findViewById(R.id.pay_amount)).setText(NumberFormat.getCurrencyInstance().format(purchase.getAmount()));
-        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(purchase.getCurrency()); //TODO: add currency tag
-        ((TextView) inflatedView.findViewById(R.id.pay_description)).setText(purchase.getDescription());
+        ((TextView) inflatedView.findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
+        ((TextView) inflatedView.findViewById(R.id.purchase_amount)).setText(NumberFormat.getCurrencyInstance().format(purchase.getAmount()));
+        ((TextView) inflatedView.findViewById(R.id.purchase_description)).setText(purchase.getCurrency()); //TODO: add currency tag
+        ((TextView) inflatedView.findViewById(R.id.purchase_description)).setText(purchase.getDescription());
 
         return inflatedView;
     }

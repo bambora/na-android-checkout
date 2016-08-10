@@ -40,17 +40,19 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
         Intent intent = new Intent("payform.LAUNCH");
 
-        Purchase purchase = new Purchase(123.45, "CAD");
-        purchase.setCompanyName("Cabinet of Curiosities");
-        purchase.setDescription("Item 1, Item 2, Item 3, Item 4");
+
+        Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
+
+        purchase.setCompanyName("Cabinet of Curiosities"); // default: ""
+        purchase.setDescription("Item 1, Item 2, Item 3, Item 4"); // default: ""
 
         intent.putExtra(PayFormActivity.EXTRA_PURCHASE, purchase);
 
         Settings settings = new Settings();
-        settings.setColor("#aa0000");
-        settings.setBillingAddressRequired(false);
-        settings.setShippingAddressRequired(false);
-        settings.setTokenRequestTimeoutInSeconds(6);
+        settings.setColor("#aa0000"); // default: "#067aed"
+//        settings.setBillingAddressRequired(false); // default: true
+//        settings.setShippingAddressRequired(false); // default: true
+        settings.setTokenRequestTimeoutInSeconds(7); // default: 6
 
         intent.putExtra(PayFormActivity.EXTRA_SETTINGS, settings);
 

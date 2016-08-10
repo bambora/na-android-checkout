@@ -1,0 +1,88 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.beanstream.payform.fragments.AddressFragment"
+    tools:layout="@layout/fragment_address">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bicActivityBackground"
+        android:padding="@dimen/header_padding"
+        tools:context="com.beanstream.payform.fragments.HeaderFragment">
+
+        <TextView
+            android:id="@+id/address_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="Address"
+            android:textColor="@color/bicPrimary"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:id="@+id/address_fields"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address_title"
+            android:layout_marginTop="@dimen/address_padding_title"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/address_name"
+                    android:layout_span="2"
+                    android:hint="@string/address_hint_name" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/address_street"
+                    android:layout_span="2"
+                    android:hint="@string/address_hint_street" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/address_postal"
+                    android:hint="@string/address_hint_postal" />
+
+                <EditText
+                    android:id="@+id/address_city"
+                    android:hint="@string/address_hint_city" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/address_province"
+                    android:hint="@string/address_hint_province" />
+
+                <EditText
+                    android:id="@+id/address_country"
+                    android:hint="@string/address_hint_country" />
+            </TableRow>
+        </TableLayout>
+
+        <CheckBox
+            android:id="@+id/address_billing_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address_fields"
+            android:padding="@dimen/address_padding_checkbox"
+            android:text="@string/address_billing_switch_label"
+            android:textColor="@color/bicSwitchText"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</FrameLayout>

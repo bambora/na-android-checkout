@@ -13,10 +13,25 @@ import android.os.Parcelable;
  */
 public class Settings implements Parcelable {
 
+    public static final Parcelable.Creator<Settings> CREATOR
+            = new Parcelable.Creator<Settings>() {
+
+        @Override
+        public Settings createFromParcel(Parcel in) {
+            return new Settings(in);
+        }
+
+        @Override
+        public Settings[] newArray(int size) {
+            return new Settings[size];
+        }
+    };
     private int color; // default: "#067aed"
     private Boolean billingAddressRequired; // default: true
     private Boolean shippingAddressRequired; // default: true
     private int tokenRequestTimeoutInSeconds; // default: 6
+
+    //region Getters and Setters
 
     public Settings() {
         this.color = Color.parseColor("#067aed");
@@ -25,18 +40,24 @@ public class Settings implements Parcelable {
         this.tokenRequestTimeoutInSeconds = 6;
     }
 
-    //region Getters and Setters
+    //region Parcelable Implementation
+    private Settings(Parcel parcel) {
+        color = parcel.readInt();
+        billingAddressRequired = (parcel.readInt() == 0);
+        shippingAddressRequired = (parcel.readInt() == 0);
+        tokenRequestTimeoutInSeconds = parcel.readInt();
+    }
 
     public int getColor() {
         return color;
     }
 
-    public void setColor(String colorHex) {
-        this.color = Color.parseColor(colorHex);
-    }
-
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public void setColor(String colorHex) {
+        this.color = Color.parseColor(colorHex);
     }
 
     public Boolean getBillingAddressRequired() {
@@ -55,6 +76,7 @@ public class Settings implements Parcelable {
     public void setShippingAddressRequired(Boolean shippingAddressRequired) {
         this.shippingAddressRequired = shippingAddressRequired;
     }
+    //endregion
 
     public int getTokenRequestTimeoutInSeconds() {
         return tokenRequestTimeoutInSeconds;
@@ -62,15 +84,6 @@ public class Settings implements Parcelable {
 
     public void setTokenRequestTimeoutInSeconds(int tokenRequestTimeoutInSeconds) {
         this.tokenRequestTimeoutInSeconds = tokenRequestTimeoutInSeconds;
-    }
-    //endregion
-
-    //region Parcelable Implementation
-    private Settings(Parcel parcel) {
-        color = parcel.readInt();
-        billingAddressRequired = (parcel.readInt() == 0);
-        shippingAddressRequired = (parcel.readInt() == 0);
-        tokenRequestTimeoutInSeconds = parcel.readInt();
     }
 
     @Override
@@ -85,19 +98,5 @@ public class Settings implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Parcelable.Creator<Settings> CREATOR
-            = new Parcelable.Creator<Settings>() {
-
-        @Override
-        public Settings createFromParcel(Parcel in) {
-            return new Settings(in);
-        }
-
-        @Override
-        public Settings[] newArray(int size) {
-            return new Settings[size];
-        }
-    };
     //endregion
 }

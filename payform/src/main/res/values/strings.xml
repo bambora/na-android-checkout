@@ -6,6 +6,25 @@
 <resources>
     <string name="app_name">PayForm</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="address_billing_switch_label">Billing address is same as shipping</string>
+
+    <string name="address_hint_name">name</string>
+    <string name="address_hint_street">street</string>
+    <string name="address_hint_postal">postal code</string>
+    <string name="address_hint_city">city</string>
+    <string name="address_hint_province">province</string>
+    <string name="address_hint_country">country</string>
+
+    <string name="back_to_billing">&lt; Billing</string>
+    <string name="back_to_shipping">&lt; Shipping</string>
+
+    <string name="main_button_to_billing">BILLING ADDRESS</string>
+    <string name="main_button_to_payment">PAY</string>
+    <string name="main_button_to_process">PAY</string>
+
+    <string name="payment_email">email</string>
+    <string name="payment_name">name</string>
+    <string name="payment_card_number">card number</string>
+    <string name="payment_expiry">expiry mm/yy</string>
+    <string name="payment_cvv">cvv</string>
 </resources>

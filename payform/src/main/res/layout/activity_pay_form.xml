@@ -17,16 +17,45 @@
         android:name="com.beanstream.payform.fragments.HeaderFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_header" />
+
+    <!--Back Link-->
+    <TextView
+        android:id="@+id/back_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/activity_back_text_size"
+        android:visibility="invisible" />
+    <!--android:clickable="true"-->
+    <!--android:onClick="go_back"-->
+
+    <!--Content-->
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_header" />
+
 
     <!--Footer-->
     <ImageView
-        android:id="@+id/bic_logo"
+        android:id="@+id/bic_secure_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/bicSecureBackground"
         android:padding="@dimen/logo_padding"
         android:src="@drawable/beanstream_logo" />
+
+    <!-- Button-->
+    <Button
+        android:id="@+id/button_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bic_secure_footer"
+        android:layout_margin="@dimen/button_margin"
+        android:onClick="selfDestruct"
+        android:text="" />
 </RelativeLayout>

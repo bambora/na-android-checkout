@@ -14,6 +14,7 @@
     <color name="bicSecondaryPressed">#ACDF33</color>
 
     <color name="bicButtonText">@android:color/white</color>
+    <color name="bicSwitchText">@android:color/black</color>
 
     <color name="bicSecureBackground">@android:color/black</color>
     <color name="bicActivityBackground">@android:color/white</color>
