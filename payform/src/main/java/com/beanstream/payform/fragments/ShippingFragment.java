@@ -17,13 +17,33 @@ import com.beanstream.payform.R;
  */
 public class ShippingFragment extends Fragment {
 
+    public final static String EXTRA_SETTINGS_BILLING_REQUIRED = "com.beanstream.payform.models.settings.color";
+
+    private boolean billingRequired;
+
     public ShippingFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     *
+     * @param billingRequired Billing address is required.
+     * @return A new instance of fragment HeaderFragment.
+     */
+    public static ShippingFragment newInstance(boolean billingRequired) {
+        ShippingFragment fragment = new ShippingFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(EXTRA_SETTINGS_BILLING_REQUIRED, billingRequired);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            billingRequired = getArguments().getParcelable(EXTRA_SETTINGS_BILLING_REQUIRED);
+        }
 
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_address, new AddressFragment()).commit();
     }
@@ -31,7 +51,15 @@ public class ShippingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_shipping, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_shipping, container, false);
+
+        if (billingRequired) {
+            inflatedView.findViewById(R.id.billing_switch).setVisibility(View.VISIBLE);
+        } else {
+            inflatedView.findViewById(R.id.billing_switch).setVisibility(View.INVISIBLE);
+        }
+
+        return inflatedView;
     }
 
 }

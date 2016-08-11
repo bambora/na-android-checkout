@@ -40,7 +40,6 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
         Intent intent = new Intent("payform.LAUNCH");
 
-
         Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
 
         purchase.setCompanyName("Cabinet of Curiosities"); // default: ""
