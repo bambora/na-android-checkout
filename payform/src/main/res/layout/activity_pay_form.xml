@@ -7,8 +7,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="@android:color/white"
+    android:layout_height="match_parent"
     tools:context="com.beanstream.payform.activities.PayFormActivity">
 
     <!--Header-->
@@ -20,43 +19,46 @@
         android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_header" />
 
+    <!--Title Bar-->
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_header"
+        android:layout_margin="@dimen/title_margin">
+
+        <!--Back Link-->
+        <TextView
+            android:id="@+id/back_link"
+            style="@style/TitleLinkText"
+            android:clickable="true"
+            android:onClick="previous"
+            android:visibility="invisible" />
+
+        <!--Title-->
+        <TextView
+            android:id="@+id/activity_title"
+            style="@style/TitleText"
+            android:text="@string/shipping_title" />
+    </RelativeLayout>
+
     <!--Content-->
     <FrameLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fragment_header" />
+        android:layout_below="@id/title_bar" />
 
     <!--Footer-->
     <ImageView
         android:id="@+id/bic_secure_footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bicSecureBackground"
-        android:padding="@dimen/logo_padding"
-        android:src="@drawable/beanstream_logo" />
-
-    <!--Back Link-->
-    <TextView
-        android:id="@+id/back_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_header"
-        android:layout_margin="@dimen/back_link_margin"
-        android:clickable="true"
-        android:onClick="previous"
-        android:text=""
-        android:textSize="@dimen/back_link_text_size"
-        android:visibility="invisible" />
+        style="@style/BICSecure"
+        android:layout_alignParentBottom="true" />
 
     <!-- Next Button-->
     <Button
         android:id="@+id/button_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/FullButton"
         android:layout_above="@id/bic_secure_footer"
-        android:layout_margin="@dimen/button_margin"
-        android:onClick="next"
-        android:text="" />
+        android:onClick="next" />
 </RelativeLayout>

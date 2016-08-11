@@ -5,5 +5,46 @@
   -->
 <resources>
 
-    <style name="Theme.NoTitle" parent="@android:style/Theme.NoTitleBar"></style>
+    <style name="Theme.PayForm" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/bicBackground</item>
+        <item name="android:colorBackground">@color/bicBackground</item>
+    </style>
+
+    <style name="FullButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+    </style>
+    android:layout_margin="@dimen/demo_button_margin"
+
+    <style name="BICSecure">
+        <item name="android:background">@color/bicSecureBackground</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/logo_padding</item>
+        <item name="android:src">@drawable/beanstream_logo</item>
+    </style>
+
+    <style name="HeaderText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/bicPrimaryText</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/bicPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleLinkText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">@dimen/back_link_text_size</item>
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
+    </style>
 </resources>

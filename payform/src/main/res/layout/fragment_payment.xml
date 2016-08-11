@@ -4,15 +4,60 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_payment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PaymentFragment">
+    tools:context="com.beanstream.payform.fragments.PaymentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="TODO" />
+        android:padding="@dimen/header_padding"
+        tools:context="com.beanstream.payform.fragments.PaymentFragment">
 
+        <!--Fields-->
+        <TableLayout
+            android:id="@+id/pay_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_padding"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_marginBottom="@dimen/activity_padding_field_separator">
+
+                <EditText
+                    android:id="@+id/pay_email"
+                    android:layout_span="2"
+                    android:hint="@string/pay_hint_email" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/pay_name"
+                    android:layout_span="2"
+                    android:hint="@string/pay_hint_name" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/pay_card_number"
+                    android:layout_span="2"
+                    android:hint="@string/pay_hint_card_number" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/pay_expiry"
+                    android:hint="@string/pay_hint_expiry" />
+
+                <EditText
+                    android:id="@+id/pay_cvv"
+                    android:hint="@string/pay_hint_cvv" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
 </FrameLayout>

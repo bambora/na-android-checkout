@@ -5,20 +5,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="@android:color/white"
+    android:layout_height="match_parent"
     tools:context="com.beanstream.payform.fragments.ShippingFragment">
-
-    <!--Title-->
-    <TextView
-        android:id="@+id/address_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/address_padding_title"
-        android:layout_centerHorizontal="true"
-        android:text="@string/shipping_title"
-        android:textColor="@color/bicPrimary"
-        android:textStyle="bold" />
 
     <!--Address-->
     <FrameLayout
@@ -26,7 +14,6 @@
         android:name="com.beanstream.payform.fragments.AddressFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/address_title"
         tools:layout="@layout/fragment_address" />
 
     <!--Billing Toggle-->
@@ -35,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_address"
-        android:padding="@dimen/address_padding_checkbox"
+        android:layout_margin="@dimen/checkbox_margin"
         android:text="@string/address_billing_switch_label"
         android:textColor="@color/bicSwitchText"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 </RelativeLayout>

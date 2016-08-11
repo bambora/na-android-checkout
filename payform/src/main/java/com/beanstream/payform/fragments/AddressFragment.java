@@ -16,8 +16,6 @@ import com.beanstream.payform.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HeaderFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class AddressFragment extends Fragment {
     public AddressFragment() {

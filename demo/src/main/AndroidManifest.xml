@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NoTitle">
+        android:theme="@style/Theme.PayForm">
         <uses-library
             android:name="com.beanstream.payform"
             android:required="false" />
@@ -18,7 +18,7 @@
         <activity
             android:name="com.beanstream.demo.activities.DemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_demo">
+            android:label="@string/demo_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -20,34 +20,22 @@
 
     <TextView
         android:id="@+id/header_company_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/HeaderText"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/header_company_logo"
-        android:text=""
-        android:textColor="@color/bicPrimaryText"
-        android:textSize="@dimen/header_text_size_name"
-        android:textStyle="bold" />
+        android:textSize="@dimen/header_text_size_name" />
 
     <TextView
         android:id="@+id/purchase_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/HeaderText"
         android:layout_below="@id/header_company_name"
         android:layout_toRightOf="@id/header_company_logo"
-        android:text=""
-        android:textColor="@color/bicPrimaryText"
-        android:textSize="@dimen/header_text_size_amount"
-        android:textStyle="bold" />
+        android:textSize="@dimen/header_text_size_amount" />
 
     <TextView
         android:id="@+id/purchase_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/HeaderText"
         android:layout_below="@id/purchase_amount"
         android:layout_toRightOf="@id/header_company_logo"
-        android:text=""
-        android:textColor="@color/bicPrimaryText"
-        android:textSize="@dimen/header_text_size_description"
-        android:textStyle="bold" />
+        android:textSize="@dimen/header_text_size_description" />
 </RelativeLayout>

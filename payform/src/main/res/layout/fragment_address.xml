@@ -14,15 +14,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bicActivityBackground"
         android:padding="@dimen/header_padding"
         tools:context="com.beanstream.payform.fragments.AddressFragment">
 
         <TableLayout
             android:id="@+id/address_fields"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/address_padding"
+            android:layout_margin="@dimen/activity_padding"
             android:stretchColumns="*">
 
             <TableRow>

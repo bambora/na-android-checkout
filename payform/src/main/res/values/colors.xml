@@ -6,7 +6,7 @@
   -->
 <resources>
     <!-- Beanstream Colors -->
-    <color name="bicActivityBackground">@android:color/white</color>
+    <color name="bicBackground">@android:color/white</color>
 
     <color name="bicButtonText">@android:color/white</color>
 
