@@ -10,6 +10,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import com.beanstream.payform.fragments.ShippingFragment;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 
-public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
+public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener, ShippingFragment.OnBillingCheckBoxChangedListener {
 
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
@@ -65,6 +66,12 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     //region Navigation
+    @Override
+    public void onBillingCheckBoxChanged(boolean isChecked) {
+        Log.d("checkbox","isChecked: " + isChecked);
+        updateNextButton();
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -153,15 +160,24 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     private void switchContentToShipping() {
-        getFragmentManager().beginTransaction().replace(R.id.fragment_content, new ShippingFragment()).addToBackStack(ShippingFragment.class.getName()).commit();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content, ShippingFragment.newInstance(settings.getBillingAddressRequired()))
+                .addToBackStack(ShippingFragment.class.getName())
+                .commit();
     }
 
     private void switchContentToBilling() {
-        getFragmentManager().beginTransaction().replace(R.id.fragment_content, new BillingFragment()).addToBackStack(BillingFragment.class.getName()).commit();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content, new BillingFragment())
+                .addToBackStack(BillingFragment.class.getName())
+                .commit();
     }
 
     private void switchContentToPayment() {
-        getFragmentManager().beginTransaction().replace(R.id.fragment_content, new PaymentFragment()).addToBackStack(PaymentFragment.class.getName()).commit();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content, new PaymentFragment())
+                .addToBackStack(PaymentFragment.class.getName())
+                .commit();
     }
 
     private void switchContentToProcessing(Settings settings) {

@@ -4,11 +4,16 @@
 
 package com.beanstream.payform.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.beanstream.payform.R;
 
@@ -18,15 +23,19 @@ import com.beanstream.payform.R;
 public class ShippingFragment extends Fragment {
 
     public final static String EXTRA_SETTINGS_BILLING_REQUIRED = "com.beanstream.payform.models.settings.color";
+    OnBillingCheckBoxChangedListener mCallback;
 
     private boolean billingRequired;
+
+    public interface OnBillingCheckBoxChangedListener {
+        public void onBillingCheckBoxChanged(boolean isChecked);
+    }
 
     public ShippingFragment() {
         // Required empty public constructor
     }
 
     /**
-     *
      * @param billingRequired Billing address is required.
      * @return A new instance of fragment HeaderFragment.
      */
@@ -39,10 +48,26 @@ public class ShippingFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d("onAttach", "context: " + activity);
+
+        mCallback = (OnBillingCheckBoxChangedListener) activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("onAttach", "context: " + context);
+
+        mCallback = (OnBillingCheckBoxChangedListener) context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            billingRequired = getArguments().getParcelable(EXTRA_SETTINGS_BILLING_REQUIRED);
+            billingRequired = getArguments().getBoolean(EXTRA_SETTINGS_BILLING_REQUIRED);
         }
 
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_address, new AddressFragment()).commit();
@@ -51,15 +76,26 @@ public class ShippingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.fragment_shipping, container, false);
+        View view = inflater.inflate(R.layout.fragment_shipping, container, false);
 
-        if (billingRequired) {
-            inflatedView.findViewById(R.id.billing_switch).setVisibility(View.VISIBLE);
-        } else {
-            inflatedView.findViewById(R.id.billing_switch).setVisibility(View.INVISIBLE);
-        }
+        configureBillingCheckBox(view);
 
-        return inflatedView;
+        return view;
     }
 
+    private void configureBillingCheckBox(View view) {
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
+        checkBox.setVisibility(View.INVISIBLE);
+
+        if (billingRequired) {
+            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Log.d("onCheckedChanged", "isChecked: " + isChecked);
+                    mCallback.onBillingCheckBoxChanged(isChecked);
+                }
+            });
+        }
+    }
 }
