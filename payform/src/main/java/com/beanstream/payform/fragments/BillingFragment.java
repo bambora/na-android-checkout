@@ -1,10 +1,9 @@
 /*
  * Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
- *
- * Created by dlight on 2016-08-08.
  */
 
 package com.beanstream.payform.fragments;
+
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -16,24 +15,23 @@ import com.beanstream.payform.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HeaderFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class AddressFragment extends Fragment {
-    public AddressFragment() {
+public class BillingFragment extends Fragment {
+
+    public BillingFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_address, new AddressFragment()).commit();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.fragment_address, container, false);
-
-        return inflatedView;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_billing, container, false);
     }
+
 }

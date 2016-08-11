@@ -14,18 +14,18 @@
         <uses-library
             android:name="com.beanstream.payform"
             android:required="false" />
+
         <activity
             android:name="com.beanstream.demo.activities.DemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_demo" >
+            android:label="@string/title_activity_demo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.beanstream.payform.activities.PayFormActivity" >
+        <activity android:name="com.beanstream.payform.activities.PayFormActivity">
             <intent-filter>
                 <action android:name="payform.LAUNCH" />
                 <category android:name="android.intent.category.DEFAULT" />

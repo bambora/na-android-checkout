@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~
+  ~ Created by dlight on 2016-08-04.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    tools:context="com.beanstream.payform.fragments.BillingFragment">
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/address_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/address_padding_title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/billing_title"
+        android:textColor="@color/bicPrimary"
+        android:textStyle="bold" />
+
+    <!--Address-->
+    <FrameLayout
+        android:id="@+id/fragment_address"
+        android:name="com.beanstream.payform.fragments.AddressFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address_title"
+        tools:layout="@layout/fragment_address" />
+</RelativeLayout>

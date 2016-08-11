@@ -18,6 +18,8 @@
     <string name="back_to_billing">&lt; Billing</string>
     <string name="back_to_shipping">&lt; Shipping</string>
 
+    <string name="billing_title">Billing</string>
+
     <string name="next_button_to_billing">BILLING ADDRESS &gt;</string>
     <string name="next_button_to_payment">PAY &gt;</string>
     <string name="next_button_to_process">PAY</string>
@@ -27,4 +29,9 @@
     <string name="payment_card_number">card number</string>
     <string name="payment_expiry">expiry mm/yy</string>
     <string name="payment_cvv">cvv</string>
+
+    <string name="shipping_title">Shipping</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
