@@ -19,35 +19,12 @@
         android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_header" />
 
-    <!--Title Bar-->
-    <RelativeLayout
-        android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_header"
-        android:layout_margin="@dimen/title_margin">
-
-        <!--Back Link-->
-        <TextView
-            android:id="@+id/back_link"
-            style="@style/TitleLinkText"
-            android:clickable="true"
-            android:onClick="previous"
-            android:visibility="invisible" />
-
-        <!--Title-->
-        <TextView
-            android:id="@+id/activity_title"
-            style="@style/TitleText"
-            android:text="@string/shipping_title" />
-    </RelativeLayout>
-
     <!--Content-->
     <FrameLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_bar" />
+        android:layout_below="@id/fragment_header" />
 
     <!--Footer-->
     <ImageView

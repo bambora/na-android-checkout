@@ -35,16 +35,20 @@
     <style name="TitleText" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_margin">@dimen/title_margin</item>
         <item name="android:textColor">@color/bicPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TitleLinkText" parent="@android:style/TextAppearance.Medium">
+    <style name="BackLinkText" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textSize">@dimen/back_link_text_size</item>
+        <item name="android:layout_margin">@dimen/title_margin</item>
         <item name="android:textColor">@android:color/secondary_text_dark</item>
+        <item name="android:textSize">@dimen/back_link_text_size</item>
     </style>
 </resources>

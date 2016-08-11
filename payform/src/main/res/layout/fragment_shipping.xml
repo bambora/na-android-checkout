@@ -1,5 +1,7 @@
 <!--
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~
+  ~ Created by dlight on 2016-08-04.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,12 +10,28 @@
     android:layout_height="match_parent"
     tools:context="com.beanstream.payform.fragments.ShippingFragment">
 
+    <!--Back Link-->
+    <TextView
+        android:id="@+id/back_link"
+        style="@style/BackLinkText"
+        android:clickable="true"
+        android:onClick="previous"
+        android:text="TEST"
+        android:visibility="visible" />
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/title_text"
+        style="@style/TitleText"
+        android:text="@string/shipping_title" />
+
     <!--Address-->
     <FrameLayout
         android:id="@+id/fragment_address"
         android:name="com.beanstream.payform.fragments.AddressFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
         tools:layout="@layout/fragment_address" />
 
     <!--Billing Toggle-->

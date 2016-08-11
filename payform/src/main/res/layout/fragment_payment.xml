@@ -1,63 +1,72 @@
 <!--
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~
+  ~ Created by dlight on 2016-08-04.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.beanstream.payform.fragments.PaymentFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!--Back Link-->
+    <TextView
+        android:id="@+id/back_link"
+        style="@style/BackLinkText"
+        android:clickable="true"
+        android:onClick="previous"
+        android:text="TEST"
+        android:visibility="visible" />
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/title_text"
+        style="@style/TitleText"
+        android:text="@string/pay_title" />
+
+    <!--Fields-->
+    <TableLayout
+        android:id="@+id/pay_fields"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/header_padding"
-        tools:context="com.beanstream.payform.fragments.PaymentFragment">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
+        android:layout_margin="@dimen/activity_padding"
+        android:stretchColumns="*">
 
-        <!--Fields-->
-        <TableLayout
-            android:id="@+id/pay_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_padding"
-            android:stretchColumns="*">
+        <TableRow android:layout_marginBottom="@dimen/activity_padding_field_separator">
 
-            <TableRow
-                android:layout_marginBottom="@dimen/activity_padding_field_separator">
+            <EditText
+                android:id="@+id/pay_email"
+                android:layout_span="2"
+                android:hint="@string/pay_hint_email" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/pay_email"
-                    android:layout_span="2"
-                    android:hint="@string/pay_hint_email" />
-            </TableRow>
+        <TableRow>
 
-            <TableRow>
+            <EditText
+                android:id="@+id/pay_name"
+                android:layout_span="2"
+                android:hint="@string/pay_hint_name" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/pay_name"
-                    android:layout_span="2"
-                    android:hint="@string/pay_hint_name" />
-            </TableRow>
+        <TableRow>
 
-            <TableRow>
+            <EditText
+                android:id="@+id/pay_card_number"
+                android:layout_span="2"
+                android:hint="@string/pay_hint_card_number" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/pay_card_number"
-                    android:layout_span="2"
-                    android:hint="@string/pay_hint_card_number" />
-            </TableRow>
+        <TableRow>
 
-            <TableRow>
+            <EditText
+                android:id="@+id/pay_expiry"
+                android:hint="@string/pay_hint_expiry" />
 
-                <EditText
-                    android:id="@+id/pay_expiry"
-                    android:hint="@string/pay_hint_expiry" />
-
-                <EditText
-                    android:id="@+id/pay_cvv"
-                    android:hint="@string/pay_hint_cvv" />
-            </TableRow>
-        </TableLayout>
-    </RelativeLayout>
-</FrameLayout>
+            <EditText
+                android:id="@+id/pay_cvv"
+                android:hint="@string/pay_hint_cvv" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

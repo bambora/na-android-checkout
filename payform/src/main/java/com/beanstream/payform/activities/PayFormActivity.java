@@ -33,6 +33,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     @Override
     public void onBackStackChanged() {
         UpdateBackLink();
+        UpdateNextButton();
     }
 
     @Override
@@ -88,7 +89,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         } else if (thisFragName.equals(BillingFragment.class.getName())) {
             SwitchContentToPayment();
         } else if (thisFragName.equals(PaymentFragment.class.getName())) {
-            SwitchContentToBilling();
+//      TODO      SwitchContentToProcessing();
         }
     }
 
@@ -111,6 +112,12 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         }
     }
 
+    private void UpdateNextButton() {
+        ((TextView) findViewById(R.id.button_next)).setVisibility(View.INVISIBLE);
+        ((TextView) findViewById(R.id.button_next)).setText(GetTextForNextButton());
+        ((TextView) findViewById(R.id.button_next)).setVisibility(View.VISIBLE);
+    }
+
     private String GetTextForBackLink() {
         String backFragName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 2).getName();
 
@@ -127,7 +134,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         String thisFragName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
 
         if (thisFragName.equals(ShippingFragment.class.getName())) {
-            return getResources().getString(R.string.next_button_to_payment);
+            return getResources().getString(R.string.next_button_to_billing);
         } else if (thisFragName.equals(BillingFragment.class.getName())) {
             return getResources().getString(R.string.next_button_to_payment);
         } else {
