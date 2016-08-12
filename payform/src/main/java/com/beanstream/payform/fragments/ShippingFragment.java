@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.models.Address;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,10 +26,6 @@ public class ShippingFragment extends Fragment {
     OnBillingCheckBoxChangedListener mCallback;
 
     private boolean billingRequired;
-
-    public interface OnBillingCheckBoxChangedListener {
-        public void onBillingCheckBoxChanged(boolean isChecked);
-    }
 
     public ShippingFragment() {
         // Required empty public constructor
@@ -50,16 +46,12 @@ public class ShippingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.d("onAttach", "context: " + activity);
-
         mCallback = (OnBillingCheckBoxChangedListener) activity;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("onAttach", "context: " + context);
-
         mCallback = (OnBillingCheckBoxChangedListener) context;
     }
 
@@ -92,10 +84,19 @@ public class ShippingFragment extends Fragment {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.d("onCheckedChanged", "isChecked: " + isChecked);
                     mCallback.onBillingCheckBoxChanged(isChecked);
                 }
             });
         }
+    }
+
+    public Address getAddress() {
+        return ((AddressFragment) getChildFragmentManager()
+                .findFragmentById(R.id.fragment_address))
+                .getAddress();
+    }
+
+    public interface OnBillingCheckBoxChangedListener {
+        public void onBillingCheckBoxChanged(boolean isChecked);
     }
 }

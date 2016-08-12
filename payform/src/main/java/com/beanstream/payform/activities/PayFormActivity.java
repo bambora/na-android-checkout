@@ -6,13 +6,13 @@
 
 package com.beanstream.payform.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -20,6 +20,7 @@ import com.beanstream.payform.fragments.BillingFragment;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
+import com.beanstream.payform.models.PayForm;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 
@@ -30,6 +31,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private Purchase purchase;
     private Settings settings;
+
+    // PayForm
+    private PayForm payform;
 
     @Override
     public void onBackStackChanged() {
@@ -51,6 +55,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         }
 
         if (savedInstanceState == null) {
+
+            payform = new PayForm();
+
             // First-time init;
             getFragmentManager().addOnBackStackChangedListener(this);
             getFragmentManager().beginTransaction().replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
@@ -68,7 +75,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     //region Navigation
     @Override
     public void onBillingCheckBoxChanged(boolean isChecked) {
-        Log.d("checkbox","isChecked: " + isChecked);
+        payform.setBillingSameAsShipping(isChecked);
         updateNextButton();
     }
 
@@ -89,23 +96,41 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     private boolean isBillingRequired() {
-        return (settings.getBillingAddressRequired() && !((CheckBox) findViewById(R.id.billing_switch)).isChecked());
+        return (settings.getBillingAddressRequired() && !(payform.isBillingSameAsShipping()));
     }
 
     private void goToNext() {
-        String thisFragName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+        String fragmentName = getCurrentFragmentName();
+        Fragment fragment = getCurrentFragment();
 
-        if (thisFragName.equals(ShippingFragment.class.getName())) {
+        if (fragmentName.equals(ShippingFragment.class.getName())) {
+            payform.setShipping(((ShippingFragment) fragment).getAddress());
+
+            Log.d("goToNext","payform:" + payform.getShipping());
             if (isBillingRequired()) {
                 switchContentToBilling();
             } else {
                 switchContentToPayment();
             }
-        } else if (thisFragName.equals(BillingFragment.class.getName())) {
+        } else if (fragmentName.equals(BillingFragment.class.getName())) {
+            payform.setBilling(((BillingFragment) fragment).getAddress());
+
+            Log.d("goToNext","payform:" + payform.getBilling());
             switchContentToPayment();
-        } else if (thisFragName.equals(PaymentFragment.class.getName())) {
+        } else if (fragmentName.equals(PaymentFragment.class.getName())) {
+            payform.setPayment(((PaymentFragment) fragment).getPayment());
+
+            Log.d("goToNext","payform:" + payform.getPayment());
 //      TODO      switchContentToProcessing();
         }
+    }
+
+    private Fragment getCurrentFragment() {
+        return getFragmentManager().findFragmentById(R.id.fragment_content);
+    }
+
+    private String getCurrentFragmentName() {
+        return getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
     }
 
     private void goToPrevious() {

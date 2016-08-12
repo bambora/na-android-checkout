@@ -65,4 +65,17 @@ public class Address {
         this.country = country;
     }
     //endregion
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("{")
+                .append(" name:").append(name)
+                .append(", street:").append(street)
+                .append(", postal:").append(postal)
+                .append(", city:").append(city)
+                .append(", province:").append(province)
+                .append(", country:").append(country)
+                .append("}").toString();
+    }
 }

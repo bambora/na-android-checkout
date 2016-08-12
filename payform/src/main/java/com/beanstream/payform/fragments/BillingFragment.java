@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.models.Address;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,4 +35,9 @@ public class BillingFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_billing, container, false);
     }
 
+    public Address getAddress() {
+        return ((AddressFragment) getChildFragmentManager()
+                .findFragmentById(R.id.fragment_address))
+                .getAddress();
+    }
 }

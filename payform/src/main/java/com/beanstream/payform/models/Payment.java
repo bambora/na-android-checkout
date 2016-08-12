@@ -4,8 +4,6 @@
 
 package com.beanstream.payform.models;
 
-import java.util.Date;
-
 /**
  * Created by dlight on 2016-08-09.
  */
@@ -13,8 +11,8 @@ public class Payment {
     private String email;
     private String name;
     private String cardNumber;
-    private Date expiry;
-    private int cvv;
+    private String expiry;
+    private String cvv;
 
     //region Getters and Setters
     public String getEmail() {
@@ -41,20 +39,32 @@ public class Payment {
         this.cardNumber = cardNumber;
     }
 
-    public Date getExpiry() {
+    public String getExpiry() {
         return expiry;
     }
 
-    public void setExpiry(Date expiry) {
+    public void setExpiry(String expiry) {
         this.expiry = expiry;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
     //endregion
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("{")
+                .append(" email:").append(email)
+                .append(", name:").append(name)
+                .append(", cardNumber:").append(cardNumber)
+                .append(", expiry:").append(expiry)
+                .append(", cvv:").append(cvv)
+                .append("}").toString();
+    }
 }

@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.models.Payment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,5 +35,17 @@ public class PaymentFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_payment, container, false);
 
         return inflatedView;
+    }
+
+    public Payment getPayment() {
+        Payment payment = new Payment();
+
+        payment.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
+        payment.setCardNumber(((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString());
+        payment.setCvv(((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString());
+        payment.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
+        payment.setExpiry(((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString());
+
+        return payment;
     }
 }
