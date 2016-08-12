@@ -106,7 +106,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         if (fragmentName.equals(ShippingFragment.class.getName())) {
             payform.setShipping(((ShippingFragment) fragment).getAddress());
 
-            Log.d("goToNext","payform:" + payform.getShipping());
+            Log.d("goToNext", "payform:" + payform.getShipping());
             if (isBillingRequired()) {
                 switchContentToBilling();
             } else {
@@ -115,12 +115,12 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         } else if (fragmentName.equals(BillingFragment.class.getName())) {
             payform.setBilling(((BillingFragment) fragment).getAddress());
 
-            Log.d("goToNext","payform:" + payform.getBilling());
+            Log.d("goToNext", "payform:" + payform.getBilling());
             switchContentToPayment();
         } else if (fragmentName.equals(PaymentFragment.class.getName())) {
             payform.setPayment(((PaymentFragment) fragment).getPayment());
 
-            Log.d("goToNext","payform:" + payform.getPayment());
+            Log.d("goToNext", "payform:" + payform.getPayment());
 //      TODO      switchContentToProcessing();
         }
     }
@@ -140,7 +140,6 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             super.finish();
         }
     }
-    //endregion
 
     //region Content Updates
     private void updateBackLink() {
@@ -151,6 +150,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             ((TextView) findViewById(R.id.back_link)).setVisibility(View.VISIBLE);
         }
     }
+    //endregion
 
     private void updateNextButton() {
         ((TextView) findViewById(R.id.button_next)).setText(getTextForNextButton());
@@ -180,7 +180,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         } else if (thisFragName.equals(BillingFragment.class.getName())) {
             return getResources().getString(R.string.next_button_to_payment);
         } else {
-            return getResources().getString(R.string.next_button_to_process);
+            return getResources().getString(R.string.next_button_to_process) + " " + purchase.getFormattedAmount();
         }
     }
 

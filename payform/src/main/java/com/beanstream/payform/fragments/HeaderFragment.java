@@ -17,8 +17,6 @@ import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Purchase;
 
-import java.text.NumberFormat;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HeaderFragment#newInstance} factory method to
@@ -67,8 +65,7 @@ public class HeaderFragment extends Fragment {
         ((RelativeLayout) inflatedView.findViewById(R.id.fragment_header)).setBackgroundColor(color);
 
         ((TextView) inflatedView.findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
-        ((TextView) inflatedView.findViewById(R.id.purchase_amount)).setText(NumberFormat.getCurrencyInstance().format(purchase.getAmount()));
-        ((TextView) inflatedView.findViewById(R.id.purchase_description)).setText(purchase.getCurrency()); //TODO: add currency tag
+        ((TextView) inflatedView.findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
         ((TextView) inflatedView.findViewById(R.id.purchase_description)).setText(purchase.getDescription());
 
         return inflatedView;

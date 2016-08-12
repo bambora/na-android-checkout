@@ -7,6 +7,8 @@ package com.beanstream.payform.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.NumberFormat;
+
 /**
  * Created by dlight on 2016-08-09.
  */
@@ -73,6 +75,10 @@ public class Purchase implements Parcelable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getFormattedAmount() {
+       return NumberFormat.getCurrencyInstance().format(amount) + " " + currency;
     }
     //endregion
 

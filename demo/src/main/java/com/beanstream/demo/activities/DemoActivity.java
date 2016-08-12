@@ -49,6 +49,8 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
         Settings settings = new Settings();
         settings.setColor("#aa0000"); // default: "#067aed"
+//        settings.setFontStyle(false); // default: true TODO
+//        settings.setImage(false); // default: true TODO
 //        settings.setBillingAddressRequired(false); // default: true
 //        settings.setShippingAddressRequired(false); // default: true
         settings.setTokenRequestTimeoutInSeconds(7); // default: 6
