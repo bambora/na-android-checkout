@@ -29,6 +29,10 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
 
+    public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
+
+    public final static int REQUEST_PAYFORM_TOKEN = 1;
+
     private Purchase purchase;
     private Settings settings;
 

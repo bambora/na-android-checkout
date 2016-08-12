@@ -10,6 +10,9 @@
 
     <color name="bicButtonText">@android:color/white</color>
 
+    <color name="bicErrorText">@android:color/holo_red_light</color>
+    <color name="bicWarningText">@android:color/holo_orange_light</color>
+
     <color name="bicPrimary">#067AED</color>
     <color name="bicPrimaryPressed">#33AEDF</color>
     <color name="bicPrimaryText">@android:color/white</color>

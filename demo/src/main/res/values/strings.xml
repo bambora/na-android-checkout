@@ -4,5 +4,8 @@
     <string name="demo_title">PayForm Demo</string>
     <string name="demo_pay_button">Pay by Card</string>
     <string name="demo_pay_label">Tap to launch the PayForm demo</string>
-    <string name="demo_pay_token">Token</string>
+
+    <string name="demo_payform_cancelled">Payform was cancelled</string>
+    <string name="demo_payform_eror">PayForm returned an error!</string>
+    <string name="demo_payform_token">Token</string>
 </resources>
