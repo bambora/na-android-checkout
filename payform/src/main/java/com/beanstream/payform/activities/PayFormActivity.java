@@ -6,6 +6,7 @@
 
 package com.beanstream.payform.activities;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -84,6 +85,15 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     @Override
+    public void finish() {
+        Intent intent = getIntent();
+        intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, "TODO-TOKEN-TODO");
+        setResult(Activity.RESULT_OK, intent);
+
+        super.finish();
+    }
+
+    @Override
     public void onBackPressed() {
 
         goToPrevious();
@@ -126,6 +136,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
             Log.d("goToNext", "payform:" + payform.getPayment());
 //      TODO      switchContentToProcessing();
+            finish();
         }
     }
 

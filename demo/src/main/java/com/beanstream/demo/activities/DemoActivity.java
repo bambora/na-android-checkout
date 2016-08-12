@@ -92,7 +92,7 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
     private void onPayFormSuccess(String token) {
         TextView text = (TextView) findViewById(R.id.demo_payform_result);
-        text.setText(getResources().getString(R.string.demo_payform_token));
+        text.setText("Token: " + token);
         text.setTextColor(getResources().getColor(R.color.bicPrimary));
         text.setVisibility(View.VISIBLE);
     }
