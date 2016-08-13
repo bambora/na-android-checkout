@@ -20,7 +20,8 @@
     <color name="bicSecondary">#6ED700</color>
     <color name="bicSecondaryPressed">#ACDF33</color>
 
-    <color name="bicSecureBackground">@android:color/black</color>
+    <color name="bicSecurePayForm">@android:color/black</color>
+    <color name="bicSecureProcessing">@color/bicSecondary</color>
 
     <color name="bicSwitchText">@android:color/black</color>
 </resources>

@@ -15,14 +15,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
     </style>
-    android:layout_margin="@dimen/demo_button_margin"
 
     <style name="BICSecure">
-        <item name="android:background">@color/bicSecureBackground</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:padding">@dimen/logo_padding</item>
+    </style>
+
+    <style name="BICSecurePayForm" parent="@style/BICSecure">
         <item name="android:src">@drawable/beanstream_logo</item>
+    </style>
+
+    <style name="BICSecureProcessing" parent="@style/BICSecure">
+        <item name="android:src">@drawable/ic_verified_user</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.Medium">
@@ -35,30 +41,39 @@
     <style name="MediumText" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/title_margin</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TopText" parent="@style/MediumText">
         <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_margin">@dimen/title_margin</item>
     </style>
 
     <style name="BackLinkText" parent="@style/TopText">
+        <item name="android:layout_centerHorizontal">false</item>
         <item name="android:textColor">@android:color/secondary_text_dark</item>
     </style>
 
+    <style name="TitleText" parent="@style/TopText">
+        <item name="android:textColor">@color/bicPrimary</item>
+    </style>
+
     <style name="MessageText" parent="@style/MediumText">
-        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/bicPrimary</item>
     </style>
 
     <style name="ErrorText" parent="@style/MediumText">
-        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/bicErrorText</item>
     </style>
 
-    <style name="TitleText" parent="@style/TopText">
-        <item name="android:layout_centerHorizontal">true</item>
+    <style name="ProcessingText" parent="@style/MediumText">
         <item name="android:textColor">@color/bicPrimary</item>
+        <item name="android:textSize">@dimen/processing_text_size</item>
+        <item name="android:padding">@dimen/processing_text_padding</item>
+    </style>
+
+    <style name="ProcessingSecureText" parent="@style/MediumText">
+        <item name="android:textColor">@color/bicPrimaryText</item>
     </style>
 </resources>

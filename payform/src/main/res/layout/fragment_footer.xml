@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.beanstream.payform.fragments.FooterFragment">
+
+    <!-- Next Button-->
+    <Button
+        android:id="@+id/button_next"
+        style="@style/FullButton"
+        android:layout_above="@+id/bic_secure_footer"
+        android:onClick="next" />
+
+    <!--Footer Bar-->
+    <RelativeLayout
+        android:id="@+id/bic_secure_footer"
+        android:background="@color/bicSecurePayForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <ImageView
+            android:id="@+id/bic_secure_image"
+            style="@style/BICSecurePayForm" />
+
+        <TextView
+            android:id="@+id/bic_secure_text"
+            style="@style/ProcessingSecureText"
+            android:layout_below="@id/bic_secure_image"
+            android:text="@string/processing_secure"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</RelativeLayout>
