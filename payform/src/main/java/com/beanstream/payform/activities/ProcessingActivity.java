@@ -20,6 +20,11 @@ public class ProcessingActivity extends FragmentActivity {
     private Settings settings;
 
     @Override
+    public void onBackPressed() {
+        // Disable back button
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processing);
