@@ -10,10 +10,11 @@
         <item name="android:colorBackground">@color/bicBackground</item>
     </style>
 
-    <style name="FullButton" parent="@android:style/TextAppearance.Medium">
+    <style name="PrimaryButton" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:padding">@dimen/button_padding</item>
     </style>
 
     <style name="BICSecure">

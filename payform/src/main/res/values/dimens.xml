@@ -16,6 +16,7 @@
 
     <dimen name="button_text_size">30sp</dimen>
     <dimen name="button_margin">15dp</dimen>
+    <dimen name="button_padding">5dp</dimen>
 
     <dimen name="checkbox_margin">25dp</dimen>
 
