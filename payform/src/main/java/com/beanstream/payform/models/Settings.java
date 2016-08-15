@@ -52,12 +52,12 @@ public class Settings implements Parcelable {
         return color;
     }
 
-    public void setColor(String colorHex) {
-        this.color = Color.parseColor(colorHex);
-    }
-
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public void setColor(String colorHex) {
+        this.color = Color.parseColor(colorHex);
     }
 
     public Boolean getBillingAddressRequired() {

@@ -4,16 +4,60 @@
 
 package com.beanstream.payform.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by dlight on 2016-08-09.
  */
-public class Address {
+public class Address implements Parcelable {
+    public static final Parcelable.Creator<Address> CREATOR
+            = new Parcelable.Creator<Address>() {
+
+        @Override
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        @Override
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
     private String name;
     private String street;
     private String postal;
     private String city;
     private String province;
     private String country;
+
+    public Address() {
+    }
+
+    private Address(Parcel parcel) {
+        name = parcel.readString();
+        street = parcel.readString();
+        postal = parcel.readString();
+        city = parcel.readString();
+        province = parcel.readString();
+        country = parcel.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(name);
+        parcel.writeString(street);
+        parcel.writeString(postal);
+        parcel.writeString(city);
+        parcel.writeString(province);
+        parcel.writeString(country);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 
     //region Getters and Setters
 

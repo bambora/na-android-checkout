@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
   ~
-  ~ Created by dlight on 2016-08-04.
+  ~ Created by dlight on 2016-08-15.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.beanstream.payform.activities.PayFormActivity">
+    tools:context="com.beanstream.payform.activities.ProcessingActivity">
 
     <!--Header-->
     <FrameLayout
@@ -25,16 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fragment_header"
-        android:layout_centerInParent="true" />
-
-    <!-- Next Button-->
-    <Button
-        android:id="@+id/button_next"
-        style="@style/PrimaryButton"
-        android:layout_above="@+id/bic_secure_footer"
-        android:background="@drawable/button_primary"
-        android:onClick="next" />
-
+        android:layout_centerInParent="true"
+        tools:layout="@layout/fragment_processing" />
 
     <!--Footer-->
     <RelativeLayout
@@ -42,17 +34,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bicSecurePayForm">
+        android:background="@color/bicSecureProcessing">
 
         <ImageView
             android:id="@+id/bic_secure_image"
-            style="@style/BICSecurePayForm" />
+            style="@style/BICSecureProcessing" />
 
         <TextView
             android:id="@+id/bic_secure_text"
             style="@style/ProcessingSecureText"
             android:layout_below="@id/bic_secure_image"
             android:text="@string/processing_secure"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
+
 </RelativeLayout>

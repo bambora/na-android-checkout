@@ -17,11 +17,8 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.BillingFragment;
-import com.beanstream.payform.fragments.FooterFragment;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.PaymentFragment;
-import com.beanstream.payform.fragments.ProcessingFragment;
-import com.beanstream.payform.fragments.SecureFooterFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
 import com.beanstream.payform.models.PayForm;
 import com.beanstream.payform.models.Purchase;
@@ -32,7 +29,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
-
+    public final static String EXTRA_PAYFORM = "com.beanstream.payform.models.payform";
     public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
 
     public final static int REQUEST_PAYFORM_TOKEN = 1;
@@ -68,8 +65,8 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
             // First-time init;
             getFragmentManager().addOnBackStackChangedListener(this);
-            getFragmentManager().beginTransaction().replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_footer, new FooterFragment()).commit();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
 
             if (settings.getShippingAddressRequired()) {
                 switchContentToShipping();
@@ -136,7 +133,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         } else if (fragmentName.equals(PaymentFragment.class.getName())) {
             payform.setPayment(((PaymentFragment) fragment).getPayment());
 
-            switchContentToProcessing();
+            startProcessing();
         }
     }
 
@@ -225,18 +222,14 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
                 .commit();
     }
 
-    private void switchContentToProcessing() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase))
-                .addToBackStack(ProcessingFragment.class.getName())
-                .commit();
-        switchFooterToProcessing();
+    private void startProcessing() {
+        Intent intent = new Intent(this, ProcessingActivity.class);
+        intent.putExtra(EXTRA_PAYFORM, payform);
+        intent.putExtra(EXTRA_PURCHASE, purchase);
+        intent.putExtra(EXTRA_SETTINGS, settings);
+
+        startActivity(intent);
     }
 
-    private void switchFooterToProcessing() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_footer, new SecureFooterFragment())
-                .commit();
-    }
     //endregion
 }

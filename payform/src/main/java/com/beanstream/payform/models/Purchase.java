@@ -27,6 +27,7 @@ public class Purchase implements Parcelable {
             return new Purchase[size];
         }
     };
+
     private String companyName;
     private Double amount; // required
     private String currency; // required
@@ -37,14 +38,9 @@ public class Purchase implements Parcelable {
         this.currency = currency;
     }
 
-    public Purchase(String companyName, Double amount, String currency, String description) {
-        this.companyName = companyName;
-        this.amount = amount;
-        this.currency = currency;
-        this.description = description;
+    public Purchase() {
     }
 
-    //region Parcelable Implementation
     private Purchase(Parcel parcel) {
         companyName = parcel.readString();
         amount = parcel.readDouble();
@@ -76,11 +72,11 @@ public class Purchase implements Parcelable {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+    //endregion
 
     public String getFormattedAmount() {
-       return NumberFormat.getCurrencyInstance().format(amount) + " " + currency;
+        return NumberFormat.getCurrencyInstance().format(amount) + " " + currency;
     }
-    //endregion
 
     public String getDescription() {
         return description;
