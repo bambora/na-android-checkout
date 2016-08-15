@@ -227,7 +227,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private void switchContentToProcessing() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, new ProcessingFragment())
+                .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase))
                 .addToBackStack(ProcessingFragment.class.getName())
                 .commit();
         switchFooterToProcessing();
