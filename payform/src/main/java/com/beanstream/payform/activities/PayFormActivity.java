@@ -120,6 +120,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
         if (fragmentName.equals(ShippingFragment.class.getName())) {
             payform.setShipping(((ShippingFragment) fragment).getAddress());
+            if (payform.isBillingSameAsShipping()) {
+                payform.setBilling(((ShippingFragment) fragment).getAddress());
+            }
 
             if (isBillingRequired()) {
                 switchContentToBilling();
