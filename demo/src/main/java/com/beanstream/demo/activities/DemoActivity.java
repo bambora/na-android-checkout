@@ -76,24 +76,32 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         return settings;
     }
 
+    private void hideResults() {
+        findViewById(R.id.demo_payform_error).setVisibility(View.GONE);
+        findViewById(R.id.demo_payform_token).setVisibility(View.GONE);
+    }
+
     private void onPayFormCancel() {
-        TextView text = (TextView) findViewById(R.id.demo_payform_result);
+        hideResults();
+
+        TextView text = (TextView) findViewById(R.id.demo_payform_error);
         text.setText(getResources().getString(R.string.demo_payform_cancelled));
-        text.setTextColor(getResources().getColor(R.color.bicWarningText));
         text.setVisibility(View.VISIBLE);
     }
 
     private void onPayFormError() {
-        TextView text = (TextView) findViewById(R.id.demo_payform_result);
+        hideResults();
+
+        TextView text = (TextView) findViewById(R.id.demo_payform_error);
         text.setText(getResources().getString(R.string.demo_payform_eror));
-        text.setTextColor(getResources().getColor(R.color.bicErrorText));
         text.setVisibility(View.VISIBLE);
     }
 
     private void onPayFormSuccess(String token) {
-        TextView text = (TextView) findViewById(R.id.demo_payform_result);
+        hideResults();
+
+        TextView text = (TextView) findViewById(R.id.demo_payform_token);
         text.setText(token);
-        text.setTextColor(getResources().getColor(R.color.bicPrimary));
         text.setVisibility(View.VISIBLE);
     }
     //endregion
