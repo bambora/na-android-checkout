@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.HeaderFragment;
@@ -58,14 +57,6 @@ public class ProcessingActivity extends FragmentActivity {
         }
     }
 
-    private void finish(String token) {
-        Intent intent = getIntent();
-        intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, token);
-        setResult(Activity.RESULT_OK, intent);
-
-        super.finish();
-    }
-
     public void startTokenService(PayForm payform) {
         Intent intent = new Intent(this, TokenService.class);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
@@ -81,8 +72,12 @@ public class ProcessingActivity extends FragmentActivity {
             public void onReceiveResult(int resultCode, Bundle resultData) {
                 if (resultCode == RESULT_OK) {
                     String token = resultData.getString(TokenService.EXTRA_TOKEN);
-                    finish(token);
+
+                    Intent intent = getIntent();
+                    intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, token);
+                    setResult(Activity.RESULT_OK, intent);
                 }
+                finish();
             }
         });
     }

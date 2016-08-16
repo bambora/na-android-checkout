@@ -10,9 +10,21 @@ package com.beanstream.payform.models;
 public class TokenResponse {
 
     private String token;
-    private String code;
+    private int code;
     private String version;
     private String message;
+
+    public final static int SUCCESS_CODE = 1;
+
+    public int getHttpStatusCode() {
+        return httpStatusCode;
+    }
+
+    public void setHttpStatusCode(int httpStatusCode) {
+        this.httpStatusCode = httpStatusCode;
+    }
+
+    private int httpStatusCode;
 
     public String getMessage() {
         return message;
@@ -31,12 +43,12 @@ public class TokenResponse {
         this.version = version;
     }
 
-    public String getCode() {
+    public int getCode() {
 
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.PayForm;
+import com.beanstream.payform.models.Payment;
 import com.beanstream.payform.models.TokenRequest;
 import com.beanstream.payform.models.TokenResponse;
 
@@ -31,6 +32,8 @@ public class TokenService extends IntentService {
 
     public final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
 
+    public final static int SERVICE_ERROR = 22;
+
 
     public TokenService() {
         super(TokenService.class.getName());
@@ -41,15 +44,25 @@ public class TokenService extends IntentService {
         ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
         PayForm payForm = intent.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM);
 
-        TokenRequest request = new TokenRequest(); //TODO set token request
-        TokenResponse response = callTokenService(request);
+        Payment payment = payForm.getPayment();
 
-        Log.d("RESPONSE", "Token: " + response.getToken().toString());
+        TokenRequest request = new TokenRequest();
+        request.setNumber(payment.getCardNumber());
+        request.setExpiryMonth(payment.getExpiryMonth());
+        request.setExpiryYear(payment.getExpiryYear());
+        request.setCvd(payment.getCvv());
+
+        TokenResponse response = callTokenService(request);
 
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_TOKEN, response.getToken());
 
-        receiver.send(Activity.RESULT_OK, bundle); // TODO check codes
+        if ((response.getHttpStatusCode() == HttpURLConnection.HTTP_OK) && (response.getCode() == TokenResponse.SUCCESS_CODE)) {
+            receiver.send(Activity.RESULT_OK, bundle);
+        } else {
+            receiver.send(SERVICE_ERROR, bundle);
+        }
+
     }
 
     private TokenResponse callTokenService(TokenRequest request) {
@@ -75,15 +88,13 @@ public class TokenService extends IntentService {
             connection.setDoOutput(true);
             connection.setChunkedStreamingMode(0);
 
-            Log.d("WRITE", request.toJsonObject().toString());
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(request.toJsonObject().toString());
             writer.flush();
 
             // Get Result
-            StringBuilder sb = new StringBuilder();
-            int HttpResult = connection.getResponseCode();
-            if (HttpResult == HttpURLConnection.HTTP_OK) {
+            response.setHttpStatusCode(connection.getResponseCode());
+            if (response.getHttpStatusCode() == HttpURLConnection.HTTP_OK) {
 
                 JsonReader reader = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                 reader.beginObject();
@@ -92,7 +103,7 @@ public class TokenService extends IntentService {
                     if (name.equals("token")) {
                         response.setToken(reader.nextString());
                     } else if (name.equals("code")) {
-                        response.setCode(reader.nextString());
+                        response.setCode(reader.nextInt());
                     } else if (name.equals("version")) {
                         response.setVersion(reader.nextString());
                     } else if (name.equals("message")) {

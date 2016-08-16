@@ -37,7 +37,4 @@
     <string name="processing_text">processing</string>
 
     <string name="shipping_title">Shipping</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

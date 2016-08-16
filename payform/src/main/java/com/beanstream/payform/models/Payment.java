@@ -28,9 +28,13 @@ public class Payment implements Parcelable {
     private String name;
     private String cardNumber;
     private String expiry;
+    private String expiryMonth;
+    private String expiryYear;
     private String cvv;
+
     public Payment() {
     }
+
     private Payment(Parcel parcel) {
         email = parcel.readString();
         name = parcel.readString();
@@ -84,6 +88,18 @@ public class Payment implements Parcelable {
 
     public void setExpiry(String expiry) {
         this.expiry = expiry;
+        if (expiry.length() > 0) {
+            this.expiryMonth = expiry.substring(0, 2);
+            this.expiryYear =  expiry.substring(2);
+        }
+    }
+
+    public String getExpiryMonth() {
+        return expiryMonth;
+    }
+
+    public String getExpiryYear() {
+        return expiryYear;
     }
 
     public String getCvv() {
