@@ -9,6 +9,10 @@
         android:theme="@style/Theme.PayForm">
         <activity android:name=".activities.PayFormActivity" />
         <activity android:name=".activities.ProcessingActivity"></activity>
+
+        <service
+            android:name=".services.TokenService"
+            android:exported="false"/>
     </application>
 
 </manifest>

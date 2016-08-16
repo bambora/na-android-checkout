@@ -6,16 +6,24 @@ package com.beanstream.payform.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.ProcessingFragment;
+import com.beanstream.payform.models.PayForm;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
+import com.beanstream.payform.services.TokenReceiver;
+import com.beanstream.payform.services.TokenService;
 
 public class ProcessingActivity extends FragmentActivity {
 
+    public TokenReceiver tokenReceiver;
+
+    private PayForm payform;
     private Purchase purchase;
     private Settings settings;
 
@@ -30,6 +38,7 @@ public class ProcessingActivity extends FragmentActivity {
         setContentView(R.layout.activity_processing);
 
         Intent intent = getIntent();
+        payform = intent.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM);
         purchase = intent.getParcelableExtra(PayFormActivity.EXTRA_PURCHASE);
         settings = intent.getParcelableExtra(PayFormActivity.EXTRA_SETTINGS);
         if (settings == null) {
@@ -42,6 +51,30 @@ public class ProcessingActivity extends FragmentActivity {
                     .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
             getFragmentManager().beginTransaction()
                     .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase)).commit();
+
+            setupTokenReceiver();
+            startTokenService(payform);
         }
+    }
+
+    public void startTokenService(PayForm payform) {
+        Intent intent = new Intent(this, TokenService.class);
+        intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
+        intent.putExtra(PayFormActivity.EXTRA_PAYFORM, payform);
+        startService(intent);
+    }
+
+    public void setupTokenReceiver() {
+        tokenReceiver = new TokenReceiver(new Handler());
+
+        tokenReceiver.setReceiver(new TokenReceiver.Receiver() {
+            @Override
+            public void onReceiveResult(int resultCode, Bundle resultData) {
+                if (resultCode == RESULT_OK) {
+                    String resultValue = resultData.getString("resultValue");
+                    Toast.makeText(ProcessingActivity.this, resultValue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
