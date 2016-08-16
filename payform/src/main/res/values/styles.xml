@@ -4,17 +4,12 @@
   ~ Created by dlight on 2016-08-04.
   -->
 <resources>
-
-    <style name="Theme.PayForm" parent="@android:style/Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/bicBackground</item>
-        <item name="android:colorBackground">@color/bicBackground</item>
-    </style>
-
     <style name="PrimaryButton" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
         <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:textColor">@color/bicButtonText</item>
     </style>
 
     <style name="BICSecure">
