@@ -32,6 +32,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     public final static String EXTRA_PAYFORM = "com.beanstream.payform.models.payform";
     public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
 
+    public final static int REQUEST_PAYFORM = 1;
     public final static int REQUEST_PAYFORM_TOKEN = 1;
 
     private Purchase purchase;
@@ -82,15 +83,6 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     public void onBillingCheckBoxChanged(boolean isChecked) {
         payform.setBillingSameAsShipping(isChecked);
         updateNextButton();
-    }
-
-    @Override
-    public void finish() {
-        Intent intent = getIntent();
-        intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, "TODO-TOKEN-TODO");
-        setResult(Activity.RESULT_OK, intent);
-
-        super.finish();
     }
 
     //region Navigation
@@ -231,7 +223,23 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         intent.putExtra(EXTRA_PURCHASE, purchase);
         intent.putExtra(EXTRA_SETTINGS, settings);
 
-        startActivity(intent);
+        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM_TOKEN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PayFormActivity.REQUEST_PAYFORM_TOKEN) {
+            if (resultCode == Activity.RESULT_OK) {
+                String token = data.getStringExtra(PayFormActivity.EXTRA_RESULT_TOKEN);
+
+                Intent intent = getIntent();
+                intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, token);
+                setResult(Activity.RESULT_OK, intent);
+            }
+
+            finish();
+        }
     }
 
     //endregion

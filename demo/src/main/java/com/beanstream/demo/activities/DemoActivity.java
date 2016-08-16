@@ -33,13 +33,13 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
         intent.putExtra(PayFormActivity.EXTRA_SETTINGS, getSettingsForThisDemo());
 
-        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM_TOKEN);
+        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == PayFormActivity.REQUEST_PAYFORM_TOKEN) {
+        if (requestCode == PayFormActivity.REQUEST_PAYFORM) {
 
             if (resultCode == Activity.RESULT_OK) {
                 String token = data.getStringExtra(PayFormActivity.EXTRA_RESULT_TOKEN);
@@ -92,7 +92,7 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
     private void onPayFormSuccess(String token) {
         TextView text = (TextView) findViewById(R.id.demo_payform_result);
-        text.setText("Token: " + token);
+        text.setText(token);
         text.setTextColor(getResources().getColor(R.color.bicPrimary));
         text.setVisibility(View.VISIBLE);
     }
