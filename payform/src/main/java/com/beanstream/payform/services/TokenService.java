@@ -12,9 +12,7 @@ import android.os.ResultReceiver;
 import android.util.JsonReader;
 import android.util.Log;
 
-import com.beanstream.payform.activities.PayFormActivity;
-import com.beanstream.payform.models.PayForm;
-import com.beanstream.payform.models.Payment;
+import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.TokenRequest;
 import com.beanstream.payform.models.TokenResponse;
 
@@ -27,8 +25,9 @@ import java.net.URL;
  * Created by dlight on 2016-08-15.
  */
 public class TokenService extends IntentService {
+    public final static String EXTRA_CARD = "com.beanstream.payform.services.card";
     public final static String EXTRA_RECEIVER = "com.beanstream.payform.services.receiver";
-    public final static String EXTRA_TOKEN = "com.beanstream.payform.services.receiver";
+    public final static String EXTRA_TOKEN = "com.beanstream.payform.services.token";
 
     public final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
 
@@ -42,16 +41,9 @@ public class TokenService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
-        PayForm payForm = intent.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM);
+        CreditCard card = intent.getParcelableExtra(EXTRA_CARD);
 
-        Payment payment = payForm.getPayment();
-
-        TokenRequest request = new TokenRequest();
-        request.setNumber(payment.getCardNumber());
-        request.setExpiryMonth(payment.getExpiryMonth());
-        request.setExpiryYear(payment.getExpiryYear());
-        request.setCvd(payment.getCvv());
-
+        TokenRequest request = new TokenRequest(card);
         TokenResponse response = callTokenService(request);
 
         Bundle bundle = new Bundle();

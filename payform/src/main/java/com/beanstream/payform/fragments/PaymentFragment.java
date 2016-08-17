@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Payment;
 
 /**
@@ -65,11 +66,18 @@ public class PaymentFragment extends Fragment {
         Payment payment = new Payment();
 
         payment.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
-        payment.setCardNumber(((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString());
-        payment.setCvv(((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString());
         payment.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
-        payment.setExpiry(((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString());
 
         return payment;
+    }
+
+    public CreditCard getCreditCard() {
+        CreditCard card = new CreditCard();
+
+        card.setCardNumber(((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString());
+        card.setCvv(((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString());
+        card.setExpiry(((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString());
+
+        return card;
     }
 }

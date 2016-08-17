@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.ProcessingFragment;
-import com.beanstream.payform.models.PayForm;
+import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenReceiver;
@@ -23,7 +23,7 @@ public class ProcessingActivity extends FragmentActivity {
 
     public TokenReceiver tokenReceiver;
 
-    private PayForm payform;
+    private CreditCard card;
     private Purchase purchase;
     private Settings settings;
 
@@ -38,7 +38,7 @@ public class ProcessingActivity extends FragmentActivity {
         setContentView(R.layout.activity_processing);
 
         Intent intent = getIntent();
-        payform = intent.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM);
+        card = intent.getParcelableExtra(TokenService.EXTRA_CARD);
         purchase = intent.getParcelableExtra(PayFormActivity.EXTRA_PURCHASE);
         settings = intent.getParcelableExtra(PayFormActivity.EXTRA_SETTINGS);
         if (settings == null) {
@@ -53,14 +53,14 @@ public class ProcessingActivity extends FragmentActivity {
                     .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase, settings.getColor())).commit();
 
             setupTokenReceiver();
-            startTokenService(payform);
+            startTokenService();
         }
     }
 
-    public void startTokenService(PayForm payform) {
+    public void startTokenService() {
         Intent intent = new Intent(this, TokenService.class);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
-        intent.putExtra(PayFormActivity.EXTRA_PAYFORM, payform);
+        intent.putExtra(TokenService.EXTRA_CARD, card);
         startService(intent);
     }
 

@@ -21,9 +21,11 @@ import com.beanstream.payform.fragments.BillingFragment;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
+import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.PayForm;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
+import com.beanstream.payform.services.TokenService;
 
 public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
@@ -44,6 +46,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     // PayForm
     private PayForm payform;
+    private CreditCard card;
 
     @Override
     public void onBackStackChanged() {
@@ -138,6 +141,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             switchContentToPayment();
         } else if (fragmentName.equals(PaymentFragment.class.getName())) {
             payform.setPayment(((PaymentFragment) fragment).getPayment());
+            card = ((PaymentFragment) fragment).getCreditCard();
 
             startProcessing();
         }
@@ -230,7 +234,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private void startProcessing() {
         Intent intent = new Intent(this, ProcessingActivity.class);
-        intent.putExtra(EXTRA_PAYFORM, payform);
+        intent.putExtra(TokenService.EXTRA_CARD, card);
         intent.putExtra(EXTRA_PURCHASE, purchase);
         intent.putExtra(EXTRA_SETTINGS, settings);
 

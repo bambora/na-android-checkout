@@ -11,6 +11,7 @@ import android.os.Parcelable;
  * Created by dlight on 2016-08-09.
  */
 public class Payment implements Parcelable {
+
     public static final Parcelable.Creator<Payment> CREATOR
             = new Parcelable.Creator<Payment>() {
 
@@ -24,13 +25,9 @@ public class Payment implements Parcelable {
             return new Payment[size];
         }
     };
+
     private String email;
     private String name;
-    private String cardNumber;
-    private String expiry;
-    private String expiryMonth;
-    private String expiryYear;
-    private String cvv;
 
     public Payment() {
     }
@@ -38,18 +35,12 @@ public class Payment implements Parcelable {
     private Payment(Parcel parcel) {
         email = parcel.readString();
         name = parcel.readString();
-        cardNumber = parcel.readString();
-        expiry = parcel.readString();
-        cvv = parcel.readString();
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(email);
         parcel.writeString(name);
-        parcel.writeString(cardNumber);
-        parcel.writeString(expiry);
-        parcel.writeString(cvv);
     }
 
     @Override
@@ -74,41 +65,6 @@ public class Payment implements Parcelable {
         this.name = name;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getExpiry() {
-        return expiry;
-    }
-
-    public void setExpiry(String expiry) {
-        this.expiry = expiry;
-        if (expiry.length() > 0) {
-            this.expiryMonth = expiry.substring(0, 2);
-            this.expiryYear = expiry.substring(2);
-        }
-    }
-
-    public String getExpiryMonth() {
-        return expiryMonth;
-    }
-
-    public String getExpiryYear() {
-        return expiryYear;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
     //endregion
 
     @Override
@@ -117,9 +73,6 @@ public class Payment implements Parcelable {
                 .append("{")
                 .append(" email:").append(email)
                 .append(", name:").append(name)
-                .append(", cardNumber:").append(cardNumber)
-                .append(", expiry:").append(expiry)
-                .append(", cvv:").append(cvv)
                 .append("}").toString();
     }
 }
