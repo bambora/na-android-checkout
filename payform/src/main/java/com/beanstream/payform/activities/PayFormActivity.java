@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -27,8 +28,11 @@ import com.beanstream.payform.models.Settings;
 public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
 
+    public final static String PayFormPreferences = "com.beanstream.payform.preferences";
+
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
+    public final static String EXTRA_SETTINGS_COLOR = "com.beanstream.payform.models.settings";
     public final static String EXTRA_PAYFORM = "com.beanstream.payform.models.payform";
     public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
 
@@ -62,9 +66,10 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
         if (savedInstanceState == null) {
 
+            // First-time init;
+
             payform = new PayForm();
 
-            // First-time init;
             getFragmentManager().addOnBackStackChangedListener(this);
             getFragmentManager().beginTransaction()
                     .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
@@ -76,7 +81,13 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             } else {
                 switchContentToPayment();
             }
+
+            updatePrimaryColor();
         }
+    }
+
+    private void updatePrimaryColor() {
+        ((Button) findViewById(R.id.button_next)).setBackgroundColor(settings.getColor());
     }
 
     @Override
@@ -198,21 +209,21 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private void switchContentToShipping() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, ShippingFragment.newInstance(settings.getBillingAddressRequired()))
+                .replace(R.id.fragment_content, ShippingFragment.newInstance(settings.getBillingAddressRequired(), settings.getColor()))
                 .addToBackStack(ShippingFragment.class.getName())
                 .commit();
     }
 
     private void switchContentToBilling() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, new BillingFragment())
+                .replace(R.id.fragment_content, new BillingFragment().newInstance(settings.getColor()))
                 .addToBackStack(BillingFragment.class.getName())
                 .commit();
     }
 
     private void switchContentToPayment() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, new PaymentFragment())
+                .replace(R.id.fragment_content, new PaymentFragment().newInstance(settings.getColor()))
                 .addToBackStack(PaymentFragment.class.getName())
                 .commit();
     }

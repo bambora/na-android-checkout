@@ -25,6 +25,7 @@ import com.beanstream.payform.models.Purchase;
 public class ProcessingFragment extends Fragment {
 
     private Purchase purchase;
+    private int color;
 
     public ProcessingFragment() {
         // Required empty public constructor
@@ -32,12 +33,14 @@ public class ProcessingFragment extends Fragment {
 
     /**
      * @param purchase Purchase info.
-     * @return A new instance of fragment HeaderFragment.
+     * @param color    Primary color.
+     * @return A new instance of fragment ProcessingFragment.
      */
-    public static ProcessingFragment newInstance(Purchase purchase) {
+    public static ProcessingFragment newInstance(Purchase purchase, int color) {
         ProcessingFragment fragment = new ProcessingFragment();
         Bundle args = new Bundle();
         args.putParcelable(PayFormActivity.EXTRA_PURCHASE, purchase);
+        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,6 +50,7 @@ public class ProcessingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
+            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
         }
     }
 
@@ -54,13 +58,26 @@ public class ProcessingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View inflatedView = inflater.inflate(R.layout.fragment_processing, container, false);
-        TextView view = ((TextView) inflatedView.findViewById(R.id.processing_amount));
-        if (view != null) {
-            view.setText(purchase.getFormattedAmount());
-        }
+        View view = inflater.inflate(R.layout.fragment_processing, container, false);
 
-        return inflatedView;
+        updateAmount(view);
+        updatePrimaryColor(view);
+
+        return view;
     }
 
+    private void updateAmount(View view) {
+
+        TextView textView = ((TextView) view.findViewById(R.id.processing_amount));
+        if (textView != null) {
+            textView.setText(purchase.getFormattedAmount());
+        }
+    }
+
+    private void updatePrimaryColor(View view) {
+
+        ((TextView) view.findViewById(R.id.processing_text)).setTextColor(color);
+        ((TextView) view.findViewById(R.id.processing_amount)).setTextColor(color);
+        ((TextView) view.findViewById(R.id.processing_target)).setTextColor(color);
+    }
 }

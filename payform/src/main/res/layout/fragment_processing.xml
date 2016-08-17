@@ -19,8 +19,8 @@
     <TextView
         android:id="@+id/processing_amount"
         style="@style/ProcessingText"
-        android:text="AMOUNT"
         android:layout_below="@+id/processing_text"
+        android:text="AMOUNT"
         android:textSize="@dimen/processing_text_size_larger" />
 
     <ProgressBar
@@ -33,6 +33,6 @@
     <TextView
         android:id="@+id/processing_target"
         style="@style/ProcessingText"
-        android:text="@string/processing_target"
-        android:layout_below="@+id/processing_spinner"/>
+        android:layout_below="@+id/processing_spinner"
+        android:text="@string/processing_target" />
 </RelativeLayout>

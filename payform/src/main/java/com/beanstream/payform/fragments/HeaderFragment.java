@@ -24,8 +24,6 @@ import com.beanstream.payform.models.Purchase;
  */
 public class HeaderFragment extends Fragment {
 
-    public final static String EXTRA_SETTINGS_COLOR = "com.beanstream.payform.models.settings.color";
-
     private Purchase purchase;
     private int color;
 
@@ -34,7 +32,6 @@ public class HeaderFragment extends Fragment {
     }
 
     /**
-     *
      * @param purchase Purchase info.
      * @param color    Primary color.
      * @return A new instance of fragment HeaderFragment.
@@ -43,7 +40,7 @@ public class HeaderFragment extends Fragment {
         HeaderFragment fragment = new HeaderFragment();
         Bundle args = new Bundle();
         args.putParcelable(PayFormActivity.EXTRA_PURCHASE, purchase);
-        args.putInt(EXTRA_SETTINGS_COLOR, color);
+        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +50,7 @@ public class HeaderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
-            color = getArguments().getInt(EXTRA_SETTINGS_COLOR);
+            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
         }
     }
 

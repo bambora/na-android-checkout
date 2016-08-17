@@ -4,12 +4,15 @@
   ~ Created by dlight on 2016-08-04.
   -->
 <resources>
+
     <style name="PrimaryButton" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
         <item name="android:padding">@dimen/button_padding</item>
         <item name="android:textColor">@color/bicButtonText</item>
+        <item name="android:background">@drawable/button_primary</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="BICSecure">
@@ -41,23 +44,20 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TopText" parent="@style/MediumText">
+    <style name="BackLinkText">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">false</item>
+        <item name="android:layout_margin">@dimen/title_margin</item>
+    </style>
+
+    <style name="TitleText" parent="@style/MediumText">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_margin">@dimen/title_margin</item>
     </style>
 
-    <style name="BackLinkText" parent="@style/TopText">
-        <item name="android:layout_centerHorizontal">false</item>
-        <item name="android:textColor">@android:color/secondary_text_dark</item>
-    </style>
-
-    <style name="TitleText" parent="@style/TopText">
-        <item name="android:textColor">@color/bicPrimary</item>
-    </style>
-
-    <style name="MessageText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicPrimary</item>
-    </style>
+    <style name="MessageText" parent="@style/MediumText"></style>
 
     <style name="ErrorText" parent="@style/MediumText">
         <item name="android:textColor">@color/bicErrorText</item>

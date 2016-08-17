@@ -13,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Address;
 
 /**
@@ -26,6 +28,7 @@ public class ShippingFragment extends Fragment {
     OnBillingCheckBoxChangedListener mCallback;
 
     private boolean billingRequired;
+    private int color;
 
     public ShippingFragment() {
         // Required empty public constructor
@@ -33,12 +36,14 @@ public class ShippingFragment extends Fragment {
 
     /**
      * @param billingRequired Billing address is required.
+     * @param color           Primary color.
      * @return A new instance of fragment HeaderFragment.
      */
-    public static ShippingFragment newInstance(boolean billingRequired) {
+    public static ShippingFragment newInstance(boolean billingRequired, int color) {
         ShippingFragment fragment = new ShippingFragment();
         Bundle args = new Bundle();
         args.putBoolean(EXTRA_SETTINGS_BILLING_REQUIRED, billingRequired);
+        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,6 +65,7 @@ public class ShippingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             billingRequired = getArguments().getBoolean(EXTRA_SETTINGS_BILLING_REQUIRED);
+            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
         }
 
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_address, new AddressFragment()).commit();
@@ -71,7 +77,7 @@ public class ShippingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shipping, container, false);
 
         configureBillingCheckBox(view);
-
+        updatePrimaryColor(view);
         return view;
     }
 
@@ -88,6 +94,10 @@ public class ShippingFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void updatePrimaryColor(View view) {
+        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
     }
 
     public Address getAddress() {

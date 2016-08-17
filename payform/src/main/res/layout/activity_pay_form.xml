@@ -31,7 +31,6 @@
         android:id="@+id/button_next"
         style="@style/PrimaryButton"
         android:layout_above="@+id/bic_secure_footer"
-        android:background="@drawable/button_primary"
         android:onClick="next" />
 
 

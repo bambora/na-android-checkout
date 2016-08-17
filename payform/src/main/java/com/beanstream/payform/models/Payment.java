@@ -90,7 +90,7 @@ public class Payment implements Parcelable {
         this.expiry = expiry;
         if (expiry.length() > 0) {
             this.expiryMonth = expiry.substring(0, 2);
-            this.expiryYear =  expiry.substring(2);
+            this.expiryYear = expiry.substring(2);
         }
     }
 

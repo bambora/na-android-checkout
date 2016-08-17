@@ -22,15 +22,15 @@ public class TokenReceiver extends ResultReceiver {
         this.receiver = receiver;
     }
 
-    public interface Receiver {
-        public void onReceiveResult(int resultCode, Bundle resultData);
-    }
-
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
         if (receiver != null) {
             receiver.onReceiveResult(resultCode, resultData);
         }
+    }
+
+    public interface Receiver {
+        public void onReceiveResult(int resultCode, Bundle resultData);
     }
 
 }

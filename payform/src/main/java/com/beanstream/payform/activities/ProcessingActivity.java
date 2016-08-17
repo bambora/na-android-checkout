@@ -50,7 +50,7 @@ public class ProcessingActivity extends FragmentActivity {
             getFragmentManager().beginTransaction()
                     .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
             getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase)).commit();
+                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase, settings.getColor())).commit();
 
             setupTokenReceiver();
             startTokenService(payform);
