@@ -5,6 +5,7 @@
 package com.beanstream.payform.validators;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
@@ -15,10 +16,14 @@ import com.beanstream.payform.models.CreditCard;
 public class CreditCardValidator {
 
     public static boolean isValidCard(CreditCard card) {
+        if (card == null) {
+            return false;
+        }
         String cardNumber = card.getCardNumber();
+        String cardType = card.getCardType();
         return isValidCardType(cardNumber) &&
-                isValidCardNumber(cardNumber, card.getCardType()) &&
-                isValidCvv(card.getCvv(), card.getCardType()) &&
+                isValidCardNumber(cardNumber, cardType) &&
+                isValidCvv(card.getCvv(), cardType) &&
                 isValidLuhn(cardNumber);
     }
 
@@ -31,6 +36,10 @@ public class CreditCardValidator {
     }
 
     public static boolean isValidCardType(String cardNumber) {
+        Log.d("isValidCardType","cardNumber");
+        if (TextUtils.isEmpty(cardNumber)) {
+            return false;
+        }
         String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
         return !((CardType.INVALID).equals(cardType));
     }
