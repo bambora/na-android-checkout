@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Payment;
 
@@ -72,11 +73,26 @@ public class PaymentFragment extends Fragment {
     }
 
     public CreditCard getCreditCard() {
+
+        String cardNumber = ((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString();
+        cardNumber = cardNumber.replace(" ", "");
+        String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
+
+        String expiry = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+        String month = "";
+        String year = "";
+        if (expiry.length() > 0) {
+            month = expiry.substring(0, 2);
+            year = expiry.substring(2);
+        }
+
         CreditCard card = new CreditCard();
 
-        card.setCardNumber(((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString());
-        card.setCvv(((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString());
-        card.setExpiry(((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString());
+        card.setCardNumber(cardNumber);
+        card.setCvv(cvv);
+        card.setExpiryMonth(month);
+        card.setExpiryYear(year);
+        card.setCardType(CardType.getCardTypeFromCardNumber(cardNumber));
 
         return card;
     }

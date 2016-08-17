@@ -6,7 +6,6 @@ package com.beanstream.payform.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 /**
  * Created by dlight on 2016-08-17.
@@ -27,46 +26,45 @@ public class CreditCard implements Parcelable {
         }
     };
 
-
-    public final static String CARD_TYPE_AMEX = "amex";
-    public final static String CARD_TYPE_DINERS = "diners";
-    public final static String CARD_TYPE_DISCOVER = "discover";
-    public final static String CARD_TYPE_MASTERCARD = "mastercard";
-    public final static String CARD_TYPE_VISA = "visa";
-
     private String cardNumber;
     private String cardType;
-    private String expiry;
-
-    private int expiryMonth;
-    private int expiryYear;
-    private int cvd;
-
+    private String expiryMonth;
+    private String expiryYear;
     private String cvv;
-
     public CreditCard() {
     }
-
     public CreditCard(String cardNumber) {
         setCardNumber(cardNumber);
     }
 
-    public CreditCard(String cardNumber, String expiry, String cvv) {
-        setCardNumber(cardNumber);
-        setExpiry(expiry);
-        setCvv(cvv);
+    public CreditCard(String cardNumber, String expiryMonth, String expiryYear, String cvv) {
+        this.cardNumber = cardNumber;
+        this.cardType = CardType.getCardTypeFromCardNumber(cardNumber);
+        this.expiryMonth = expiryMonth;
+        this.expiryYear = expiryYear;
+        this.cvv = cvv;
     }
 
     private CreditCard(Parcel parcel) {
-        setCardNumber(parcel.readString());
-        setExpiry(parcel.readString());
-        setCvv(parcel.readString());
+        this.cardNumber = parcel.readString();
+        this.expiryMonth = parcel.readString();
+        this.expiryYear = parcel.readString();
+        this.cvv = parcel.readString();
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(cardNumber);
-        parcel.writeString(expiry);
+        parcel.writeString(expiryMonth);
+        parcel.writeString(expiryYear);
         parcel.writeString(cvv);
     }
 
@@ -75,41 +73,28 @@ public class CreditCard implements Parcelable {
         return 0;
     }
 
-    public String getCardType() {
-        return cardType;
-    }
-
     public String getCardNumber() {
-        return cardNumber;
+        return cardNumber.replace(" ", "");
     }
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
-        this.cardType = getCardTypeFromCardNumber(cardNumber);
     }
 
-    public String getExpiry() {
-        return expiry;
-    }
-
-    public void setExpiry(String expiry) {
-        this.expiry = expiry;
-        if (expiry.length() > 0) {
-            this.expiryMonth = Integer.valueOf(expiry.substring(0, 2));
-            this.expiryYear = Integer.valueOf(expiry.substring(2));
-        }
-    }
-
-    public int getExpiryMonth() {
+    public String getExpiryMonth() {
         return expiryMonth;
     }
 
-    public int getExpiryYear() {
+    public void setExpiryMonth(String month) {
+        this.expiryMonth = month;
+    }
+
+    public String getExpiryYear() {
         return expiryYear;
     }
 
-    public int getCvd() {
-        return cvd;
+    public void setExpiryYear(String year) {
+        this.expiryYear = year;
     }
 
     public String getCvv() {
@@ -118,10 +103,5 @@ public class CreditCard implements Parcelable {
 
     public void setCvv(String cvv) {
         this.cvv = cvv;
-        this.cvd = TextUtils.isEmpty(cvv) ? 0 : Integer.valueOf(cvv);
-    }
-
-    private String getCardTypeFromCardNumber(String cardNumber) {
-        return CARD_TYPE_VISA; //TODO set card type
     }
 }
