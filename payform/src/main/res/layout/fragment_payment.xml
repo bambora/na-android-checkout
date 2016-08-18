@@ -40,7 +40,8 @@
             <EditText
                 android:id="@+id/pay_email"
                 android:layout_span="2"
-                android:hint="@string/pay_hint_email" />
+                android:hint="@string/pay_hint_email"
+                android:inputType="textEmailAddress" />
         </TableRow>
 
         <TableRow>
@@ -48,7 +49,8 @@
             <EditText
                 android:id="@+id/pay_name"
                 android:layout_span="2"
-                android:hint="@string/pay_hint_name" />
+                android:hint="@string/pay_hint_name"
+                android:inputType="textPersonName"  />
         </TableRow>
 
         <TableRow>
@@ -56,18 +58,21 @@
             <EditText
                 android:id="@+id/pay_card_number"
                 android:layout_span="2"
-                android:hint="@string/pay_hint_card_number" />
+                android:hint="@string/pay_hint_card_number"
+                android:inputType="number" />
         </TableRow>
 
         <TableRow>
 
             <EditText
                 android:id="@+id/pay_expiry"
-                android:hint="@string/pay_hint_expiry" />
+                android:hint="@string/pay_hint_expiry"
+                android:inputType="date" />
 
             <EditText
                 android:id="@+id/pay_cvv"
-                android:hint="@string/pay_hint_cvv" />
+                android:hint="@string/pay_hint_cvv"
+                android:inputType="number" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>
