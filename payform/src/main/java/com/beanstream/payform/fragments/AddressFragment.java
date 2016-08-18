@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.models.Address;
+import com.beanstream.payform.validators.TextValidator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,9 +34,32 @@ public class AddressFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.fragment_address, container, false);
+        View view = inflater.inflate(R.layout.fragment_address, container, false);
+        setValidators(view);
 
-        return inflatedView;
+        return view;
+    }
+
+    public void setValidators(View view) {
+        EditText textView;
+
+        textView = (EditText) (view.findViewById(R.id.address_name));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.address_city));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.address_country));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.address_postal));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.address_province));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.address_street));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
     }
 
     public Address getAddress() {
