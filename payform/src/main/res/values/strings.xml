@@ -37,4 +37,7 @@
     <string name="processing_text">processing</string>
 
     <string name="shipping_title">Shipping</string>
+
+    <string name="validator_suffix_empty"> is required!</string>
+    <string name="validator_prefix_invalid">Enter a valid </string>
 </resources>

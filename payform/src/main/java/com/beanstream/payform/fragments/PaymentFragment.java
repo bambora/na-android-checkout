@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -18,6 +19,8 @@ import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Payment;
+import com.beanstream.payform.validators.EmailValidator;
+import com.beanstream.payform.validators.TextValidator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,12 +57,14 @@ public class PaymentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
-        ((TextView) view.findViewById(R.id.back_link)).setTextColor(color);
+        setValidators(view);
         updatePrimaryColor(view);
+
         return view;
     }
 
     private void updatePrimaryColor(View view) {
+        ((TextView) view.findViewById(R.id.back_link)).setTextColor(color);
         ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
     }
 
@@ -70,6 +75,25 @@ public class PaymentFragment extends Fragment {
         payment.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
 
         return payment;
+    }
+
+    public void setValidators(View view) {
+        EditText textView;
+
+        textView = (EditText) (view.findViewById(R.id.pay_email));
+        textView.setOnFocusChangeListener(new EmailValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_name));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_card_number));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_expiry));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_cvv));
+        textView.setOnFocusChangeListener(new TextValidator(textView));
     }
 
     public CreditCard getCreditCard() {

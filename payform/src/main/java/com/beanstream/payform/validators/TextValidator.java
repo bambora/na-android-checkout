@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
+import com.beanstream.payform.R;
+
 /**
  * Created by dlight on 2016-08-18.
  */
@@ -20,11 +22,15 @@ public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
         this.textView = view;
     }
 
-    public void validate(TextView view) {
+    public boolean validate(TextView view) {
         if (TextUtils.isEmpty(view.getText().toString())) {
-            view.setError(view.getHint() + " is required!");
+            String name = view.getHint().toString().toUpperCase();
+            String error = name + " " + view.getResources().getString(R.string.validator_suffix_empty);
+            view.setError(error);
+            return false;
         } else {
             view.setError(null);
+            return true;
         }
     }
 
