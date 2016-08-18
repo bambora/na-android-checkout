@@ -67,7 +67,8 @@
             <EditText
                 android:id="@+id/pay_expiry"
                 android:hint="@string/pay_hint_expiry"
-                android:inputType="date" />
+                android:inputType="date"
+                android:nextFocusDown="@+id/pay_cvv" />
 
             <EditText
                 android:id="@+id/pay_cvv"

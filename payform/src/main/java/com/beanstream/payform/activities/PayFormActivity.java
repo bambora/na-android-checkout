@@ -26,6 +26,7 @@ import com.beanstream.payform.models.PayForm;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenService;
+import com.beanstream.payform.validators.ViewValidator;
 
 public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
@@ -123,6 +124,8 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     private void goToNext() {
         String fragmentName = getCurrentFragmentName();
         Fragment fragment = getCurrentFragment();
+
+        if (!(ViewValidator.isViewValid(fragment.getView()))) { return; }
 
         if (fragmentName.equals(ShippingFragment.class.getName())) {
             payform.setShipping(((ShippingFragment) fragment).getAddress());
