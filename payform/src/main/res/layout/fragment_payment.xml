@@ -76,7 +76,8 @@
                 android:digits="0123456789/"
                 android:hint="@string/pay_hint_expiry"
                 android:inputType="date"
-                android:nextFocusDown="@+id/pay_cvv" />
+                android:nextFocusDown="@+id/pay_cvv"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/pay_cvv"
