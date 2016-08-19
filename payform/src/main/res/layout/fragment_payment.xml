@@ -50,7 +50,7 @@
                 android:id="@+id/pay_name"
                 android:layout_span="2"
                 android:hint="@string/pay_hint_name"
-                android:inputType="textPersonName"  />
+                android:inputType="textPersonName" />
         </TableRow>
 
         <TableRow>
@@ -58,27 +58,30 @@
             <EditText
                 android:id="@+id/pay_card_number"
                 android:layout_span="2"
+                android:digits="0123456789 "
+                android:drawableRight="@drawable/ic_credit_card_black"
                 android:hint="@string/pay_hint_card_number"
                 android:inputType="number"
-                android:digits="0123456789 "
                 android:singleLine="true" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/pay_expiry"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".7"
                 android:hint="@string/pay_hint_expiry"
                 android:inputType="date"
-                android:layout_width="0dp"
-                android:layout_weight=".7"
                 android:nextFocusDown="@+id/pay_cvv" />
 
             <EditText
                 android:id="@+id/pay_cvv"
-                android:hint="@string/pay_hint_cvv"
                 android:layout_width="0dp"
                 android:layout_weight=".3"
+                android:drawableRight="@drawable/cvc_hint_color"
+                android:hint="@string/pay_hint_cvv"
                 android:inputType="number" />
         </TableRow>
     </TableLayout>

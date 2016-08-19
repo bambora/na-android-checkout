@@ -109,7 +109,7 @@ public class PaymentFragment extends Fragment {
         String month = "";
         String year = "";
         if (expiry.length() > 0) {
-            month = expiry.substring(0, 2);
+            month = expiry.substring(0, 2); //TODO
             year = expiry.substring(2);
         }
 

@@ -4,6 +4,8 @@
 
 package com.beanstream.payform.models;
 
+import com.beanstream.payform.R;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -11,7 +13,6 @@ import java.util.regex.Pattern;
  * Created by dlight on 2016-08-17.
  */
 public class CardType {
-    public final static int MAX_CARD_NUMBER_LENGTH = 20;
     public final static String INVALID = "invalid";
     public final static String AMEX = "amex";
     public final static String DINERS = "diners";
@@ -105,5 +106,25 @@ public class CardType {
         } else {
             return 3;
         }
+    }
+
+    public static int getImageForCardType(String cardType) {
+        if (cardType != null) {
+            cardType = cardType.replace(" ", "");
+            if (AMEX.equals(cardType)) {
+                return R.drawable.amex;
+            } else if (DINERS.equals(cardType)) {
+                return R.drawable.dinersclub;
+            } else if (DISCOVER.equals(cardType)) {
+                return R.drawable.discover;
+            } else if (JCB.equals(cardType)) {
+                return R.drawable.jcb;
+            } else if (MASTERCARD.equals(cardType)) {
+                return R.drawable.mastercard;
+            } else if (VISA.equals(cardType)) {
+                return R.drawable.visa;
+            }
+        }
+        return R.drawable.ic_credit_card_black;
     }
 }

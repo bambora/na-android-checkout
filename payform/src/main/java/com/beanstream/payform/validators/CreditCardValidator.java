@@ -6,7 +6,6 @@ package com.beanstream.payform.validators;
 
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -86,12 +85,13 @@ public class CreditCardValidator extends TextValidator {
 
     private int getIndexAfterClean(String cardNumber, int index) {
         cardNumber = cardNumber.substring(0, index);
-        String clean = getCleanCardNumber(cardNumber);
-        int offset = cardNumber.length() - clean.length();
-        Log.d("text", "---cardNumber:[" + cardNumber + "] ---clean:[" + clean + "]");
-        Log.d("text", "---index:" + index + " ---offset:" + offset + " ---cardNumber:" + cardNumber.length() + " ---clean:" + clean.length());
+        int offset = cardNumber.length() - getCleanCardNumber(cardNumber).length();
 
         return index - offset;
+    }
+
+    private void setCreditCardImage(String cardType) {
+        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, CardType.getImageForCardType(cardType), 0);
     }
 
     @Override
@@ -102,7 +102,10 @@ public class CreditCardValidator extends TextValidator {
         // Get text
         int index = editText.getSelectionStart();
         String cardNumber = editText.getText().toString();
+
+        // Get card type
         String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
+        setCreditCardImage(cardType);
 
         // Clean cardNumber
         int cleanIndex = getIndexAfterClean(cardNumber, index);
@@ -112,7 +115,7 @@ public class CreditCardValidator extends TextValidator {
         // Format cardNumber
         ArrayList<Integer> segmentLengths = CardType.getSegmentLengthsForCardType(cardType);
         Integer start = 0;
-        Integer end = 0;
+        Integer end;
         String formatted = "";
         for (Integer segmentLength : segmentLengths) {
             end = start + segmentLength;
