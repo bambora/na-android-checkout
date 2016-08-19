@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
@@ -105,6 +106,8 @@ public class CreditCardValidator extends TextValidator {
 
         // Get card type
         String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
+        Preferences.getInstance(editText.getContext()).saveData(Preferences.CardType, cardType);
+
         setCreditCardImage(cardType);
 
         // Clean cardNumber

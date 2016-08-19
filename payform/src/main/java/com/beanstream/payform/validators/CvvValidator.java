@@ -7,6 +7,8 @@ package com.beanstream.payform.validators;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.beanstream.payform.Preferences;
+import com.beanstream.payform.R;
 import com.beanstream.payform.models.CardType;
 
 /**
@@ -27,18 +29,19 @@ public class CvvValidator extends TextValidator {
 
     @Override
     public boolean validate(TextView view) {
-//        if (super.validate(view)) {
-//            String cvv = view.getText().toString();
-//            String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
-//
-//            if (isValidCvv(cvv, cardType)) {
-//                return true;
-//            } else {
-//                String name = view.getHint().toString().toUpperCase();
-//                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
-//                view.setError(error);
-//            }
-//        }
+        if (super.validate(view)) {
+            String cvv = view.getText().toString();
+
+            String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CardType);
+
+            if (isValidCvv(cvv, cardType)) {
+                return true;
+            } else {
+                String name = view.getHint().toString().toUpperCase();
+                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
+                view.setError(error);
+            }
+        }
         return false;
     }
 }
