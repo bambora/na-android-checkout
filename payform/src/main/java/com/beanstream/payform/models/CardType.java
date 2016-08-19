@@ -4,12 +4,14 @@
 
 package com.beanstream.payform.models;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
  * Created by dlight on 2016-08-17.
  */
 public class CardType {
+    public final static int MAX_CARD_NUMBER_LENGTH = 20;
     public final static String INVALID = "invalid";
     public final static String AMEX = "amex";
     public final static String DINERS = "diners";
@@ -50,6 +52,31 @@ public class CardType {
             }
         }
         return INVALID;
+    }
+
+    public static ArrayList getSegmentLengthsForCardType(String cardType) {
+        ArrayList<Integer> format = new ArrayList<>();
+        if (cardType != null) {
+            cardType = cardType.replace(" ", "");
+            if (AMEX.equals(cardType)) {
+                // 4-6-5
+                format.add(4);
+                format.add(6);
+                format.add(5);
+            } else if (DINERS.equals(cardType)) {
+                // 4-6-4
+                format.add(4);
+                format.add(6);
+                format.add(4);
+            } else {
+                // 4-4-4-4
+                format.add(4);
+                format.add(4);
+                format.add(4);
+                format.add(4);
+            }
+        }
+        return format;
     }
 
     public static Pattern getCardPatternForCardType(String cardType) {

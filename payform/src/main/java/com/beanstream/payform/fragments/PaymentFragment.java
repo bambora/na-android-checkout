@@ -19,6 +19,8 @@ import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Payment;
+import com.beanstream.payform.validators.CreditCardValidator;
+import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
 import com.beanstream.payform.validators.TextValidator;
 
@@ -87,13 +89,14 @@ public class PaymentFragment extends Fragment {
         textView.setOnFocusChangeListener(new TextValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_card_number));
-        textView.setOnFocusChangeListener(new TextValidator(textView));
+        textView.addTextChangedListener(new CreditCardValidator(textView));
+        textView.setOnFocusChangeListener(new CreditCardValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_expiry));
         textView.setOnFocusChangeListener(new TextValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
-        textView.setOnFocusChangeListener(new TextValidator(textView));
+        textView.setOnFocusChangeListener(new CvvValidator(textView));
     }
 
     public CreditCard getCreditCard() {

@@ -28,10 +28,10 @@
     <dimen name="header_text_size_description">10sp</dimen>
 
     <dimen name="logo_padding">10dp</dimen>
+
     <dimen name="processing_text_size">30sp</dimen>
     <dimen name="processing_text_size_larger">40sp</dimen>
     <dimen name="processing_text_padding">5sp</dimen>
-
 
     <dimen name="title_margin">16dp</dimen>
 </resources>

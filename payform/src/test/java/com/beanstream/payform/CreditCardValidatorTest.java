@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -28,11 +27,6 @@ public class CreditCardValidatorTest {
 
     public final static String expiry_month_valid = "12";
     public final static String expiry_year_valid = "20";
-
-    public final static String cvv_valid = "123";
-    public final static String cvv_valid_amex = "1234";
-    public final static String cvv_invalid_long = "12345";
-    public final static String cvv_invalid_short = "12";
 
     public final static String amex_valid = "3782 8224 6310 005";
     public final static String amex_invalid_cardtype = "328282246310005";
@@ -102,27 +96,6 @@ public class CreditCardValidatorTest {
     }
     //endregion
 
-    //region getCardTypeFromCardNumber
-    @Test
-    public void cardValidator_getCardType_Correct_ReturnsCardType() {
-        assertEquals(CardType.AMEX, CardType.getCardTypeFromCardNumber(amex_valid));
-        assertEquals(CardType.DINERS, CardType.getCardTypeFromCardNumber(diners_valid));
-        assertEquals(CardType.DISCOVER, CardType.getCardTypeFromCardNumber(discover_valid));
-        assertEquals(CardType.MASTERCARD, CardType.getCardTypeFromCardNumber(mastercard_valid));
-        assertEquals(CardType.MASTERCARD, CardType.getCardTypeFromCardNumber(mastercard_newbin_valid));
-        assertEquals(CardType.VISA, CardType.getCardTypeFromCardNumber(visa_valid));
-    }
-
-    @Test
-    public void cardValidator_getCardType_Correct_ReturnsInvalidCardType() {
-        assertEquals(CardType.INVALID, CardType.getCardTypeFromCardNumber(amex_invalid_cardtype));
-        assertEquals(CardType.INVALID, CardType.getCardTypeFromCardNumber(diners_invalid_cardtype));
-        assertEquals(CardType.INVALID, CardType.getCardTypeFromCardNumber(discover_invalid_cardtype));
-        assertEquals(CardType.INVALID, CardType.getCardTypeFromCardNumber(mastercard_invalid_cardtype)); //discover
-        assertEquals(CardType.INVALID, CardType.getCardTypeFromCardNumber(visa_invalid_cardtype)); //diners
-    }
-    //endregion
-
     //region isValidCardType
 
     @Test
@@ -152,39 +125,11 @@ public class CreditCardValidatorTest {
     }
     //endregion
 
-
-    //region isValidCvv
-    @Test
-    public void cardValidator_Cvv_Correct_ReturnsTrue() {
-        assertTrue(CreditCardValidator.isValidCvv(cvv_valid_amex, CardType.AMEX));
-        assertTrue(CreditCardValidator.isValidCvv(cvv_valid, CardType.DINERS));
-        assertTrue(CreditCardValidator.isValidCvv(cvv_valid, CardType.DISCOVER));
-        assertTrue(CreditCardValidator.isValidCvv(cvv_valid, CardType.MASTERCARD));
-        assertTrue(CreditCardValidator.isValidCvv(cvv_valid, CardType.VISA));
-    }
-
-    @Test
-    public void cardValidator_Cvv_Empty_ReturnsFalse() {
-        assertFalse("empty", CreditCardValidator.isValidCvv("", CardType.AMEX));
-        assertFalse("whitespace", CreditCardValidator.isValidCvv(" ", CardType.AMEX));
-        assertFalse("null", CreditCardValidator.isValidCvv(null, CardType.AMEX));
-    }
-
-    @Test
-    public void cardValidator_Cvv_Invalid_ReturnsFalse() {
-        assertFalse(CreditCardValidator.isValidCvv(cvv_valid, CardType.AMEX));
-        assertFalse(CreditCardValidator.isValidCvv(cvv_valid_amex, CardType.DINERS));
-        assertFalse(CreditCardValidator.isValidCvv(cvv_invalid_long, CardType.DINERS));
-        assertFalse(CreditCardValidator.isValidCvv(cvv_invalid_short, CardType.DISCOVER));
-        assertFalse(CreditCardValidator.isValidCvv(cvv_invalid_long, CardType.MASTERCARD));
-        assertFalse(CreditCardValidator.isValidCvv(cvv_invalid_short, CardType.VISA));
-    }
-    //endregion
-
-
     //region isValidLuhn
     @Test
     public void cardValidator_Luhn_Correct_ReturnsTrue() {
+        assertTrue(CreditCardValidator.isValidLuhn(cardnumber_luhn_valid));
+
         assertTrue(CreditCardValidator.isValidLuhn(amex_valid));
         assertTrue(CreditCardValidator.isValidLuhn(diners_valid));
         assertTrue(CreditCardValidator.isValidLuhn(discover_valid));
@@ -206,6 +151,7 @@ public class CreditCardValidatorTest {
         assertFalse("discover", CreditCardValidator.isValidLuhn(discover_invalid_luhn));
         assertFalse("diners", CreditCardValidator.isValidLuhn(diners_invalid_luhn));
         assertFalse("mastercard", CreditCardValidator.isValidLuhn(mastercard_invalid_luhn));
+        assertFalse("mastercard new bin", CreditCardValidator.isValidLuhn(mastercard_newbin_invalid_luhn));
         assertFalse("visa", CreditCardValidator.isValidLuhn(visa_invalid_luhn));
     }
     //endregion
@@ -213,11 +159,11 @@ public class CreditCardValidatorTest {
     //region isValidCard
     @Test
     public void cardValidator_Card_Correct_ReturnsTrue() {
-        assertTrue(CreditCardValidator.isValidCard(new CreditCard(amex_valid, expiry_month_valid, expiry_year_valid, cvv_valid_amex)));
-        assertTrue(CreditCardValidator.isValidCard(new CreditCard(diners_valid, expiry_month_valid, expiry_year_valid, cvv_valid)));
-        assertTrue(CreditCardValidator.isValidCard(new CreditCard(discover_valid, expiry_month_valid, expiry_year_valid, cvv_valid)));
-        assertTrue(CreditCardValidator.isValidCard(new CreditCard(mastercard_valid, expiry_month_valid, expiry_year_valid, cvv_valid)));
-        assertTrue(CreditCardValidator.isValidCard(new CreditCard(visa_valid, expiry_month_valid, expiry_year_valid, cvv_valid)));
+        assertTrue(CreditCardValidator.isValidCard(new CreditCard(amex_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid_amex)));
+        assertTrue(CreditCardValidator.isValidCard(new CreditCard(diners_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid)));
+        assertTrue(CreditCardValidator.isValidCard(new CreditCard(discover_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid)));
+        assertTrue(CreditCardValidator.isValidCard(new CreditCard(mastercard_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid)));
+        assertTrue(CreditCardValidator.isValidCard(new CreditCard(visa_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid)));
     }
 
     @Test
@@ -227,8 +173,8 @@ public class CreditCardValidatorTest {
 
     @Test
     public void cardValidator_Card_Invalid_ReturnsFalse() {
-        assertFalse(CreditCardValidator.isValidCard(new CreditCard(visa_invalid_number, expiry_month_valid, expiry_year_valid, cvv_valid)));
-        assertFalse(CreditCardValidator.isValidCard(new CreditCard(visa_valid, expiry_month_valid, expiry_year_valid, cvv_invalid_short)));
+        assertFalse(CreditCardValidator.isValidCard(new CreditCard(visa_invalid_number, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_valid)));
+        assertFalse(CreditCardValidator.isValidCard(new CreditCard(visa_valid, expiry_month_valid, expiry_year_valid, CvvValidatorTest.cvv_invalid_short)));
     }
     //endregion
 }

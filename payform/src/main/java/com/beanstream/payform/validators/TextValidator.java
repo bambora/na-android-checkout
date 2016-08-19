@@ -35,17 +35,17 @@ public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
     }
 
     @Override
-    final public void afterTextChanged(Editable s) {
-        validate(textView);
-    }
-
-    @Override
-    final public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void afterTextChanged(Editable s) {
         // do nothing
     }
 
     @Override
-    final public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // do nothing
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
         // do nothing
     }
 

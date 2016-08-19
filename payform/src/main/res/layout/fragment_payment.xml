@@ -59,7 +59,9 @@
                 android:id="@+id/pay_card_number"
                 android:layout_span="2"
                 android:hint="@string/pay_hint_card_number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:digits="0123456789 "
+                android:singleLine="true" />
         </TableRow>
 
         <TableRow>
@@ -68,11 +70,15 @@
                 android:id="@+id/pay_expiry"
                 android:hint="@string/pay_hint_expiry"
                 android:inputType="date"
+                android:layout_width="0dp"
+                android:layout_weight=".7"
                 android:nextFocusDown="@+id/pay_cvv" />
 
             <EditText
                 android:id="@+id/pay_cvv"
                 android:hint="@string/pay_hint_cvv"
+                android:layout_width="0dp"
+                android:layout_weight=".3"
                 android:inputType="number" />
         </TableRow>
     </TableLayout>

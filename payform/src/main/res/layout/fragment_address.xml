@@ -14,6 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:padding="@dimen/header_padding"
         tools:context="com.beanstream.payform.fragments.AddressFragment">
 
@@ -30,7 +31,7 @@
                     android:id="@+id/address_name"
                     android:layout_span="2"
                     android:hint="@string/address_hint_name"
-                    android:inputType="textPersonName|textNoSuggestions"/>
+                    android:inputType="textPersonName|textNoSuggestions" />
             </TableRow>
 
             <TableRow>
@@ -39,21 +40,25 @@
                     android:id="@+id/address_street"
                     android:layout_span="2"
                     android:hint="@string/address_hint_street"
-                    android:inputType="textPostalAddress|textCapWords"/>
+                    android:inputType="textPostalAddress|textCapWords" />
             </TableRow>
 
-            <TableRow android:layout_span="2">
+            <TableRow>
 
                 <EditText
                     android:id="@+id/address_postal"
+                    android:layout_width="0dp"
+                    android:layout_weight=".4"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                     android:hint="@string/address_hint_postal"
                     android:inputType="textCapCharacters|textNoSuggestions"
-                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                     android:nextFocusDown="@+id/address_city"
                     android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/address_city"
+                    android:layout_width="0dp"
+                    android:layout_weight=".6"
                     android:hint="@string/address_hint_city"
                     android:inputType="textCapWords"
                     android:nextFocusDown="@+id/address_province" />
@@ -63,12 +68,16 @@
 
                 <EditText
                     android:id="@+id/address_province"
+                    android:layout_width="0dp"
+                    android:layout_weight=".4"
                     android:hint="@string/address_hint_province"
                     android:inputType="textCapWords"
                     android:nextFocusDown="@+id/address_country" />
 
                 <EditText
                     android:id="@+id/address_country"
+                    android:layout_width="0dp"
+                    android:layout_weight=".6"
                     android:hint="@string/address_hint_country"
                     android:inputType="textCapWords" />
             </TableRow>
