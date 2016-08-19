@@ -125,6 +125,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         String fragmentName = getCurrentFragmentName();
         Fragment fragment = getCurrentFragment();
 
+        ViewValidator.validateAllFields(fragment.getView());
         if (!(ViewValidator.isViewValid(fragment.getView()))) { return; }
 
         if (fragmentName.equals(ShippingFragment.class.getName())) {
