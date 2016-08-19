@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
  * Created by dlight on 2016-08-17.
  */
 public class CardType {
+    public final static int CVV_MAX_LENGTH = 4;
+
     public final static String INVALID = "invalid";
     public final static String AMEX = "amex";
     public final static String DINERS = "diners";

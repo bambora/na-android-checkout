@@ -30,7 +30,10 @@ public class ViewValidator {
     public static void validateAllFields(View view) {
         ArrayList<EditText> fields = getFields(view);
         for (EditText field : fields) {
-            ((TextValidator)field.getOnFocusChangeListener()).validate(field);
+            View.OnFocusChangeListener focusListener =  ((TextValidator)field.getOnFocusChangeListener());
+            if (focusListener != null) {
+                ((TextValidator)field.getOnFocusChangeListener()).validate(field);
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import android.os.ResultReceiver;
 import android.util.JsonReader;
 import android.util.Log;
 
+import com.beanstream.payform.Preferences;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.TokenRequest;
 import com.beanstream.payform.models.TokenResponse;
@@ -68,8 +69,11 @@ public class TokenService extends IntentService {
             connection = (HttpURLConnection) url.openConnection();
 
             // Set Timeouts
-            connection.setReadTimeout(10000 /* milliseconds */); //TODO
-            connection.setConnectTimeout(15000 /* milliseconds */);
+
+            int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TokenRequestTimeoutInSeconds));
+
+            connection.setReadTimeout(timeoutInSeconds * 1000);
+            connection.setConnectTimeout(timeoutInSeconds * 1000);
 
             // Set Headers
             connection.setRequestMethod("POST");

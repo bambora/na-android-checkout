@@ -6,6 +6,7 @@ package com.beanstream.payform.validators;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 

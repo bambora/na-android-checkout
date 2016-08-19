@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.BillingFragment;
 import com.beanstream.payform.fragments.HeaderFragment;
@@ -67,6 +68,8 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         if (settings == null) {
             settings = new Settings();
         }
+
+        Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(settings.getTokenRequestTimeoutInSeconds()));
 
         if (savedInstanceState == null) {
 

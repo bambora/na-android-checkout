@@ -15,6 +15,7 @@ public class Preferences {
     private SharedPreferences sharedPreferences;
 
     public static String CardType = "cardType";
+    public static String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
 
     public static Preferences getInstance(Context context) {
         if (preferences == null) {
@@ -27,7 +28,7 @@ public class Preferences {
         sharedPreferences = context.getSharedPreferences("com.beanstream.payform",Context.MODE_PRIVATE);
     }
 
-    public void saveData(String key,String value) {
+    public void saveData(String key, String value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor .putString(key, value);
         prefsEditor.commit();

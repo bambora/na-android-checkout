@@ -62,6 +62,7 @@
                 android:drawableRight="@drawable/ic_credit_card_black"
                 android:hint="@string/pay_hint_card_number"
                 android:inputType="number"
+                android:nextFocusDown="@+id/pay_expiry"
                 android:singleLine="true" />
         </TableRow>
 
@@ -72,6 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".7"
+                android:digits="0123456789/"
                 android:hint="@string/pay_hint_expiry"
                 android:inputType="date"
                 android:nextFocusDown="@+id/pay_cvv" />

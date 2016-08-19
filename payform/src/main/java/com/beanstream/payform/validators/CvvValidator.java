@@ -29,19 +29,22 @@ public class CvvValidator extends TextValidator {
 
     @Override
     public boolean validate(TextView view) {
+        boolean result = false;
         if (super.validate(view)) {
             String cvv = view.getText().toString();
-
             String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CardType);
 
             if (isValidCvv(cvv, cardType)) {
-                return true;
+                result = true;
             } else {
+                if (cvv.length() > CardType.CVV_MAX_LENGTH) {
+                    view.setText(cvv.substring(0, CardType.CVV_MAX_LENGTH));
+                }
                 String name = view.getHint().toString().toUpperCase();
                 String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
                 view.setError(error);
             }
         }
-        return false;
+        return result;
     }
 }
