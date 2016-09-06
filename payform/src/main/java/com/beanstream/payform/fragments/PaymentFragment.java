@@ -19,7 +19,7 @@ import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Payment;
-import com.beanstream.payform.validators.CreditCardValidator;
+import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
 import com.beanstream.payform.validators.TextValidator;
@@ -89,8 +89,8 @@ public class PaymentFragment extends Fragment {
         textView.setOnFocusChangeListener(new TextValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_card_number));
-        textView.addTextChangedListener(new CreditCardValidator(textView));
-        textView.setOnFocusChangeListener(new CreditCardValidator(textView));
+        textView.addTextChangedListener(new CardNumberValidator(textView));
+        textView.setOnFocusChangeListener(new CardNumberValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_expiry));
         textView.setOnFocusChangeListener(new TextValidator(textView));
@@ -105,13 +105,8 @@ public class PaymentFragment extends Fragment {
         cardNumber = cardNumber.replace(" ", "");
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
 
-        String expiry = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-        String month = "";
-        String year = "";
-        if (expiry.length() > 0) {
-            month = expiry.substring(0, 2); //TODO
-            year = expiry.substring(2);
-        }
+        String month = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+        String year = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
 
         CreditCard card = new CreditCard();
 

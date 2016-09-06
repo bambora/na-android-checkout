@@ -6,40 +6,25 @@ package com.beanstream.payform.validators;
 
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
 import com.beanstream.payform.models.CardType;
-import com.beanstream.payform.models.CreditCard;
 
 import java.util.ArrayList;
 
 /**
  * Created by dlight on 2016-08-17.
  */
-public class CreditCardValidator extends TextValidator {
+public class CardNumberValidator extends TextValidator {
 
     private EditText editText;
 
-    public CreditCardValidator(TextView view) {
+    public CardNumberValidator(TextView view) {
         super(view);
         this.editText = (EditText) view;
-    }
-
-    public static boolean isValidCard(CreditCard card) {
-        if (card == null) {
-            return false;
-        }
-        String cardNumber = card.getCardNumber();
-        String cardType = card.getCardType();
-        return isValidCardType(cardNumber)
-                && isValidCardNumber(cardNumber, cardType)
-                && CvvValidator.isValidCvv(card.getCvv(), cardType)
-                && isValidLuhn(cardNumber)
-                ;
     }
 
     public static boolean isValidCardNumber(String cardNumber, String cardType) {
