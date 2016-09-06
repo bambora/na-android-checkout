@@ -73,9 +73,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".7"
-                android:digits="0123456789/"
+                android:maxLength="5"
                 android:hint="@string/pay_hint_expiry"
-                android:inputType="date"
+                android:inputType="number"
                 android:nextFocusDown="@+id/pay_cvv"
                 android:singleLine="true" />
 

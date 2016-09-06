@@ -22,6 +22,7 @@ import com.beanstream.payform.models.Payment;
 import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
+import com.beanstream.payform.validators.ExpiryValidator;
 import com.beanstream.payform.validators.TextValidator;
 
 /**
@@ -93,7 +94,8 @@ public class PaymentFragment extends Fragment {
         textView.setOnFocusChangeListener(new CardNumberValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_expiry));
-        textView.setOnFocusChangeListener(new TextValidator(textView));
+        textView.addTextChangedListener(new ExpiryValidator(textView));
+        textView.setOnFocusChangeListener(new ExpiryValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
         textView.setOnFocusChangeListener(new CvvValidator(textView));
