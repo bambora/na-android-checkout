@@ -18,7 +18,7 @@
         android:clickable="true"
         android:onClick="previous"
         android:text="LINK"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <!--Title-->
     <TextView

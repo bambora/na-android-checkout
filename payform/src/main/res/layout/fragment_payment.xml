@@ -17,8 +17,8 @@
         style="@style/BackLinkText"
         android:clickable="true"
         android:onClick="previous"
-        android:text="TEST"
-        android:visibility="visible" />
+        android:text="LINK"
+        android:visibility="gone" />
 
     <!--Title-->
     <TextView

@@ -90,6 +90,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             }
 
             updatePrimaryColor();
+        } else {
+            updateBackLink();
+            updateNextButton();
         }
     }
 
