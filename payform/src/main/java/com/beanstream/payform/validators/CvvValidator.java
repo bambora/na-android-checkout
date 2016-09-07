@@ -40,8 +40,7 @@ public class CvvValidator extends TextValidator {
                 if (cvv.length() > CardType.CVV_MAX_LENGTH) {
                     view.setText(cvv.substring(0, CardType.CVV_MAX_LENGTH));
                 }
-                String name = view.getHint().toString().toUpperCase();
-                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
+                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + view.getHint();
                 view.setError(error);
             }
         }

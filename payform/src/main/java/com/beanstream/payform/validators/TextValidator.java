@@ -24,8 +24,7 @@ public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
 
     public boolean validate(TextView view) {
         if (TextUtils.isEmpty(view.getText().toString())) {
-            String name = view.getHint().toString().toUpperCase();
-            String error = name + " " + view.getResources().getString(R.string.validator_suffix_empty);
+            String error = view.getHint() + " " + view.getResources().getString(R.string.validator_suffix_empty);
             view.setError(error);
             return false;
         } else {
