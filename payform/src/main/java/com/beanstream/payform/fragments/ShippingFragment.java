@@ -8,21 +8,18 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
-import com.beanstream.payform.models.Address;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShippingFragment extends Fragment {
+public class ShippingFragment extends AddressFragment {
 
     public final static String EXTRA_SETTINGS_BILLING_REQUIRED = "com.beanstream.payform.models.settings.color";
     OnBillingCheckBoxChangedListener mCallback;
@@ -41,6 +38,7 @@ public class ShippingFragment extends Fragment {
      */
     public static ShippingFragment newInstance(boolean billingRequired, int color) {
         ShippingFragment fragment = new ShippingFragment();
+
         Bundle args = new Bundle();
         args.putBoolean(EXTRA_SETTINGS_BILLING_REQUIRED, billingRequired);
         args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
@@ -67,23 +65,17 @@ public class ShippingFragment extends Fragment {
             billingRequired = getArguments().getBoolean(EXTRA_SETTINGS_BILLING_REQUIRED);
             color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
         }
-
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_address, new AddressFragment()).commit();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shipping, container, false);
-
-        configureBillingCheckBox(view);
-        updatePrimaryColor(view);
-        return view;
+    public void updateTitle(View view) {
+        ((TextView) view.findViewById(R.id.title_text)).setText(R.string.address_title_shipping);
     }
 
-    private void configureBillingCheckBox(View view) {
+    @Override
+    public void configureBillingCheckBox(View view) {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
-        checkBox.setVisibility(View.INVISIBLE);
+        checkBox.setVisibility(View.GONE);
 
         if (billingRequired) {
             checkBox.setVisibility(View.VISIBLE);
@@ -94,16 +86,6 @@ public class ShippingFragment extends Fragment {
                 }
             });
         }
-    }
-
-    private void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
-    }
-
-    public Address getAddress() {
-        return ((AddressFragment) getChildFragmentManager()
-                .findFragmentById(R.id.fragment_address))
-                .getAddress();
     }
 
     public interface OnBillingCheckBoxChangedListener {

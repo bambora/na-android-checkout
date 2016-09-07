@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Address;
 import com.beanstream.payform.validators.TextValidator;
 
@@ -22,6 +24,9 @@ import com.beanstream.payform.validators.TextValidator;
  * A simple {@link Fragment} subclass.
  */
 public class AddressFragment extends Fragment {
+
+    private int color;
+
     public AddressFragment() {
         // Required empty public constructor
     }
@@ -29,13 +34,20 @@ public class AddressFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_address, container, false);
+
+        configureBillingCheckBox(view);
         setValidators(view);
+        updatePrimaryColor(view);
+        updateTitle(view);
 
         return view;
     }
@@ -60,6 +72,19 @@ public class AddressFragment extends Fragment {
 
         textView = (EditText) (view.findViewById(R.id.address_street));
         textView.setOnFocusChangeListener(new TextValidator(textView));
+    }
+
+    public void updatePrimaryColor(View view) {
+        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
+    }
+
+    public void updateTitle(View view) {
+        ((TextView) view.findViewById(R.id.title_text)).setText(R.string.address_title_billing);
+    }
+
+    public void configureBillingCheckBox(View view) {
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
+        checkBox.setVisibility(View.GONE);
     }
 
     public Address getAddress() {

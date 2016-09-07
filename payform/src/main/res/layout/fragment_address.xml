@@ -2,85 +2,102 @@
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.beanstream.payform.fragments.AddressFragment"
-    tools:layout="@layout/fragment_address">
+    android:background="@android:color/white"
+    android:padding="@dimen/header_padding"
+    tools:context="com.beanstream.payform.fragments.AddressFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!--Back Link-->
+    <TextView
+        android:id="@+id/back_link"
+        style="@style/BackLinkText"
+        android:clickable="true"
+        android:onClick="previous"
+        android:text="LINK"
+        android:visibility="gone" />
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/title_text"
+        style="@style/TitleText"
+        android:text="@string/address_title" />
+
+    <TableLayout
+        android:id="@+id/address_fields"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:padding="@dimen/header_padding"
-        tools:context="com.beanstream.payform.fragments.AddressFragment">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
+        android:layout_margin="@dimen/activity_padding"
+        android:stretchColumns="*">
 
-        <TableLayout
-            android:id="@+id/address_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_padding"
-            android:stretchColumns="*">
+        <TableRow>
 
-            <TableRow>
+            <EditText
+                android:id="@+id/address_name"
+                android:layout_span="2"
+                android:hint="@string/address_hint_name"
+                android:inputType="textPersonName|textNoSuggestions" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/address_name"
-                    android:layout_span="2"
-                    android:hint="@string/address_hint_name"
-                    android:inputType="textPersonName|textNoSuggestions" />
-            </TableRow>
+        <TableRow>
 
-            <TableRow>
+            <EditText
+                android:id="@+id/address_street"
+                android:layout_span="2"
+                android:hint="@string/address_hint_street"
+                android:inputType="textPostalAddress|textCapWords" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/address_street"
-                    android:layout_span="2"
-                    android:hint="@string/address_hint_street"
-                    android:inputType="textPostalAddress|textCapWords" />
-            </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/address_postal"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                android:hint="@string/address_hint_postal"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:nextFocusDown="@+id/address_city"
+                android:singleLine="true" />
 
-            <TableRow>
+            <EditText
+                android:id="@+id/address_city"
+                android:layout_width="0dp"
+                android:layout_weight=".6"
+                android:hint="@string/address_hint_city"
+                android:inputType="textCapWords"
+                android:nextFocusDown="@+id/address_province" />
+        </TableRow>
 
-                <EditText
-                    android:id="@+id/address_postal"
-                    android:layout_width="0dp"
-                    android:layout_weight=".4"
-                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-                    android:hint="@string/address_hint_postal"
-                    android:inputType="textCapCharacters|textNoSuggestions"
-                    android:nextFocusDown="@+id/address_city"
-                    android:singleLine="true" />
+        <TableRow>
 
-                <EditText
-                    android:id="@+id/address_city"
-                    android:layout_width="0dp"
-                    android:layout_weight=".6"
-                    android:hint="@string/address_hint_city"
-                    android:inputType="textCapWords"
-                    android:nextFocusDown="@+id/address_province" />
-            </TableRow>
+            <EditText
+                android:id="@+id/address_province"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:hint="@string/address_hint_province"
+                android:inputType="textCapWords"
+                android:nextFocusDown="@+id/address_country" />
 
-            <TableRow>
+            <EditText
+                android:id="@+id/address_country"
+                android:layout_width="0dp"
+                android:layout_weight=".6"
+                android:hint="@string/address_hint_country"
+                android:inputType="textCapWords" />
+        </TableRow>
+    </TableLayout>
 
-                <EditText
-                    android:id="@+id/address_province"
-                    android:layout_width="0dp"
-                    android:layout_weight=".4"
-                    android:hint="@string/address_hint_province"
-                    android:inputType="textCapWords"
-                    android:nextFocusDown="@+id/address_country" />
-
-                <EditText
-                    android:id="@+id/address_country"
-                    android:layout_width="0dp"
-                    android:layout_weight=".6"
-                    android:hint="@string/address_hint_country"
-                    android:inputType="textCapWords" />
-            </TableRow>
-        </TableLayout>
-    </RelativeLayout>
-</FrameLayout>
+    <!--Billing Toggle-->
+    <CheckBox
+        android:id="@+id/billing_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address_fields"
+        android:layout_margin="@dimen/checkbox_margin"
+        android:text="@string/address_billing_switch_label"
+        android:textColor="@color/bicSwitchText"
+        android:visibility="visible" />
+</RelativeLayout>
