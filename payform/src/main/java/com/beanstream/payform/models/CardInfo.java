@@ -10,35 +10,37 @@ import android.os.Parcelable;
 /**
  * Created by dlight on 2016-08-09.
  */
-public class Payment implements Parcelable {
+public class CardInfo implements Parcelable {
 
-    public static final Parcelable.Creator<Payment> CREATOR
-            = new Parcelable.Creator<Payment>() {
+    public static final Parcelable.Creator<CardInfo> CREATOR
+            = new Parcelable.Creator<CardInfo>() {
 
         @Override
-        public Payment createFromParcel(Parcel in) {
-            return new Payment(in);
+        public CardInfo createFromParcel(Parcel in) {
+            return new CardInfo(in);
         }
 
         @Override
-        public Payment[] newArray(int size) {
-            return new Payment[size];
+        public CardInfo[] newArray(int size) {
+            return new CardInfo[size];
         }
     };
 
+    private String code; //Token
     private String email;
     private String name;
 
-    public Payment() {
+    public CardInfo() {
     }
-
-    private Payment(Parcel parcel) {
+    private CardInfo(Parcel parcel) {
+        code = parcel.readString();
         email = parcel.readString();
         name = parcel.readString();
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(code);
         parcel.writeString(email);
         parcel.writeString(name);
     }
@@ -49,6 +51,15 @@ public class Payment implements Parcelable {
     }
 
     //region Getters and Setters
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -71,8 +82,9 @@ public class Payment implements Parcelable {
     public String toString() {
         return new StringBuilder()
                 .append("{")
-                .append(" email:").append(email)
-                .append(", name:").append(name)
+                .append("code:").append(code).append(", ")
+                .append("email:").append(email).append(", ")
+                .append("name:").append(name)
                 .append("}").toString();
     }
 }

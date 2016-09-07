@@ -114,12 +114,12 @@ public class Address implements Parcelable {
     public String toString() {
         return new StringBuilder()
                 .append("{")
-                .append(" name:").append(name)
-                .append(", street:").append(street)
-                .append(", postal:").append(postal)
-                .append(", city:").append(city)
-                .append(", province:").append(province)
-                .append(", country:").append(country)
+                .append("name:").append(name).append(", ")
+                .append("street:").append(street).append(", ")
+                .append("postal:").append(postal).append(", ")
+                .append("city:").append(city).append(", ")
+                .append("province:").append(province).append(", ")
+                .append("country:").append(country)
                 .append("}").toString();
     }
 }

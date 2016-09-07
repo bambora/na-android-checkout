@@ -26,15 +26,18 @@ public class Settings implements Parcelable {
             return new Settings[size];
         }
     };
-    private int color; // default: "#067aed"
-    private Boolean billingAddressRequired; // default: true
-    private Boolean shippingAddressRequired; // default: true
-    private int tokenRequestTimeoutInSeconds; // default: 6
+
+    private int color;
+
+    private Boolean billingAddressRequired;
+    private Boolean shippingAddressRequired;
+    private int tokenRequestTimeoutInSeconds;
 
     //region Getters and Setters
 
     public Settings() {
         this.color = Color.parseColor("#067aed");
+
         this.billingAddressRequired = true;
         this.shippingAddressRequired = true;
         this.tokenRequestTimeoutInSeconds = 6;

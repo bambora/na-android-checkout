@@ -18,7 +18,7 @@ import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.Payment;
+import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
@@ -71,13 +71,33 @@ public class PaymentFragment extends Fragment {
         ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
     }
 
-    public Payment getPayment() {
-        Payment payment = new Payment();
+    public CardInfo getCardInfo() {
+        CardInfo cardInfo = new CardInfo();
 
-        payment.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
-        payment.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
+        cardInfo.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
+        cardInfo.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
 
-        return payment;
+        return cardInfo;
+    }
+
+    public CreditCard getCreditCard() {
+
+        String cardNumber = ((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString();
+        cardNumber = cardNumber.replace(" ", "");
+        String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
+
+        String month = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+        String year = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+
+        CreditCard card = new CreditCard();
+
+        card.setCardNumber(cardNumber);
+        card.setCvv(cvv);
+        card.setExpiryMonth(month);
+        card.setExpiryYear(year);
+        card.setCardType(CardType.getCardTypeFromCardNumber(cardNumber));
+
+        return card;
     }
 
     public void setValidators(View view) {
@@ -99,25 +119,5 @@ public class PaymentFragment extends Fragment {
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
         textView.setOnFocusChangeListener(new CvvValidator(textView));
-    }
-
-    public CreditCard getCreditCard() {
-
-        String cardNumber = ((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString();
-        cardNumber = cardNumber.replace(" ", "");
-        String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
-
-        String month = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-        String year = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-
-        CreditCard card = new CreditCard();
-
-        card.setCardNumber(cardNumber);
-        card.setCvv(cvv);
-        card.setExpiryMonth(month);
-        card.setExpiryYear(year);
-        card.setCardType(CardType.getCardTypeFromCardNumber(cardNumber));
-
-        return card;
     }
 }

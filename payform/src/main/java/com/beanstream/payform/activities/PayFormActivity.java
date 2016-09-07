@@ -22,8 +22,9 @@ import com.beanstream.payform.fragments.BillingFragment;
 import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
+import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.PayForm;
+import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenService;
@@ -32,21 +33,20 @@ import com.beanstream.payform.validators.ViewValidator;
 public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
 
+    public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
+
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
     public final static String EXTRA_SETTINGS_COLOR = "com.beanstream.payform.models.settings";
 
-    public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
-
     public final static int REQUEST_PAYFORM = 1;
-    public final static int REQUEST_PAYFORM_TOKEN = 1;
 
     private Purchase purchase;
     private Settings settings;
 
-    // PayForm
-    private PayForm payform;
-    private CreditCard card;
+    // PayFormResult
+    private PayFormResult payFormResult;
+    private CreditCard creditCard;
 
     @Override
     public void onBackStackChanged() {
@@ -73,7 +73,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
             // First-time init;
 
-            payform = new PayForm();
+            payFormResult = new PayFormResult();
 
             getFragmentManager().addOnBackStackChangedListener(this);
             getFragmentManager().beginTransaction()
@@ -100,7 +100,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     @Override
     public void onBillingCheckBoxChanged(boolean isChecked) {
-        payform.setBillingSameAsShipping(isChecked);
+        payFormResult.setBillingSameAsShipping(isChecked);
         updateNextButton();
     }
 
@@ -122,7 +122,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     private boolean isBillingRequired() {
-        return (settings.getBillingAddressRequired() && !(payform.isBillingSameAsShipping()));
+        return (settings.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
     }
 
     private void goToNext() {
@@ -133,9 +133,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         if (!(ViewValidator.isViewValid(fragment.getView()))) { return; }
 
         if (fragmentName.equals(ShippingFragment.class.getName())) {
-            payform.setShipping(((ShippingFragment) fragment).getAddress());
-            if (payform.isBillingSameAsShipping()) {
-                payform.setBilling(((ShippingFragment) fragment).getAddress());
+            payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
+            if (payFormResult.isBillingSameAsShipping()) {
+                payFormResult.setBilling(((ShippingFragment) fragment).getAddress());
             }
 
             if (isBillingRequired()) {
@@ -144,12 +144,12 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
                 switchContentToPayment();
             }
         } else if (fragmentName.equals(BillingFragment.class.getName())) {
-            payform.setBilling(((BillingFragment) fragment).getAddress());
+            payFormResult.setBilling(((BillingFragment) fragment).getAddress());
 
             switchContentToPayment();
         } else if (fragmentName.equals(PaymentFragment.class.getName())) {
-            payform.setPayment(((PaymentFragment) fragment).getPayment());
-            card = ((PaymentFragment) fragment).getCreditCard();
+            payFormResult.setCardInfo(((PaymentFragment) fragment).getCardInfo());
+            creditCard = ((PaymentFragment) fragment).getCreditCard();
 
             startProcessing();
         }
@@ -242,28 +242,31 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private void startProcessing() {
         Intent intent = new Intent(this, ProcessingActivity.class);
-        intent.putExtra(TokenService.EXTRA_CARD, card);
+        intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         intent.putExtra(EXTRA_PURCHASE, purchase);
         intent.putExtra(EXTRA_SETTINGS, settings);
 
-        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM_TOKEN);
+        startActivityForResult(intent, ProcessingActivity.REQUEST_TOKEN);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == PayFormActivity.REQUEST_PAYFORM_TOKEN) {
+        if (requestCode == ProcessingActivity.REQUEST_TOKEN) {
             if (resultCode == Activity.RESULT_OK) {
-                String token = data.getStringExtra(PayFormActivity.EXTRA_RESULT_TOKEN);
+                String token = data.getStringExtra(TokenService.EXTRA_TOKEN);
 
-                Intent intent = getIntent();
-                intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, token);
-                setResult(Activity.RESULT_OK, intent);
+                CardInfo cardInfo = payFormResult.getCardInfo();
+                cardInfo.setCode(token);
+                payFormResult.setCardInfo(cardInfo);
             }
+
+            Intent intent = getIntent();
+            intent.putExtra(EXTRA_PAYFORM_RESULT, payFormResult);
+
+            setResult(resultCode, intent);
 
             finish();
         }
     }
-
     //endregion
 }

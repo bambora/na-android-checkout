@@ -4,7 +4,6 @@
 
 package com.beanstream.payform.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +20,14 @@ import com.beanstream.payform.services.TokenService;
 
 public class ProcessingActivity extends FragmentActivity {
 
+    public final static int REQUEST_TOKEN = 2;
+
     public TokenReceiver tokenReceiver;
 
-    private CreditCard card;
+    private CreditCard creditCard;
     private Purchase purchase;
     private Settings settings;
+
 
     @Override
     public void onBackPressed() {
@@ -38,9 +40,10 @@ public class ProcessingActivity extends FragmentActivity {
         setContentView(R.layout.activity_processing);
 
         Intent intent = getIntent();
-        card = intent.getParcelableExtra(TokenService.EXTRA_CARD);
+        creditCard = intent.getParcelableExtra(TokenService.EXTRA_CREDIT_CARD);
         purchase = intent.getParcelableExtra(PayFormActivity.EXTRA_PURCHASE);
         settings = intent.getParcelableExtra(PayFormActivity.EXTRA_SETTINGS);
+
         if (settings == null) {
             settings = new Settings();
         }
@@ -60,7 +63,7 @@ public class ProcessingActivity extends FragmentActivity {
     public void startTokenService() {
         Intent intent = new Intent(this, TokenService.class);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
-        intent.putExtra(TokenService.EXTRA_CARD, card);
+        intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         startService(intent);
     }
 
@@ -70,13 +73,15 @@ public class ProcessingActivity extends FragmentActivity {
         tokenReceiver.setReceiver(new TokenReceiver.Receiver() {
             @Override
             public void onReceiveResult(int resultCode, Bundle resultData) {
+                String token = "";
                 if (resultCode == RESULT_OK) {
-                    String token = resultData.getString(TokenService.EXTRA_TOKEN);
-
-                    Intent intent = getIntent();
-                    intent.putExtra(PayFormActivity.EXTRA_RESULT_TOKEN, token);
-                    setResult(Activity.RESULT_OK, intent);
+                    token = resultData.getString(TokenService.EXTRA_TOKEN);
                 }
+
+                Intent intent = getIntent();
+                intent.putExtra(TokenService.EXTRA_TOKEN, token);
+                setResult(resultCode, intent);
+
                 finish();
             }
         });

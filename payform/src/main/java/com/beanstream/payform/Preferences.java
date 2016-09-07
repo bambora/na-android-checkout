@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 public class Preferences {
     public static String CardType = "cardType";
     public static String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
+
     private static Preferences preferences;
     private SharedPreferences sharedPreferences;
 

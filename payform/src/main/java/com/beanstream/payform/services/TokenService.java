@@ -26,7 +26,7 @@ import java.net.URL;
  * Created by dlight on 2016-08-15.
  */
 public class TokenService extends IntentService {
-    public final static String EXTRA_CARD = "com.beanstream.payform.services.card";
+    public final static String EXTRA_CREDIT_CARD = "com.beanstream.payform.services.creditcard";
     public final static String EXTRA_RECEIVER = "com.beanstream.payform.services.receiver";
     public final static String EXTRA_TOKEN = "com.beanstream.payform.services.token";
 
@@ -42,7 +42,7 @@ public class TokenService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
-        CreditCard card = intent.getParcelableExtra(EXTRA_CARD);
+        CreditCard card = intent.getParcelableExtra(EXTRA_CREDIT_CARD);
 
         TokenRequest request = new TokenRequest(card);
         TokenResponse response = callTokenService(request);
@@ -69,7 +69,6 @@ public class TokenService extends IntentService {
             connection = (HttpURLConnection) url.openConnection();
 
             // Set Timeouts
-
             int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TokenRequestTimeoutInSeconds));
 
             connection.setReadTimeout(timeoutInSeconds * 1000);

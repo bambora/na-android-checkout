@@ -28,6 +28,7 @@
             android:stretchColumns="*">
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/demo_settings_label"
                     style="@style/TitleText"
@@ -36,6 +37,7 @@
             </TableRow>
 
             <TableRow>
+
                 <CheckBox
                     android:id="@+id/demo_checkbox_color"
                     style="@style/DemoCheckBox"
@@ -53,6 +55,7 @@
             </TableRow>
 
             <TableRow>
+
                 <CheckBox
                     android:id="@+id/demo_checkbox_billing"
                     style="@style/DemoCheckBox"
@@ -95,7 +98,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/demo_payform_token"
+            android:id="@+id/demo_payform_results"
             style="@style/MessageText"
             android:layout_below="@+id/demo_pay_button"
             android:gravity="center"
