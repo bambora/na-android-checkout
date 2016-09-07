@@ -32,12 +32,10 @@ import com.beanstream.payform.validators.ViewValidator;
 public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
 
-    public final static String PayFormPreferences = "com.beanstream.payform.preferences";
-
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
     public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
     public final static String EXTRA_SETTINGS_COLOR = "com.beanstream.payform.models.settings";
-    public final static String EXTRA_PAYFORM = "com.beanstream.payform.models.payform";
+
     public final static String EXTRA_RESULT_TOKEN = "com.beanstream.payform.result.token";
 
     public final static int REQUEST_PAYFORM = 1;

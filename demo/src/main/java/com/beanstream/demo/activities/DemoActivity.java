@@ -7,8 +7,10 @@ package com.beanstream.demo.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.beanstream.demo.R;
@@ -17,10 +19,10 @@ import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.models.Settings;
 
 public class DemoActivity extends Activity implements View.OnClickListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_demo);
 
         final Button button = (Button) findViewById(R.id.demo_pay_button);
@@ -52,6 +54,23 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    public void onDemoCheckboxClicked(View view) {
+
+        TextView text = (TextView) findViewById(R.id.demo_payform_error);
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.demo_checkbox_billing:
+                if (checked) {
+                    Log.d("onDemoCheckboxClicked", "demo_checkbox_billing checked");
+                } else {
+                    Log.d("onDemoCheckboxClicked", "demo_checkbox_billing unchecked");
+
+                }
+                break;
+        }
+    }
+
     //region private helper methods
     private Purchase getPurchaseForThisDemo() {
 
@@ -66,12 +85,26 @@ public class DemoActivity extends Activity implements View.OnClickListener {
     private Settings getSettingsForThisDemo() {
 
         Settings settings = new Settings();
-        settings.setColor("#aa0000"); // default: "#067aed"
-//        settings.setFontStyle(false); // default: true TODO
-//        settings.setImage(false); // default: true TODO
-//        settings.setBillingAddressRequired(false); // default: true
-//        settings.setShippingAddressRequired(false); // default: true
-        settings.setTokenRequestTimeoutInSeconds(7); // default: 6
+
+        if (!((CheckBox)findViewById(R.id.demo_checkbox_color)).isChecked()) {
+            settings.setColor("#aa0000"); // default: "#067aed"
+        }
+//        if (!((CheckBox)findViewById(R.id.demo_checkbox_font)).isChecked()) {
+////        settings.setFontStyle(false); // default: true TODO
+//        }
+//        if (!((CheckBox)findViewById(R.id.demo_checkbox_image)).isChecked()) {
+////        settings.setImage(false); // default: true TODO
+//        }
+
+        if (!((CheckBox)findViewById(R.id.demo_checkbox_billing)).isChecked()) {
+            settings.setBillingAddressRequired(false); // default: true
+        }
+        if (!((CheckBox)findViewById(R.id.demo_checkbox_shipping)).isChecked()) {
+            settings.setShippingAddressRequired(false); // default: true
+        }
+        if (!((CheckBox)findViewById(R.id.demo_checkbox_timeout)).isChecked()) {
+            settings.setTokenRequestTimeoutInSeconds(7); // default: 6
+        }
 
         return settings;
     }
@@ -93,7 +126,7 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         hideResults();
 
         TextView text = (TextView) findViewById(R.id.demo_payform_error);
-        text.setText(getResources().getString(R.string.demo_payform_eror));
+        text.setText(getResources().getString(R.string.demo_payform_error));
         text.setVisibility(View.VISIBLE);
     }
 
