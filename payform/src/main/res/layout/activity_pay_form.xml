@@ -20,7 +20,7 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_header" />
+        android:layout_below="@+id/toolbar_header" />
 
     <!-- Next Button-->
     <Button
@@ -40,7 +40,8 @@
 
         <ImageView
             android:id="@+id/bic_secure_image"
-            style="@style/BICSecurePayForm" />
+            style="@style/BICSecurePayForm"
+            android:contentDescription="@string/processing_secure" />
 
         <TextView
             android:id="@+id/bic_secure_text"

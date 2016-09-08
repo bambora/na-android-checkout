@@ -67,7 +67,6 @@ public class PaymentFragment extends Fragment {
     }
 
     private void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.back_link)).setTextColor(color);
         ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
     }
 

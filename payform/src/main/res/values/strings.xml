@@ -19,9 +19,6 @@
     <string name="address_hint_province">province</string>
     <string name="address_hint_country">country</string>
 
-    <string name="back_to_billing">&lt; Billing</string>
-    <string name="back_to_shipping">&lt; Shipping</string>
-
     <string name="next_button_to_billing">BILLING ADDRESS &gt;</string>
     <string name="next_button_to_payment">PAY &gt;</string>
     <string name="next_button_to_process">PAY</string>
@@ -37,6 +34,11 @@
     <string name="processing_secure">secured by beanstream</string>
     <string name="processing_target">payment</string>
     <string name="processing_text">processing</string>
+
+    <string name="purchase_logo">LOGO</string>
+    <string name="purchase_name">COMPANY NAME</string>
+    <string name="purchase_amount">PURCHASE AMOUNT</string>
+    <string name="purchase_description">DESCRIPTION</string>
 
     <string name="validator_suffix_empty"> is required!</string>
     <string name="validator_prefix_invalid">Enter a valid </string>

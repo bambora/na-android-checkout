@@ -2,21 +2,26 @@
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
   -->
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_purchase_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bicPrimary">
+    android:background="@color/bicPrimary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:contentInsetStart="0dp"
+    >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/header_padding" >
+        android:background="@color/bicSecondary"
+        android:padding="@dimen/header_padding">
 
         <ImageView
             android:id="@+id/header_company_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/purchase_logo"
             android:padding="@dimen/logo_padding"
             android:src="@drawable/default_merchant_logo" />
 
@@ -24,24 +29,24 @@
             android:id="@+id/header_company_name"
             style="@style/HeaderText"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/header_company_logo"
-            android:text="COMPANY NAME"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_name"
             android:textSize="@dimen/header_text_size_name" />
 
         <TextView
             android:id="@+id/purchase_amount"
             style="@style/HeaderText"
             android:layout_below="@id/header_company_name"
-            android:layout_toRightOf="@id/header_company_logo"
-            android:text="PURCHASE AMOUNT"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_amount"
             android:textSize="@dimen/header_text_size_amount" />
 
         <TextView
             android:id="@+id/purchase_description"
             style="@style/HeaderText"
             android:layout_below="@id/purchase_amount"
-            android:layout_toRightOf="@id/header_company_logo"
-            android:text="DESCRIPTION"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_description"
             android:textSize="@dimen/header_text_size_description" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
