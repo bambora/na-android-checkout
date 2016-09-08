@@ -31,8 +31,10 @@ public class CreditCard implements Parcelable {
     private String expiryMonth;
     private String expiryYear;
     private String cvv;
+
     public CreditCard() {
     }
+
     public CreditCard(String cardNumber) {
         setCardNumber(cardNumber);
     }

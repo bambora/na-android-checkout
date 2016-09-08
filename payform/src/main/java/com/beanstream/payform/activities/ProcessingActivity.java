@@ -29,12 +29,6 @@ public class ProcessingActivity extends AppCompatActivity {
     private Purchase purchase;
     private Settings settings;
 
-
-    @Override
-    public void onBackPressed() {
-        // Disable back button
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +62,11 @@ public class ProcessingActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        // Disable back button
+    }
+
     private void updatePrimaryColor() {
         findViewById(R.id.toolbar_header).setBackgroundColor(settings.getColor());
     }
@@ -76,13 +75,6 @@ public class ProcessingActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
         ((TextView) findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
         ((TextView) findViewById(R.id.purchase_description)).setText(purchase.getDescription());
-    }
-
-    public void startTokenService() {
-        Intent intent = new Intent(this, TokenService.class);
-        intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
-        intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
-        startService(intent);
     }
 
     public void setupTokenReceiver() {
@@ -103,5 +95,12 @@ public class ProcessingActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void startTokenService() {
+        Intent intent = new Intent(this, TokenService.class);
+        intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
+        intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
+        startService(intent);
     }
 }

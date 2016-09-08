@@ -13,9 +13,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -66,6 +66,13 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        final Button button = (Button) findViewById(R.id.button_next);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                goToNext();
+            }
+        });
+
         Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(settings.getTokenRequestTimeoutInSeconds()));
 
         if (savedInstanceState == null) {
@@ -87,6 +94,7 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
             updatePrimaryColor();
             updatePurchaseHeader();
         } else {
+            //TODO get PayFormResult
             updateNextButton();
         }
     }
@@ -104,7 +112,7 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
 
     @Override
     public void onBillingCheckBoxChanged(boolean isChecked) {
-        payFormResult.setBillingSameAsShipping(isChecked);
+        payFormResult.setBillingSameAsShipping(isChecked); // TODO crashes on rotate if checked
         updateNextButton();
     }
 
@@ -127,20 +135,6 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
-    }
-
-    public void next(View view) {
-
-        goToNext();
-    }
-
-    public void previous(View view) {
-
-        onBackPressed();
-    }
-
-    private boolean isBillingRequired() {
-        return (settings.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
     }
 
     private void goToNext() {
@@ -177,6 +171,10 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     private Fragment getCurrentFragment() {
         return getFragmentManager().findFragmentById(R.id.fragment_content);
     }
+
+    private boolean isBillingRequired() {
+        return (settings.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
+    }
     //endregion
 
     //region Content Updates
@@ -191,9 +189,7 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         Fragment fragment = getCurrentFragment();
 
         if (fragment instanceof ShippingFragment) {
-            Log.d("getTextForNextButton", "ShippingFragment");
             if (isBillingRequired()) {
-                Log.d("getTextForNextButton", "ShippingFragment isBillingRequired");
                 return getResources().getString(R.string.next_button_to_billing);
             } else {
                 return getResources().getString(R.string.next_button_to_payment);
@@ -201,7 +197,6 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         } else if (fragment instanceof BillingFragment) {
             return getResources().getString(R.string.next_button_to_payment);
         } else {
-            Log.d("getTextForNextButton", "Other");
             return getResources().getString(R.string.next_button_to_process) + " " + purchase.getFormattedAmount();
         }
     }

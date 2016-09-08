@@ -48,13 +48,21 @@ public class ExpiryValidator extends TextValidator {
         return expiry;
     }
 
+    public static String getMonthFromExpiry(String expiry) {
+        return expiry.split(EXPIRY_DELIMITER)[0];
+    }
+
+    public static String getYearFromExpiry(String expiry) {
+        return expiry.split(EXPIRY_DELIMITER)[1];
+    }
+
     private static boolean isValidMonth(String expiry) {
-        int month = Integer.parseInt(expiry.split(EXPIRY_DELIMITER)[0]);
+        int month = Integer.parseInt(getMonthFromExpiry(expiry));
         return (month >= 1 && month <= 12);
     }
 
     private static boolean isValidYear(String expiry) {
-        int year = Integer.parseInt(expiry.split(EXPIRY_DELIMITER)[1]);
+        int year = Integer.parseInt(getYearFromExpiry(expiry));
         int currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
         return (year >= currentYear);
     }

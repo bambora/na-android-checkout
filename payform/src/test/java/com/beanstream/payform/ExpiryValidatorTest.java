@@ -39,9 +39,9 @@ public class ExpiryValidatorTest {
 
     @Test
     public void expiryValidator_formatExpiry_Empty_ReturnsExpected() {
-        assertEquals(ExpiryValidator.EXPIRY_DELIMITER, ExpiryValidator.formatExpiry(null));
-        assertEquals(ExpiryValidator.EXPIRY_DELIMITER, ExpiryValidator.formatExpiry(""));
-        assertEquals(ExpiryValidator.EXPIRY_DELIMITER, ExpiryValidator.formatExpiry(" "));
+        assertEquals("", ExpiryValidator.formatExpiry(null));
+        assertEquals("", ExpiryValidator.formatExpiry(""));
+        assertEquals("", ExpiryValidator.formatExpiry(" "));
     }
 
     //region isValidExpiry

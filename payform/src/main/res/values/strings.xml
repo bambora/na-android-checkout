@@ -19,8 +19,8 @@
     <string name="address_hint_province">province</string>
     <string name="address_hint_country">country</string>
 
-    <string name="next_button_to_billing">BILLING ADDRESS &gt;</string>
-    <string name="next_button_to_payment">PAY &gt;</string>
+    <string name="next_button_to_billing">BILLING ADDRESS</string>
+    <string name="next_button_to_payment">PAY</string>
     <string name="next_button_to_process">PAY</string>
 
     <string name="pay_hint_email">email</string>

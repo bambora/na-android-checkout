@@ -22,7 +22,7 @@ import com.beanstream.payform.models.Settings;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DemoActivity extends Activity implements View.OnClickListener {
+public class DemoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +30,15 @@ public class DemoActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_demo);
 
         final Button button = (Button) findViewById(R.id.demo_pay_button);
-        button.setOnClickListener(this);
-    }
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent("payform.LAUNCH");
+                intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
+                intent.putExtra(PayFormActivity.EXTRA_SETTINGS, getSettingsForThisDemo());
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent("payform.LAUNCH");
-        intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
-        intent.putExtra(PayFormActivity.EXTRA_SETTINGS, getSettingsForThisDemo());
-
-        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+                startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+            }
+        });
     }
 
     @Override

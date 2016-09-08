@@ -14,7 +14,7 @@ public class Preferences {
     public static String CardType = "cardType";
     public static String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
 
-    private static Preferences preferences;
+    private static volatile Preferences preferences;
     private SharedPreferences sharedPreferences;
 
     private Preferences(Context context) {
@@ -23,7 +23,11 @@ public class Preferences {
 
     public static Preferences getInstance(Context context) {
         if (preferences == null) {
-            preferences = new Preferences(context);
+            synchronized (Preferences.class) {
+                if (preferences == null) {
+                    preferences = new Preferences(context);
+                }
+            }
         }
         return preferences;
     }
@@ -31,7 +35,7 @@ public class Preferences {
     public void saveData(String key, String value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor.putString(key, value);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public String getData(String key) {

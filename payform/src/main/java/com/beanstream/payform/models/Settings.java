@@ -33,8 +33,6 @@ public class Settings implements Parcelable {
     private Boolean shippingAddressRequired;
     private int tokenRequestTimeoutInSeconds;
 
-    //region Getters and Setters
-
     public Settings() {
         this.color = Color.parseColor("#067aed");
 
@@ -50,17 +48,20 @@ public class Settings implements Parcelable {
         shippingAddressRequired = (parcel.readInt() == 0);
         tokenRequestTimeoutInSeconds = parcel.readInt();
     }
+    //endregion
 
+
+    //region Getters and Setters
     public int getColor() {
         return color;
     }
 
-    public void setColor(String colorHex) {
-        this.color = Color.parseColor(colorHex);
-    }
-
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public void setColor(String colorHex) {
+        this.color = Color.parseColor(colorHex);
     }
 
     public Boolean getBillingAddressRequired() {
@@ -89,6 +90,7 @@ public class Settings implements Parcelable {
         this.tokenRequestTimeoutInSeconds = tokenRequestTimeoutInSeconds;
     }
 
+    //region Parcelable Implementation
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(color);

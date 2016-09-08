@@ -11,15 +11,6 @@
     android:layout_height="match_parent"
     tools:context="com.beanstream.payform.fragments.PaymentFragment">
 
-    <!--Back Link-->
-    <TextView
-        android:id="@+id/back_link"
-        style="@style/BackLinkText"
-        android:clickable="true"
-        android:onClick="previous"
-        android:text="LINK"
-        android:visibility="gone" />
-
     <!--Title-->
     <TextView
         android:id="@+id/title_text"

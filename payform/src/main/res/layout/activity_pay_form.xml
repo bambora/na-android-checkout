@@ -26,8 +26,7 @@
     <Button
         android:id="@+id/button_next"
         style="@style/PrimaryButton"
-        android:layout_above="@+id/bic_secure_footer"
-        android:onClick="next" />
+        android:layout_above="@+id/bic_secure_footer" />
 
 
     <!--Footer-->

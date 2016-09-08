@@ -44,7 +44,6 @@ public class CardNumberValidator extends TextValidator {
     }
 
     public static boolean isValidLuhn(String cardNumber) {
-
         if ((cardNumber == null) || (TextUtils.isEmpty(cardNumber.trim()))) {
             return false;
         }
@@ -84,6 +83,7 @@ public class CardNumberValidator extends TextValidator {
     @Override
     public void afterTextChanged(Editable s) {
 
+        //TODO - It looks like this method is causing a lag, and when it hits 20ms its number interrupting entry.
         editText.removeTextChangedListener(this);
 
         // Get text

@@ -22,8 +22,14 @@ import com.beanstream.payform.activities.PayFormActivity;
 public class ShippingFragment extends AddressFragment {
 
     public final static String EXTRA_SETTINGS_BILLING_REQUIRED = "com.beanstream.payform.models.settings.color";
-    OnBillingCheckBoxChangedListener mCallback;
 
+    private static OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
+        @Override
+        public void onBillingCheckBoxChanged(boolean isChecked) {
+        }
+    };
+
+    private OnBillingCheckBoxChangedListener billingCallback = dummyBillingCallback;
     private boolean billingRequired;
     private int color;
 
@@ -49,13 +55,19 @@ public class ShippingFragment extends AddressFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallback = (OnBillingCheckBoxChangedListener) activity;
+        billingCallback = (OnBillingCheckBoxChangedListener) activity;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mCallback = (OnBillingCheckBoxChangedListener) context;
+        billingCallback = (OnBillingCheckBoxChangedListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        billingCallback = dummyBillingCallback;
     }
 
     @Override
@@ -82,7 +94,7 @@ public class ShippingFragment extends AddressFragment {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mCallback.onBillingCheckBoxChanged(isChecked);
+                    billingCallback.onBillingCheckBoxChanged(isChecked);
                 }
             });
         }

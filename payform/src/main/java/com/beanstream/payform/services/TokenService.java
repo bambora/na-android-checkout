@@ -55,7 +55,6 @@ public class TokenService extends IntentService {
         } else {
             receiver.send(SERVICE_ERROR, bundle);
         }
-
     }
 
     private TokenResponse callTokenService(TokenRequest request) {
@@ -94,17 +93,22 @@ public class TokenService extends IntentService {
                 JsonReader reader = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    String name = reader.nextName();
-                    if (name.equals("token")) {
-                        response.setToken(reader.nextString());
-                    } else if (name.equals("code")) {
-                        response.setCode(reader.nextInt());
-                    } else if (name.equals("version")) {
-                        response.setVersion(reader.nextString());
-                    } else if (name.equals("message")) {
-                        response.setMessage(reader.nextString());
-                    } else {
-                        reader.skipValue();
+                    switch (reader.nextName()) {
+                        case "token":
+                            response.setToken(reader.nextString());
+                            break;
+                        case "code":
+                            response.setCode(reader.nextInt());
+                            break;
+                        case "version":
+                            response.setVersion(reader.nextString());
+                            break;
+                        case "message":
+                            response.setMessage(reader.nextString());
+                            break;
+                        default:
+                            reader.skipValue();
+                            break;
                     }
                 }
                 reader.endObject();

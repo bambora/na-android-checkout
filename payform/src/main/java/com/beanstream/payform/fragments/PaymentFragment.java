@@ -85,8 +85,9 @@ public class PaymentFragment extends Fragment {
         cardNumber = cardNumber.replace(" ", "");
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
 
-        String month = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-        String year = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+        String expiry = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
+        String month = ExpiryValidator.getMonthFromExpiry(expiry);
+        String year = ExpiryValidator.getYearFromExpiry(expiry);
 
         CreditCard card = new CreditCard();
 

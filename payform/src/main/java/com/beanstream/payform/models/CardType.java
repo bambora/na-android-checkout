@@ -85,18 +85,19 @@ public class CardType {
     public static Pattern getCardPatternForCardType(String cardType) {
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
-            if (AMEX.equals(cardType)) {
-                return CARD_PATTERN_AMEX;
-            } else if (DINERS.equals(cardType)) {
-                return CARD_PATTERN_DINERS;
-            } else if (DISCOVER.equals(cardType)) {
-                return CARD_PATTERN_DISCOVER;
-            } else if (JCB.equals(cardType)) {
-                return CARD_PATTERN_JCB;
-            } else if (MASTERCARD.equals(cardType)) {
-                return CARD_PATTERN_MASTERCARD;
-            } else if (VISA.equals(cardType)) {
-                return CARD_PATTERN_VISA;
+            switch (cardType) {
+                case AMEX:
+                    return CARD_PATTERN_AMEX;
+                case DINERS:
+                    return CARD_PATTERN_DINERS;
+                case DISCOVER:
+                    return CARD_PATTERN_DISCOVER;
+                case JCB:
+                    return CARD_PATTERN_JCB;
+                case MASTERCARD:
+                    return CARD_PATTERN_MASTERCARD;
+                case VISA:
+                    return CARD_PATTERN_VISA;
             }
         }
         return Pattern.compile(INVALID);
