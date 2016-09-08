@@ -13,13 +13,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.BillingFragment;
-import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
 import com.beanstream.payform.models.CardInfo;
@@ -76,8 +74,6 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             payFormResult = new PayFormResult();
 
             getFragmentManager().addOnBackStackChangedListener(this);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
 
             if (settings.getShippingAddressRequired()) {
                 switchContentToShipping();
@@ -88,6 +84,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             }
 
             updatePrimaryColor();
+            updatePurchaseHeader();
         } else {
             updateBackLink();
             updateNextButton();
@@ -95,7 +92,14 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     private void updatePrimaryColor() {
-        ((Button) findViewById(R.id.button_next)).setBackgroundColor(settings.getColor());
+        findViewById(R.id.button_next).setBackgroundColor(settings.getColor());
+        findViewById(R.id.toolbar_purchase_header).setBackgroundColor(settings.getColor());
+    }
+
+    private void updatePurchaseHeader() {
+        ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
+        ((TextView) findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
+        ((TextView) findViewById(R.id.purchase_description)).setText(purchase.getDescription());
     }
 
     @Override
@@ -130,7 +134,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         Fragment fragment = getCurrentFragment();
 
         ViewValidator.validateAllFields(fragment.getView());
-        if (!(ViewValidator.isViewValid(fragment.getView()))) { return; }
+        if (!(ViewValidator.isViewValid(fragment.getView()))) {
+            return;
+        }
 
         if (fragmentName.equals(ShippingFragment.class.getName())) {
             payFormResult.setShipping(((ShippingFragment) fragment).getAddress());

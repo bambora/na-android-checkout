@@ -34,7 +34,7 @@ public class ShippingFragment extends AddressFragment {
     /**
      * @param billingRequired Billing address is required.
      * @param color           Primary color.
-     * @return A new instance of fragment HeaderFragment.
+     * @return A new instance of fragment ShippingFragment.
      */
     public static ShippingFragment newInstance(boolean billingRequired, int color) {
         ShippingFragment fragment = new ShippingFragment();

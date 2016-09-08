@@ -11,13 +11,9 @@
     tools:context="com.beanstream.payform.activities.ProcessingActivity">
 
     <!--Header-->
-    <FrameLayout
-        android:id="@+id/fragment_header"
-        android:name="com.beanstream.payform.fragments.HeaderFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        tools:layout="@layout/fragment_header" />
+    <include
+        android:id="@+id/toolbar_purchase_header"
+        layout="@layout/toolbar_purchase_header" />
 
     <!--Content-->
     <FrameLayout

@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.fragments.HeaderFragment;
 import com.beanstream.payform.fragments.ProcessingFragment;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.Purchase;
@@ -48,16 +48,28 @@ public class ProcessingActivity extends FragmentActivity {
             settings = new Settings();
         }
 
+        updatePrimaryColor();
+        updatePurchaseHeader();
+
         if (savedInstanceState == null) {
             // First-time init;
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_header, HeaderFragment.newInstance(purchase, settings.getColor())).commit();
+
             getFragmentManager().beginTransaction()
                     .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase, settings.getColor())).commit();
 
             setupTokenReceiver();
             startTokenService();
         }
+    }
+
+    private void updatePrimaryColor() {
+        findViewById(R.id.toolbar_purchase_header).setBackgroundColor(settings.getColor());
+    }
+
+    private void updatePurchaseHeader() {
+        ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
+        ((TextView) findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
+        ((TextView) findViewById(R.id.purchase_description)).setText(purchase.getDescription());
     }
 
     public void startTokenService() {
