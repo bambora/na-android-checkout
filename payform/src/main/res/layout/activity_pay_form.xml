@@ -12,7 +12,7 @@
 
     <!--Header-->
     <include
-        android:id="@+id/toolbar_purchase_header"
+        android:id="@+id/toolbar_header"
         layout="@layout/toolbar_purchase_header" />
 
     <!--Content-->
@@ -20,7 +20,7 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_purchase_header" />
+        android:layout_below="@id/toolbar_header" />
 
     <!-- Next Button-->
     <Button

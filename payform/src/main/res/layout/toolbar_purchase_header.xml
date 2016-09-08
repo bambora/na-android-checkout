@@ -2,9 +2,10 @@
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
   -->
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar_header"
+    android:id="@+id/toolbar_purchase_header"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@color/bicPrimary">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

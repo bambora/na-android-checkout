@@ -7,7 +7,8 @@ package com.beanstream.payform.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -18,7 +19,7 @@ import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenReceiver;
 import com.beanstream.payform.services.TokenService;
 
-public class ProcessingActivity extends FragmentActivity {
+public class ProcessingActivity extends AppCompatActivity {
 
     public final static int REQUEST_TOKEN = 2;
 
@@ -48,6 +49,11 @@ public class ProcessingActivity extends FragmentActivity {
             settings = new Settings();
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         updatePrimaryColor();
         updatePurchaseHeader();
 
@@ -63,7 +69,7 @@ public class ProcessingActivity extends FragmentActivity {
     }
 
     private void updatePrimaryColor() {
-        findViewById(R.id.toolbar_purchase_header).setBackgroundColor(settings.getColor());
+        findViewById(R.id.toolbar_header).setBackgroundColor(settings.getColor());
     }
 
     private void updatePurchaseHeader() {

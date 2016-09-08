@@ -12,7 +12,7 @@
 
     <!--Header-->
     <include
-        android:id="@+id/toolbar_purchase_header"
+        android:id="@+id/toolbar_header"
         layout="@layout/toolbar_purchase_header" />
 
     <!--Content-->

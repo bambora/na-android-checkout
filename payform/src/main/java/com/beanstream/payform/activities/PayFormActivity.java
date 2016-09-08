@@ -11,7 +11,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,9 +31,8 @@ import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenService;
 import com.beanstream.payform.validators.ViewValidator;
 
-public class PayFormActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener,
+public class PayFormActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
-
     public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
 
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
@@ -47,12 +49,6 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     private CreditCard creditCard;
 
     @Override
-    public void onBackStackChanged() {
-        updateBackLink();
-        updateNextButton();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -64,6 +60,11 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         if (settings == null) {
             settings = new Settings();
         }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(settings.getTokenRequestTimeoutInSeconds()));
 
@@ -86,14 +87,13 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             updatePrimaryColor();
             updatePurchaseHeader();
         } else {
-            updateBackLink();
             updateNextButton();
         }
     }
 
     private void updatePrimaryColor() {
         findViewById(R.id.button_next).setBackgroundColor(settings.getColor());
-        findViewById(R.id.toolbar_purchase_header).setBackgroundColor(settings.getColor());
+        findViewById(R.id.toolbar_header).setBackgroundColor(settings.getColor());
     }
 
     private void updatePurchaseHeader() {
@@ -110,9 +110,23 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     //region Navigation
     @Override
-    public void onBackPressed() {
+    public void onBackStackChanged() {
+        updateNextButton();
+    }
 
-        goToPrevious();
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
+            getFragmentManager().popBackStackImmediate();
+        } else {
+            super.finish();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 
     public void next(View view) {
@@ -122,7 +136,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     public void previous(View view) {
 
-        goToPrevious();
+        onBackPressed();
     }
 
     private boolean isBillingRequired() {
@@ -130,7 +144,6 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     }
 
     private void goToNext() {
-        String fragmentName = getCurrentFragmentName();
         Fragment fragment = getCurrentFragment();
 
         ViewValidator.validateAllFields(fragment.getView());
@@ -138,7 +151,7 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             return;
         }
 
-        if (fragmentName.equals(ShippingFragment.class.getName())) {
+        if (fragment instanceof ShippingFragment) {
             payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
             if (payFormResult.isBillingSameAsShipping()) {
                 payFormResult.setBilling(((ShippingFragment) fragment).getAddress());
@@ -149,11 +162,11 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
             } else {
                 switchContentToPayment();
             }
-        } else if (fragmentName.equals(BillingFragment.class.getName())) {
+        } else if (fragment instanceof BillingFragment) {
             payFormResult.setBilling(((BillingFragment) fragment).getAddress());
 
             switchContentToPayment();
-        } else if (fragmentName.equals(PaymentFragment.class.getName())) {
+        } else if (fragment instanceof PaymentFragment) {
             payFormResult.setCardInfo(((PaymentFragment) fragment).getCardInfo());
             creditCard = ((PaymentFragment) fragment).getCreditCard();
 
@@ -164,32 +177,9 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
     private Fragment getCurrentFragment() {
         return getFragmentManager().findFragmentById(R.id.fragment_content);
     }
-
-    private String getCurrentFragmentName() {
-        return getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
-    }
-
-    private void goToPrevious() {
-        if (getFragmentManager().getBackStackEntryCount() > 1) {
-            getFragmentManager().popBackStackImmediate();
-        } else {
-            super.finish();
-        }
-    }
     //endregion
 
     //region Content Updates
-    private void updateBackLink() {
-        TextView view = ((TextView) findViewById(R.id.back_link));
-        if (view != null) {
-            view.setVisibility(View.GONE);
-            if (getFragmentManager().getBackStackEntryCount() > 1) {
-                view.setText(getTextForBackLink());
-                view.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
     private void updateNextButton() {
         TextView view = ((TextView) findViewById(R.id.button_next));
         if (view != null) {
@@ -197,30 +187,21 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
         }
     }
 
-    private String getTextForBackLink() {
-        String backFragName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 2).getName();
-
-        if (backFragName.equals(BillingFragment.class.getName())) {
-            return getResources().getString(R.string.back_to_billing);
-        } else if (backFragName.equals(ShippingFragment.class.getName())) {
-            return getResources().getString(R.string.back_to_shipping);
-        } else {
-            return getResources().getString(R.string.back_to_shipping);
-        }
-    }
-
     private String getTextForNextButton() {
-        String thisFragName = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+        Fragment fragment = getCurrentFragment();
 
-        if (thisFragName.equals(ShippingFragment.class.getName())) {
+        if (fragment instanceof ShippingFragment) {
+            Log.d("getTextForNextButton", "ShippingFragment");
             if (isBillingRequired()) {
+                Log.d("getTextForNextButton", "ShippingFragment isBillingRequired");
                 return getResources().getString(R.string.next_button_to_billing);
             } else {
                 return getResources().getString(R.string.next_button_to_payment);
             }
-        } else if (thisFragName.equals(BillingFragment.class.getName())) {
+        } else if (fragment instanceof BillingFragment) {
             return getResources().getString(R.string.next_button_to_payment);
         } else {
+            Log.d("getTextForNextButton", "Other");
             return getResources().getString(R.string.next_button_to_process) + " " + purchase.getFormattedAmount();
         }
     }
@@ -234,14 +215,14 @@ public class PayFormActivity extends FragmentActivity implements FragmentManager
 
     private void switchContentToBilling() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, new BillingFragment().newInstance(settings.getColor()))
+                .replace(R.id.fragment_content, BillingFragment.newInstance(settings.getColor()))
                 .addToBackStack(BillingFragment.class.getName())
                 .commit();
     }
 
     private void switchContentToPayment() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, new PaymentFragment().newInstance(settings.getColor()))
+                .replace(R.id.fragment_content, PaymentFragment.newInstance(settings.getColor()))
                 .addToBackStack(PaymentFragment.class.getName())
                 .commit();
     }
