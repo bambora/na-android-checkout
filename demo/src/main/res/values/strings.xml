@@ -11,7 +11,6 @@
 
     <string name="demo_settings_label">Use defaults for:</string>
     <string name="demo_checkbox_label_color">Color</string>
-    <string name="demo_checkbox_label_font">Font</string>
     <string name="demo_checkbox_label_image">Image</string>
     <string name="demo_checkbox_label_billing">Billing</string>
     <string name="demo_checkbox_label_shipping">Shipping</string>

@@ -44,11 +44,6 @@
                     android:text="@string/demo_checkbox_label_color" />
 
                 <CheckBox
-                    android:id="@+id/demo_checkbox_font"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_font" />
-
-                <CheckBox
                     android:id="@+id/demo_checkbox_image"
                     style="@style/DemoCheckBox"
                     android:text="@string/demo_checkbox_label_image" />
