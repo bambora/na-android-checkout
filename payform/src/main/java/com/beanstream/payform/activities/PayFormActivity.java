@@ -25,9 +25,9 @@ import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
 import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CreditCard;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
-import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenService;
 import com.beanstream.payform.validators.ViewValidator;
 
@@ -36,13 +36,12 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
 
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
-    public final static String EXTRA_SETTINGS = "com.beanstream.payform.models.settings";
-    public final static String EXTRA_SETTINGS_COLOR = "com.beanstream.payform.models.settings";
+    public final static String EXTRA_OPTIONS = "com.beanstream.payform.models.options";
 
     public final static int REQUEST_PAYFORM = 1;
 
+    private Options options;
     private Purchase purchase;
-    private Settings settings;
 
     // PayFormResult
     private PayFormResult payFormResult;
@@ -55,10 +54,18 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         setContentView(R.layout.activity_pay_form);
 
         Intent intent = getIntent();
+        options = intent.getParcelableExtra(EXTRA_OPTIONS);
+        if (options == null) {
+            options = new Options();
+        }
         purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
-        settings = intent.getParcelableExtra(EXTRA_SETTINGS);
-        if (settings == null) {
-            settings = new Settings();
+        if (purchase == null) {
+            purchase = new Purchase();
+        }
+
+        payFormResult = intent.getParcelableExtra(EXTRA_PAYFORM_RESULT);
+        if (payFormResult == null) {
+            payFormResult = new PayFormResult();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
@@ -73,19 +80,17 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
             }
         });
 
-        Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(settings.getTokenRequestTimeoutInSeconds()));
+        Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(options.getTokenRequestTimeoutInSeconds()));
 
         if (savedInstanceState == null) {
 
             // First-time init;
 
-            payFormResult = new PayFormResult();
-
             getFragmentManager().addOnBackStackChangedListener(this);
 
-            if (settings.getShippingAddressRequired()) {
+            if (options.getShippingAddressRequired()) {
                 switchContentToShipping();
-            } else if (settings.getBillingAddressRequired()) {
+            } else if (options.getBillingAddressRequired()) {
                 switchContentToBilling();
             } else {
                 switchContentToPayment();
@@ -100,14 +105,14 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     }
 
     private void updatePrimaryColor() {
-        findViewById(R.id.button_next).setBackgroundColor(settings.getColor());
-        findViewById(R.id.toolbar_header).setBackgroundColor(settings.getColor());
+        findViewById(R.id.button_next).setBackgroundColor(options.getColor());
     }
 
     private void updatePurchaseHeader() {
+        findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
-        ((TextView) findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
-        ((TextView) findViewById(R.id.purchase_description)).setText(purchase.getDescription());
+        ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
+        ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());
     }
 
     @Override
@@ -173,7 +178,7 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     }
 
     private boolean isBillingRequired() {
-        return (settings.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
+        return (options.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
     }
     //endregion
 
@@ -203,21 +208,21 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
 
     private void switchContentToShipping() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, ShippingFragment.newInstance(settings.getBillingAddressRequired(), settings.getColor()))
+                .replace(R.id.fragment_content, ShippingFragment.newInstance(options))
                 .addToBackStack(ShippingFragment.class.getName())
                 .commit();
     }
 
     private void switchContentToBilling() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, BillingFragment.newInstance(settings.getColor()))
+                .replace(R.id.fragment_content, BillingFragment.newInstance(options))
                 .addToBackStack(BillingFragment.class.getName())
                 .commit();
     }
 
     private void switchContentToPayment() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, PaymentFragment.newInstance(settings.getColor()))
+                .replace(R.id.fragment_content, PaymentFragment.newInstance(options))
                 .addToBackStack(PaymentFragment.class.getName())
                 .commit();
     }
@@ -226,9 +231,19 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         Intent intent = new Intent(this, ProcessingActivity.class);
         intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         intent.putExtra(EXTRA_PURCHASE, purchase);
-        intent.putExtra(EXTRA_SETTINGS, settings);
+        intent.putExtra(EXTRA_OPTIONS, options);
 
         startActivityForResult(intent, ProcessingActivity.REQUEST_TOKEN);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(EXTRA_OPTIONS, options);
+        outState.putParcelable(EXTRA_PURCHASE, purchase);
+
+        outState.putParcelable(EXTRA_PAYFORM_RESULT, payFormResult);
     }
 
     @Override

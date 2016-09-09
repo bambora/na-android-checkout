@@ -11,19 +11,19 @@ import android.os.Parcelable;
 /**
  * Created by dlight on 2016-08-09.
  */
-public class Settings implements Parcelable {
+public class Options implements Parcelable {
 
-    public static final Parcelable.Creator<Settings> CREATOR
-            = new Parcelable.Creator<Settings>() {
+    public static final Parcelable.Creator<Options> CREATOR
+            = new Parcelable.Creator<Options>() {
 
         @Override
-        public Settings createFromParcel(Parcel in) {
-            return new Settings(in);
+        public Options createFromParcel(Parcel in) {
+            return new Options(in);
         }
 
         @Override
-        public Settings[] newArray(int size) {
-            return new Settings[size];
+        public Options[] newArray(int size) {
+            return new Options[size];
         }
     };
 
@@ -33,7 +33,7 @@ public class Settings implements Parcelable {
     private Boolean shippingAddressRequired;
     private int tokenRequestTimeoutInSeconds;
 
-    public Settings() {
+    public Options() {
         this.color = Color.parseColor("#067aed");
 
         this.billingAddressRequired = true;
@@ -42,7 +42,7 @@ public class Settings implements Parcelable {
     }
 
     //region Parcelable Implementation
-    private Settings(Parcel parcel) {
+    private Options(Parcel parcel) {
         color = parcel.readInt();
         billingAddressRequired = (parcel.readInt() == 0);
         shippingAddressRequired = (parcel.readInt() == 0);

@@ -17,7 +17,7 @@ import com.beanstream.demo.R;
 import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
-import com.beanstream.payform.models.Settings;
+import com.beanstream.payform.models.Options;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +34,7 @@ public class DemoActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent("payform.LAUNCH");
                 intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
-                intent.putExtra(PayFormActivity.EXTRA_SETTINGS, getSettingsForThisDemo());
+                intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getSettingsForThisDemo());
 
                 startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
             }
@@ -68,31 +68,31 @@ public class DemoActivity extends Activity {
         return purchase;
     }
 
-    private Settings getSettingsForThisDemo() {
+    private Options getSettingsForThisDemo() {
 
-        Settings settings = new Settings();
+        Options options = new Options();
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_color)).isChecked()) {
-            settings.setColor("#aa0000"); // default: "#067aed"
+            options.setColor("#aa0000"); // default: "#067aed"
         }
 //        if (!((CheckBox)findViewById(R.id.demo_checkbox_font)).isChecked()) {
-////        settings.setFontStyle(false); // default: true TODO
+////        options.setFontStyle(false); // default: true TODO
 //        }
 //        if (!((CheckBox)findViewById(R.id.demo_checkbox_image)).isChecked()) {
-////        settings.setImage(false); // default: true TODO
+////        options.setImage(false); // default: true TODO
 //        }
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_billing)).isChecked()) {
-            settings.setBillingAddressRequired(false); // default: true
+            options.setBillingAddressRequired(false); // default: true
         }
         if (!((CheckBox) findViewById(R.id.demo_checkbox_shipping)).isChecked()) {
-            settings.setShippingAddressRequired(false); // default: true
+            options.setShippingAddressRequired(false); // default: true
         }
         if (!((CheckBox) findViewById(R.id.demo_checkbox_timeout)).isChecked()) {
-            settings.setTokenRequestTimeoutInSeconds(7); // default: 6
+            options.setTokenRequestTimeoutInSeconds(7); // default: 6
         }
 
-        return settings;
+        return options;
     }
 
     private void hideResults() {

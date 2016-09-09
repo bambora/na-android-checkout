@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Address;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.validators.TextValidator;
 
 /**
@@ -25,7 +26,7 @@ import com.beanstream.payform.validators.TextValidator;
  */
 public class AddressFragment extends Fragment {
 
-    private int color;
+    private Options options;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -35,7 +36,9 @@ public class AddressFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
+            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
+        } else {
+            options = new Options();
         }
     }
 
@@ -75,7 +78,7 @@ public class AddressFragment extends Fragment {
     }
 
     public void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
+        ((TextView) view.findViewById(R.id.title_text)).setTextColor(options.getColor());
     }
 
     public void updateTitle(View view) {

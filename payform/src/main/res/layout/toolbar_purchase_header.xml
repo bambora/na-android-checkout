@@ -33,7 +33,7 @@
             android:textSize="@dimen/header_text_size_name" />
 
         <TextView
-            android:id="@+id/purchase_amount"
+            android:id="@+id/header_amount"
             style="@style/HeaderText"
             android:layout_below="@id/header_company_name"
             android:layout_toEndOf="@id/header_company_logo"
@@ -41,9 +41,9 @@
             android:textSize="@dimen/header_text_size_amount" />
 
         <TextView
-            android:id="@+id/purchase_description"
+            android:id="@+id/header_description"
             style="@style/HeaderText"
-            android:layout_below="@id/purchase_amount"
+            android:layout_below="@id/header_amount"
             android:layout_toEndOf="@id/header_company_logo"
             android:text="@string/purchase_description"
             android:textSize="@dimen/header_text_size_description" />

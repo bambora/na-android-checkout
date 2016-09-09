@@ -12,27 +12,28 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Options;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BillingFragment extends AddressFragment {
 
-    private int color;
+    private Options options;
 
     public BillingFragment() {
         // Required empty public constructor
     }
 
     /**
-     * @param color Primary color.
+     * @param options PayForm options.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static BillingFragment newInstance(int color) {
+    public static BillingFragment newInstance(Options options) {
         BillingFragment fragment = new BillingFragment();
 
         Bundle args = new Bundle();
-        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
+        args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
         fragment.setArguments(args);
         return fragment;
     }

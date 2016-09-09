@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.beanstream.payform.R;
 import com.beanstream.payform.fragments.ProcessingFragment;
 import com.beanstream.payform.models.CreditCard;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.Purchase;
-import com.beanstream.payform.models.Settings;
 import com.beanstream.payform.services.TokenReceiver;
 import com.beanstream.payform.services.TokenService;
 
@@ -26,8 +26,9 @@ public class ProcessingActivity extends AppCompatActivity {
     public TokenReceiver tokenReceiver;
 
     private CreditCard creditCard;
+
+    private Options options;
     private Purchase purchase;
-    private Settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,18 @@ public class ProcessingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         creditCard = intent.getParcelableExtra(TokenService.EXTRA_CREDIT_CARD);
-        purchase = intent.getParcelableExtra(PayFormActivity.EXTRA_PURCHASE);
-        settings = intent.getParcelableExtra(PayFormActivity.EXTRA_SETTINGS);
+        if (creditCard == null) {
+            creditCard = new CreditCard();
+        }
 
-        if (settings == null) {
-            settings = new Settings();
+        options = intent.getParcelableExtra(PayFormActivity.EXTRA_OPTIONS);
+        if (options == null) {
+            options = new Options();
+        }
+
+        purchase = intent.getParcelableExtra(PayFormActivity.EXTRA_PURCHASE);
+        if (purchase == null) {
+            purchase = new Purchase();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
@@ -48,14 +56,13 @@ public class ProcessingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        updatePrimaryColor();
         updatePurchaseHeader();
 
         if (savedInstanceState == null) {
             // First-time init;
 
             getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(purchase, settings.getColor())).commit();
+                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(options, purchase)).commit();
 
             setupTokenReceiver();
             startTokenService();
@@ -67,14 +74,19 @@ public class ProcessingActivity extends AppCompatActivity {
         // Disable back button
     }
 
-    private void updatePrimaryColor() {
-        findViewById(R.id.toolbar_header).setBackgroundColor(settings.getColor());
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
+        outState.putParcelable(PayFormActivity.EXTRA_PURCHASE, purchase);
     }
 
     private void updatePurchaseHeader() {
+        findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
-        ((TextView) findViewById(R.id.purchase_amount)).setText(purchase.getFormattedAmount());
-        ((TextView) findViewById(R.id.purchase_description)).setText(purchase.getDescription());
+        ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
+        ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());
     }
 
     public void setupTokenReceiver() {
@@ -99,8 +111,8 @@ public class ProcessingActivity extends AppCompatActivity {
 
     public void startTokenService() {
         Intent intent = new Intent(this, TokenService.class);
-        intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
         intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
+        intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
         startService(intent);
     }
 }

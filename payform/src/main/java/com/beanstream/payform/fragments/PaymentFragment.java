@@ -19,6 +19,7 @@ import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.models.CardInfo;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
@@ -29,20 +30,20 @@ import com.beanstream.payform.validators.TextValidator;
  * A simple {@link Fragment} subclass.
  */
 public class PaymentFragment extends Fragment {
-    private int color;
+    private Options options;
 
     public PaymentFragment() {
         // Required empty public constructor
     }
 
     /**
-     * @param color Primary color.
+     * @param options PayForm options.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static PaymentFragment newInstance(int color) {
+    public static PaymentFragment newInstance(Options options) {
         PaymentFragment fragment = new PaymentFragment();
         Bundle args = new Bundle();
-        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
+        args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +52,9 @@ public class PaymentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
+            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
+        } else {
+            options = new Options();
         }
     }
 
@@ -67,7 +70,7 @@ public class PaymentFragment extends Fragment {
     }
 
     private void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
+        ((TextView) view.findViewById(R.id.title_text)).setTextColor(options.getColor());
     }
 
     public CardInfo getCardInfo() {
