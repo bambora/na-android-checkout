@@ -46,8 +46,10 @@ public class Options implements Parcelable {
     //region Parcelable Implementation
     private Options(Parcel parcel) {
         color = parcel.readInt();
+
         billingAddressRequired = (parcel.readInt() == 0);
         shippingAddressRequired = (parcel.readInt() == 0);
+
         tokenRequestTimeoutInSeconds = parcel.readInt();
     }
     //endregion
@@ -58,12 +60,12 @@ public class Options implements Parcelable {
         return color;
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
     public void setColor(String colorHex) {
         this.color = Color.parseColor(colorHex);
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public Boolean getBillingAddressRequired() {
@@ -96,8 +98,10 @@ public class Options implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(color);
+
         parcel.writeInt(billingAddressRequired ? 0 : 1);
         parcel.writeInt(shippingAddressRequired ? 0 : 1);
+
         parcel.writeInt(tokenRequestTimeoutInSeconds);
     }
 

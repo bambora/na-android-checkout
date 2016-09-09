@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -110,7 +111,10 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
 
     private void updatePurchaseHeader() {
         findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
+
+        ((ImageView) findViewById(R.id.header_company_logo)).setImageResource(purchase.getCompanyLogoResourceId());
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
+
         ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
         ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());
     }

@@ -28,7 +28,10 @@ public class Purchase implements Parcelable {
         }
     };
 
+    //    private Bitmap companyLogo;
+    private int companyLogoResourceId;
     private String companyName;
+
     private Double amount; // required
     private String currency; // required
     private String description;
@@ -42,7 +45,9 @@ public class Purchase implements Parcelable {
     }
 
     private Purchase(Parcel parcel) {
+        companyLogoResourceId = parcel.readInt();
         companyName = parcel.readString();
+
         amount = parcel.readDouble();
         currency = parcel.readString();
         description = parcel.readString();
@@ -55,6 +60,14 @@ public class Purchase implements Parcelable {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public int getCompanyLogoResourceId() {
+        return companyLogoResourceId;
+    }
+
+    public void setCompanyLogoResourceId(int companyLogoResourceId) {
+        this.companyLogoResourceId = companyLogoResourceId;
     }
 
     public String getCurrency() {
@@ -88,7 +101,9 @@ public class Purchase implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(companyLogoResourceId);
         parcel.writeString(companyName);
+
         parcel.writeDouble(amount);
         parcel.writeString(currency);
         parcel.writeString(description);

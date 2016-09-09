@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.beanstream.demo.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
-import com.beanstream.payform.models.Options;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +33,8 @@ public class DemoActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent("payform.LAUNCH");
+                intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
                 intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
-                intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getSettingsForThisDemo());
 
                 startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
             }
@@ -62,26 +62,22 @@ public class DemoActivity extends Activity {
 
         Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
 
+        if (!((CheckBox) findViewById(R.id.demo_checkbox_image)).isChecked()) {
+            purchase.setCompanyLogoResourceId(R.drawable.custom_company_logo); // default: null
+        }
         purchase.setCompanyName("Cabinet of Curiosities"); // default: ""
         purchase.setDescription("Item 1, Item 2, Item 3, Item 4"); // default: ""
 
         return purchase;
     }
 
-    private Options getSettingsForThisDemo() {
+    private Options getOptionsForThisDemo() {
 
         Options options = new Options();
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_color)).isChecked()) {
             options.setColor("#aa0000"); // default: "#067aed"
         }
-//        if (!((CheckBox)findViewById(R.id.demo_checkbox_font)).isChecked()) {
-////        options.setFontStyle(false); // default: true TODO
-//        }
-//        if (!((CheckBox)findViewById(R.id.demo_checkbox_image)).isChecked()) {
-////        options.setImage(false); // default: true TODO
-//        }
-
         if (!((CheckBox) findViewById(R.id.demo_checkbox_billing)).isChecked()) {
             options.setBillingAddressRequired(false); // default: true
         }
