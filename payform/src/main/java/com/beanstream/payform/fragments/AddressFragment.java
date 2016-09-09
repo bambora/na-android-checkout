@@ -26,7 +26,16 @@ import com.beanstream.payform.validators.TextValidator;
  */
 public class AddressFragment extends Fragment {
 
+    public final static String EXTRA_ADDRESS = "com.beanstream.payform.models.address";
+
+    private Address address;
     private Options options;
+
+    public boolean isBillingRequired() {
+        return billingRequired;
+    }
+
+    public boolean billingRequired;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -35,11 +44,16 @@ public class AddressFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
+            address = getArguments().getParcelable(EXTRA_ADDRESS);
             options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
         } else {
+            address = new Address();
             options = new Options();
         }
+
+        billingRequired = options.getBillingAddressRequired();
     }
 
     @Override
@@ -49,6 +63,7 @@ public class AddressFragment extends Fragment {
 
         configureBillingCheckBox(view);
         setValidators(view);
+        updateAddress(view, address);
         updatePrimaryColor(view);
         updateTitle(view);
 
@@ -77,6 +92,15 @@ public class AddressFragment extends Fragment {
         textView.setOnFocusChangeListener(new TextValidator(textView));
     }
 
+    public void updateAddress(View view, Address address) {
+        ((TextView) view.findViewById(R.id.address_name)).setText(address.getName());
+        ((TextView) view.findViewById(R.id.address_city)).setText(address.getCity());
+        ((TextView) view.findViewById(R.id.address_country)).setText(address.getCountry());
+        ((TextView) view.findViewById(R.id.address_postal)).setText(address.getPostal());
+        ((TextView) view.findViewById(R.id.address_province)).setText(address.getProvince());
+        ((TextView) view.findViewById(R.id.address_street)).setText(address.getStreet());
+    }
+
     public void updatePrimaryColor(View view) {
         ((TextView) view.findViewById(R.id.title_text)).setTextColor(options.getColor());
     }
@@ -89,6 +113,7 @@ public class AddressFragment extends Fragment {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
         checkBox.setVisibility(View.GONE);
     }
+
 
     public Address getAddress() {
 

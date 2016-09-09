@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.Options;
 import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
@@ -30,7 +30,10 @@ import com.beanstream.payform.validators.TextValidator;
  * A simple {@link Fragment} subclass.
  */
 public class PaymentFragment extends Fragment {
+    public final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
+
     private Options options;
+    private CardInfo cardInfo;
 
     public PaymentFragment() {
         // Required empty public constructor
@@ -40,10 +43,11 @@ public class PaymentFragment extends Fragment {
      * @param options PayForm options.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static PaymentFragment newInstance(Options options) {
+    public static PaymentFragment newInstance(Options options, CardInfo cardInfo) {
         PaymentFragment fragment = new PaymentFragment();
         Bundle args = new Bundle();
         args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
+        args.putParcelable(EXTRA_CARDINFO, cardInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +56,10 @@ public class PaymentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            cardInfo = getArguments().getParcelable(EXTRA_CARDINFO);
             options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
         } else {
+            cardInfo = new CardInfo();
             options = new Options();
         }
     }
@@ -65,8 +71,15 @@ public class PaymentFragment extends Fragment {
 
         setValidators(view);
         updatePrimaryColor(view);
+        updateCardInfo(view, cardInfo);
 
         return view;
+    }
+
+
+    public void updateCardInfo(View view, CardInfo cardInfo) {
+        ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());
+        ((TextView) view.findViewById(R.id.pay_email)).setText(cardInfo.getEmail());
     }
 
     private void updatePrimaryColor(View view) {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Address;
 import com.beanstream.payform.models.Options;
 
 /**
@@ -19,21 +20,21 @@ import com.beanstream.payform.models.Options;
  */
 public class BillingFragment extends AddressFragment {
 
-    private Options options;
-
     public BillingFragment() {
         // Required empty public constructor
     }
 
     /**
      * @param options PayForm options.
+     * @param address Saved address.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static BillingFragment newInstance(Options options) {
+    public static BillingFragment newInstance(Options options, Address address) {
         BillingFragment fragment = new BillingFragment();
 
         Bundle args = new Bundle();
         args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
+        args.putParcelable(EXTRA_ADDRESS, address);
         fragment.setArguments(args);
         return fragment;
     }

@@ -34,6 +34,7 @@
     <string name="processing_secure">secured by beanstream</string>
     <string name="processing_target">payment</string>
     <string name="processing_text">processing</string>
+    <string name="processing_amount">AMOUNT</string>
 
     <string name="purchase_logo">LOGO</string>
     <string name="purchase_name">COMPANY NAME</string>

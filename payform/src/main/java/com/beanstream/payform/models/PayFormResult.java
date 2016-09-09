@@ -38,7 +38,12 @@ public class PayFormResult implements Parcelable {
     }
 
     public PayFormResult() {
+        cardInfo = new CardInfo();
+
         isBillingSameAsShipping = false;
+
+        billing = new Address();
+        shipping = new Address();
     }
 
     @Override

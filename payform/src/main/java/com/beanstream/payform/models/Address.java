@@ -32,6 +32,12 @@ public class Address implements Parcelable {
     private String country;
 
     public Address() {
+        name = "";
+        street = "";
+        postal = "";
+        city = "";
+        province = "";;
+        country = "";
     }
 
     private Address(Parcel parcel) {

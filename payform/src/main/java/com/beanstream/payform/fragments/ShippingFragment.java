@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Address;
 import com.beanstream.payform.models.Options;
 
 /**
@@ -29,6 +30,7 @@ public class ShippingFragment extends AddressFragment {
     };
 
     private OnBillingCheckBoxChangedListener billingCallback = dummyBillingCallback;
+
     private Options options;
 
     public ShippingFragment() {
@@ -37,25 +39,16 @@ public class ShippingFragment extends AddressFragment {
 
     /**
      * @param options PayForm options.
+     * @param address Saved address.
      * @return A new instance of fragment ShippingFragment.
      */
-    public static ShippingFragment newInstance(Options options) {
+    public static ShippingFragment newInstance(Options options, Address address) {
         ShippingFragment fragment = new ShippingFragment();
-
         Bundle args = new Bundle();
         args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
+        args.putParcelable(EXTRA_ADDRESS, address);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
-        } else {
-            options = new Options();
-        }
     }
 
     @Override
@@ -86,7 +79,7 @@ public class ShippingFragment extends AddressFragment {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
         checkBox.setVisibility(View.GONE);
 
-        if (options.getBillingAddressRequired()) {
+        if (isBillingRequired()) {
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

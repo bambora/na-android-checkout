@@ -31,6 +31,7 @@ public class Options implements Parcelable {
 
     private Boolean billingAddressRequired;
     private Boolean shippingAddressRequired;
+
     private int tokenRequestTimeoutInSeconds;
 
     public Options() {
@@ -38,6 +39,7 @@ public class Options implements Parcelable {
 
         this.billingAddressRequired = true;
         this.shippingAddressRequired = true;
+
         this.tokenRequestTimeoutInSeconds = 6;
     }
 

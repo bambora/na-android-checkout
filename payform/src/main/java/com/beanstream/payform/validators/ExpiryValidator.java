@@ -6,6 +6,7 @@ package com.beanstream.payform.validators;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -49,11 +50,17 @@ public class ExpiryValidator extends TextValidator {
     }
 
     public static String getMonthFromExpiry(String expiry) {
+        Log.d("getMonthFromExpiry", "expiry" + expiry);
         return expiry.split(EXPIRY_DELIMITER)[0];
     }
 
     public static String getYearFromExpiry(String expiry) {
-        return expiry.split(EXPIRY_DELIMITER)[1];
+        String year = "";
+        String[] split = expiry.split(EXPIRY_DELIMITER);
+        if (split.length > 1) {
+            return split[1];
+        }
+        return year;
     }
 
     private static boolean isValidMonth(String expiry) {
