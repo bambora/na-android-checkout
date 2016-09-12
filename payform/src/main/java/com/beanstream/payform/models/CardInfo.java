@@ -80,11 +80,10 @@ public class CardInfo implements Parcelable {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("{")
-                .append("code:").append(code).append(", ")
-                .append("email:").append(email).append(", ")
-                .append("name:").append(name)
-                .append("}").toString();
+        return "{" +
+                "code:" + code + ", " +
+                "email:" + email + ", " +
+                "name:" + name +
+                "}";
     }
 }

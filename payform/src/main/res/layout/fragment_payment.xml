@@ -50,7 +50,7 @@
                 android:id="@+id/pay_card_number"
                 android:layout_span="2"
                 android:digits="0123456789 "
-                android:drawableRight="@drawable/ic_credit_card_black"
+                android:drawableEnd="@drawable/ic_credit_card_black"
                 android:hint="@string/pay_hint_card_number"
                 android:inputType="number"
                 android:nextFocusDown="@+id/pay_expiry"
@@ -74,7 +74,7 @@
                 android:id="@+id/pay_cvv"
                 android:layout_width="0dp"
                 android:layout_weight=".3"
-                android:drawableRight="@drawable/cvc_hint_color"
+                android:drawableEnd="@drawable/cvc_hint_color"
                 android:hint="@string/pay_hint_cvv"
                 android:inputType="number" />
         </TableRow>

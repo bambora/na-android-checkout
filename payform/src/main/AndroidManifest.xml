@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PayForm">
         <activity android:name=".activities.PayFormActivity" />
-        <activity android:name=".activities.ProcessingActivity"></activity>
+        <activity android:name=".activities.ProcessingActivity"/>
 
         <service
             android:name=".services.TokenService"

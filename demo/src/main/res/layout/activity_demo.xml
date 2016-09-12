@@ -1,104 +1,99 @@
 <!--
   ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.beanstream.demo.activities.DemoActivity">
 
-    <RelativeLayout
+    <!--Header-->
+    <ImageView
+        android:id="@+id/bic_secure_header"
+        style="@style/BICSecurePayForm"
+        android:layout_alignParentTop="true"
+        android:background="@color/bicSecurePayForm"
+        android:contentDescription="@string/processing_secure" />
+
+    <!--Settings-->
+    <TableLayout
+        android:id="@+id/demo_settings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bic_secure_header"
+        android:layout_margin="@dimen/activity_padding"
+        android:stretchColumns="*">
 
-        <!--Header-->
-        <ImageView
-            android:id="@+id/bic_secure_header"
-            style="@style/BICSecurePayForm"
-            android:layout_alignParentTop="true"
-            android:background="@color/bicSecurePayForm" />
+        <TableRow>
 
-        <!--Settings-->
-        <TableLayout
-            android:id="@+id/demo_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bic_secure_header"
-            android:layout_margin="@dimen/activity_padding"
-            android:stretchColumns="*">
+            <TextView
+                android:id="@+id/demo_settings_label"
+                style="@style/TitleText"
+                android:layout_span="3"
+                android:text="@string/demo_settings_label" />
+        </TableRow>
 
-            <TableRow>
+        <TableRow>
 
-                <TextView
-                    android:id="@+id/demo_settings_label"
-                    style="@style/TitleText"
-                    android:layout_span="3"
-                    android:text="@string/demo_settings_label" />
-            </TableRow>
+            <CheckBox
+                android:id="@+id/demo_checkbox_color"
+                style="@style/DemoCheckBox"
+                android:text="@string/demo_checkbox_label_color" />
 
-            <TableRow>
+            <CheckBox
+                android:id="@+id/demo_checkbox_image"
+                style="@style/DemoCheckBox"
+                android:text="@string/demo_checkbox_label_image" />
+        </TableRow>
 
-                <CheckBox
-                    android:id="@+id/demo_checkbox_color"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_color" />
+        <TableRow>
 
-                <CheckBox
-                    android:id="@+id/demo_checkbox_image"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_image" />
-            </TableRow>
+            <CheckBox
+                android:id="@+id/demo_checkbox_billing"
+                style="@style/DemoCheckBox"
+                android:text="@string/demo_checkbox_label_billing" />
 
-            <TableRow>
+            <CheckBox
+                android:id="@+id/demo_checkbox_shipping"
+                style="@style/DemoCheckBox"
+                android:text="@string/demo_checkbox_label_shipping" />
 
-                <CheckBox
-                    android:id="@+id/demo_checkbox_billing"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_billing" />
+            <CheckBox
+                android:id="@+id/demo_checkbox_timeout"
+                style="@style/DemoCheckBox"
+                android:text="@string/demo_checkbox_label_timeout" />
+        </TableRow>
+    </TableLayout>
 
-                <CheckBox
-                    android:id="@+id/demo_checkbox_shipping"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_shipping" />
+    <!--Title-->
+    <TextView
+        android:id="@+id/demo_pay_label"
+        style="@style/TitleText"
+        android:layout_alignParentTop="false"
+        android:layout_below="@id/demo_settings"
+        android:text="@string/demo_pay_label" />
 
-                <CheckBox
-                    android:id="@+id/demo_checkbox_timeout"
-                    style="@style/DemoCheckBox"
-                    android:text="@string/demo_checkbox_label_timeout" />
-            </TableRow>
-        </TableLayout>
+    <!--Button-->
+    <Button
+        android:id="@+id/demo_pay_button"
+        style="@style/PrimaryButton"
+        android:layout_below="@+id/demo_pay_label"
+        android:text="@string/demo_pay_button" />
 
-        <!--Title-->
-        <TextView
-            android:id="@+id/demo_pay_label"
-            style="@style/TitleText"
-            android:layout_alignParentTop="false"
-            android:layout_below="@id/demo_settings"
-            android:text="@string/demo_pay_label" />
+    <!--Results-->
+    <TextView
+        android:id="@+id/demo_payform_error"
+        style="@style/ErrorText"
+        android:layout_below="@+id/demo_pay_button"
+        android:gravity="center"
+        android:text="@string/demo_payform_error"
+        android:visibility="gone" />
 
-        <!--Button-->
-        <Button
-            android:id="@+id/demo_pay_button"
-            style="@style/PrimaryButton"
-            android:layout_below="@+id/demo_pay_label"
-            android:text="@string/demo_pay_button" />
-
-        <!--Results-->
-        <TextView
-            android:id="@+id/demo_payform_error"
-            style="@style/ErrorText"
-            android:layout_below="@+id/demo_pay_button"
-            android:gravity="center"
-            android:text="@string/demo_payform_error"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/demo_payform_results"
-            style="@style/MessageText"
-            android:layout_below="@+id/demo_pay_button"
-            android:gravity="center"
-            android:text="@string/demo_payform_token"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-</FrameLayout>
+    <TextView
+        android:id="@+id/demo_payform_results"
+        style="@style/MessageText"
+        android:layout_below="@+id/demo_pay_button"
+        android:gravity="center"
+        android:text="@string/demo_payform_token"
+        android:visibility="gone" />
+</RelativeLayout>

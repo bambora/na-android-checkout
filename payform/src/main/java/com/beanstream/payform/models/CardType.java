@@ -57,7 +57,7 @@ public class CardType {
         return INVALID;
     }
 
-    public static ArrayList getSegmentLengthsForCardType(String cardType) {
+    public static ArrayList<Integer> getSegmentLengthsForCardType(String cardType) {
         ArrayList<Integer> format = new ArrayList<>();
         if (cardType != null) {
             cardType = cardType.replace(" ", "");

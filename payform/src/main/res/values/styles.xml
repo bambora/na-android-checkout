@@ -57,7 +57,7 @@
         <item name="android:layout_margin">@dimen/title_margin</item>
     </style>
 
-    <style name="MessageText" parent="@style/MediumText"></style>
+    <style name="MessageText" parent="@style/MediumText"/>
 
     <style name="ErrorText" parent="@style/MediumText">
         <item name="android:textColor">@color/bicErrorText</item>

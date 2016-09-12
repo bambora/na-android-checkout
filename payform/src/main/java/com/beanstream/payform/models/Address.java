@@ -36,7 +36,7 @@ public class Address implements Parcelable {
         street = "";
         postal = "";
         city = "";
-        province = "";;
+        province = "";
         country = "";
     }
 
@@ -118,14 +118,13 @@ public class Address implements Parcelable {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("{")
-                .append("name:").append(name).append(", ")
-                .append("street:").append(street).append(", ")
-                .append("postal:").append(postal).append(", ")
-                .append("city:").append(city).append(", ")
-                .append("province:").append(province).append(", ")
-                .append("country:").append(country)
-                .append("}").toString();
+        return "{" +
+                "name:" + name + ", " +
+                "street:" + street + ", " +
+                "postal:" + postal + ", " +
+                "city:" + city + ", " +
+                "province:" + province + ", " +
+                "country:" + country +
+                "}";
     }
 }

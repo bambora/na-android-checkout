@@ -24,9 +24,6 @@ import static org.junit.Assert.assertTrue;
 public class CardNumberValidatorTest {
     public final static String cardnumber_luhn_valid = "1234 5678 9012 3452";
 
-    public final static String expiry_month_valid = "12";
-    public final static String expiry_year_valid = "20";
-
     public final static String amex_valid = "3782 8224 6310 005";
     public final static String amex_invalid_cardtype = "328282246310005";
     public final static String amex_invalid_number = "37828224631000555";

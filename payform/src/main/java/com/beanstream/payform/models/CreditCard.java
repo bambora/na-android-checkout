@@ -35,18 +35,6 @@ public class CreditCard implements Parcelable {
     public CreditCard() {
     }
 
-    public CreditCard(String cardNumber) {
-        setCardNumber(cardNumber);
-    }
-
-    public CreditCard(String cardNumber, String expiryMonth, String expiryYear, String cvv) {
-        this.cardNumber = cardNumber;
-        this.cardType = CardType.getCardTypeFromCardNumber(cardNumber);
-        this.expiryMonth = expiryMonth;
-        this.expiryYear = expiryYear;
-        this.cvv = cvv;
-    }
-
     private CreditCard(Parcel parcel) {
         this.cardNumber = parcel.readString();
         this.expiryMonth = parcel.readString();

@@ -119,7 +119,7 @@ public class DemoActivity extends Activity {
         String result = payFormResult.toString();
         try {
             result = new JSONObject(result).toString(4);
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
 
         }
         text.setText(result);
