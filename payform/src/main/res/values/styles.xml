@@ -27,7 +27,7 @@
     </style>
 
     <style name="BICSecureProcessing" parent="@style/BICSecure">
-        <item name="android:src">@drawable/ic_verified_user</item>
+        <item name="android:src">@drawable/ic_verified</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.Medium">

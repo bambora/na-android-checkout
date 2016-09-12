@@ -84,7 +84,7 @@ public class DemoActivity extends Activity {
         }
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_theme)).isChecked()) {
-            options.setThemeResourceId(R.style.Theme_PayFormCustom);
+            options.setThemeResourceId(R.style.Theme_PayFormCustom); // default: Theme.PayForm
         }
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_timeout)).isChecked()) {
