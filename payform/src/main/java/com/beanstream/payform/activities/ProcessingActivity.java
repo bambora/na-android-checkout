@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -84,6 +86,15 @@ public class ProcessingActivity extends AppCompatActivity {
 
     private void updatePurchaseHeader() {
         findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
+
+        ImageView imageView = ((ImageView) findViewById(R.id.header_company_logo));
+        if (purchase.getCompanyLogoResourceId() == 0) {
+            imageView.setVisibility(View.GONE);
+        } else {
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(purchase.getCompanyLogoResourceId());
+        }
+
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
         ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
         ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());

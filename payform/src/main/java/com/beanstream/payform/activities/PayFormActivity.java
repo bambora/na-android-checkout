@@ -112,7 +112,13 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
     private void updatePurchaseHeader() {
         findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
 
-        ((ImageView) findViewById(R.id.header_company_logo)).setImageResource(purchase.getCompanyLogoResourceId());
+        ImageView imageView = ((ImageView) findViewById(R.id.header_company_logo));
+        if (purchase.getCompanyLogoResourceId() == 0) {
+            imageView.setVisibility(View.GONE);
+        } else {
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(purchase.getCompanyLogoResourceId());
+        }
         ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
 
         ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
