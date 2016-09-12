@@ -4,7 +4,6 @@
 
 package com.beanstream.payform.models;
 
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -27,10 +26,10 @@ public class Options implements Parcelable {
         }
     };
 
-    private int color;
-
     private int companyLogoResourceId;
     private String companyName;
+
+    private int themeResourceId;
 
     private Boolean billingAddressRequired;
     private Boolean shippingAddressRequired;
@@ -38,27 +37,29 @@ public class Options implements Parcelable {
     private int tokenRequestTimeoutInSeconds;
 
     public Options() {
-        this.color = Color.parseColor("#067aed");
+        this.companyLogoResourceId = 0;
+        this.companyName = "";
 
         this.billingAddressRequired = true;
         this.shippingAddressRequired = true;
+
+        this.themeResourceId = 0;
 
         this.tokenRequestTimeoutInSeconds = 6;
     }
 
     //region Parcelable Implementation
     private Options(Parcel parcel) {
-        color = parcel.readInt();
-
         companyLogoResourceId = parcel.readInt();
         companyName = parcel.readString();
 
         billingAddressRequired = (parcel.readInt() == 0);
         shippingAddressRequired = (parcel.readInt() == 0);
 
+        themeResourceId = parcel.readInt();
+
         tokenRequestTimeoutInSeconds = parcel.readInt();
     }
-
     //endregion
 
     //region Getters and Setters
@@ -74,20 +75,8 @@ public class Options implements Parcelable {
         return companyLogoResourceId;
     }
 
-    public void setCompanyLogoResourceId(int companyLogoResourceId) {
-        this.companyLogoResourceId = companyLogoResourceId;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(String colorHex) {
-        this.color = Color.parseColor(colorHex);
-    }
-
-    public void setColor(int color) {
-        this.color = color;
+    public void setCompanyLogoResourceId(int resourceId) {
+        this.companyLogoResourceId = resourceId;
     }
 
     public Boolean getBillingAddressRequired() {
@@ -106,7 +95,14 @@ public class Options implements Parcelable {
     public void setShippingAddressRequired(Boolean shippingAddressRequired) {
         this.shippingAddressRequired = shippingAddressRequired;
     }
-    //endregion
+
+    public int getThemeResourceId() {
+        return themeResourceId;
+    }
+
+    public void setThemeResourceId(int resourceId) {
+        this.themeResourceId = resourceId;
+    }
 
     public int getTokenRequestTimeoutInSeconds() {
         return tokenRequestTimeoutInSeconds;
@@ -115,17 +111,18 @@ public class Options implements Parcelable {
     public void setTokenRequestTimeoutInSeconds(int tokenRequestTimeoutInSeconds) {
         this.tokenRequestTimeoutInSeconds = tokenRequestTimeoutInSeconds;
     }
+    //endregion
 
     //region Parcelable Implementation
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeInt(color);
-
         parcel.writeInt(companyLogoResourceId);
         parcel.writeString(companyName);
 
         parcel.writeInt(billingAddressRequired ? 0 : 1);
         parcel.writeInt(shippingAddressRequired ? 0 : 1);
+
+        parcel.writeInt(themeResourceId);
 
         parcel.writeInt(tokenRequestTimeoutInSeconds);
     }

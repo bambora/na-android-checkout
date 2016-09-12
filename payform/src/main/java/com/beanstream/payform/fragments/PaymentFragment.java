@@ -15,11 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.Options;
 import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
@@ -32,7 +30,6 @@ import com.beanstream.payform.validators.TextValidator;
 public class PaymentFragment extends Fragment {
     public final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
 
-    private Options options;
     private CardInfo cardInfo;
 
     public PaymentFragment() {
@@ -40,13 +37,12 @@ public class PaymentFragment extends Fragment {
     }
 
     /**
-     * @param options PayForm options.
+     * @param cardInfo Non-sensitive card information.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static PaymentFragment newInstance(Options options, CardInfo cardInfo) {
+    public static PaymentFragment newInstance(CardInfo cardInfo) {
         PaymentFragment fragment = new PaymentFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
         args.putParcelable(EXTRA_CARDINFO, cardInfo);
         fragment.setArguments(args);
         return fragment;
@@ -57,10 +53,8 @@ public class PaymentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             cardInfo = getArguments().getParcelable(EXTRA_CARDINFO);
-            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
         } else {
             cardInfo = new CardInfo();
-            options = new Options();
         }
     }
 
@@ -70,7 +64,6 @@ public class PaymentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
         setValidators(view);
-        updatePrimaryColor(view);
         updateCardInfo(view, cardInfo);
 
         return view;
@@ -80,10 +73,6 @@ public class PaymentFragment extends Fragment {
     public void updateCardInfo(View view, CardInfo cardInfo) {
         ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());
         ((TextView) view.findViewById(R.id.pay_email)).setText(cardInfo.getEmail());
-    }
-
-    private void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(options.getColor());
     }
 
     public CardInfo getCardInfo() {

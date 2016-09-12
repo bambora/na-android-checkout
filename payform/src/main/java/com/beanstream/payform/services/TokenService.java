@@ -113,7 +113,7 @@ public class TokenService extends IntentService {
                 }
                 reader.endObject();
             } else {
-                Log.d("HttpResult", connection.getResponseMessage());
+                Log.w("HttpResult", connection.getResponseMessage());
             }
 
         } catch (Exception e) {

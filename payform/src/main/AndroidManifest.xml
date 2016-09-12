@@ -15,8 +15,6 @@
         <service
             android:name=".services.TokenService"
             android:exported="false" />
-
-        <activity android:name=".activities.BICActivity"></activity>
     </application>
 
 </manifest>

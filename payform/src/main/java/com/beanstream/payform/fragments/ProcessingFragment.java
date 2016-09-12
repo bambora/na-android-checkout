@@ -25,7 +25,6 @@ import com.beanstream.payform.models.Purchase;
  */
 public class ProcessingFragment extends Fragment {
 
-    private Options options;
     private Purchase purchase;
 
     public ProcessingFragment() {
@@ -51,10 +50,8 @@ public class ProcessingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
         } else {
-            options = new Options();
             purchase = new Purchase(0.0, "");
         }
     }
@@ -66,7 +63,6 @@ public class ProcessingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_processing, container, false);
 
         updateAmount(view);
-        updatePrimaryColor(view);
 
         return view;
     }
@@ -77,12 +73,5 @@ public class ProcessingFragment extends Fragment {
         if (textView != null) {
             textView.setText(purchase.getFormattedAmount());
         }
-    }
-
-    private void updatePrimaryColor(View view) {
-
-        ((TextView) view.findViewById(R.id.processing_text)).setTextColor(options.getColor());
-        ((TextView) view.findViewById(R.id.processing_amount)).setTextColor(options.getColor());
-        ((TextView) view.findViewById(R.id.processing_target)).setTextColor(options.getColor());
     }
 }

@@ -23,24 +23,16 @@ import com.beanstream.payform.fragments.PaymentFragment;
 import com.beanstream.payform.fragments.ShippingFragment;
 import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.PayFormResult;
-import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.services.TokenService;
 import com.beanstream.payform.validators.ViewValidator;
 
-public class PayFormActivity extends BICActivity implements FragmentManager.OnBackStackChangedListener,
+public class PayFormActivity extends BaseActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
 
     public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
 
-    public final static String EXTRA_OPTIONS = "com.beanstream.payform.models.options";
-    public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
-
     public final static int REQUEST_PAYFORM = 1;
-
-    private Options options;
-    private Purchase purchase;
 
     // PayFormResult
     private PayFormResult payFormResult;
@@ -53,15 +45,6 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
         setContentView(R.layout.activity_pay_form);
 
         Intent intent = getIntent();
-        options = intent.getParcelableExtra(EXTRA_OPTIONS);
-        if (options == null) {
-            options = new Options();
-        }
-        purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
-        if (purchase == null) {
-            purchase = new Purchase(0.0, "");
-        }
-
         payFormResult = intent.getParcelableExtra(EXTRA_PAYFORM_RESULT);
         if (payFormResult == null) {
             payFormResult = new PayFormResult();
@@ -99,7 +82,7 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
     }
 
     private void updatePrimaryColor() {
-        findViewById(R.id.button_next).setBackgroundColor(options.getColor());
+        findViewById(R.id.button_next).setBackgroundColor(getThemePrimaryColor(this));
     }
 
     @Override
@@ -203,7 +186,7 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
     private void switchContentToShipping() {
         String tag = ShippingFragment.class.getName();
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, ShippingFragment.newInstance(options, payFormResult.getShipping()), tag)
+                .replace(R.id.fragment_content, ShippingFragment.newInstance(payFormResult.getShipping(), options.getBillingAddressRequired()), tag)
                 .addToBackStack(tag)
                 .commit();
     }
@@ -211,7 +194,7 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
     private void switchContentToBilling() {
         String tag = BillingFragment.class.getName();
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, BillingFragment.newInstance(options, payFormResult.getBilling()), tag)
+                .replace(R.id.fragment_content, BillingFragment.newInstance(payFormResult.getBilling()), tag)
                 .addToBackStack(tag)
                 .commit();
     }
@@ -219,7 +202,7 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
     private void switchContentToPayment() {
         String tag = PaymentFragment.class.getName();
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, PaymentFragment.newInstance(options, payFormResult.getCardInfo()), tag)
+                .replace(R.id.fragment_content, PaymentFragment.newInstance(payFormResult.getCardInfo()), tag)
                 .addToBackStack(tag)
                 .commit();
     }
@@ -236,9 +219,6 @@ public class PayFormActivity extends BICActivity implements FragmentManager.OnBa
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putParcelable(EXTRA_OPTIONS, options);
-        outState.putParcelable(EXTRA_PURCHASE, purchase);
 
         outState.putParcelable(EXTRA_PAYFORM_RESULT, payFormResult);
     }

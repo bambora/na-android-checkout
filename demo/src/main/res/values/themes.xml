@@ -1,0 +1,10 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
+<resources>
+    <style name="Theme.PayFormCustom" parent="Theme.PayForm">
+        <item name="colorPrimary">@android:color/holo_purple</item>
+        <item name="colorAccent">@android:color/holo_orange_light</item>
+        <item name="android:textColorPrimary">@android:color/holo_green_dark</item>
+    </style>
+</resources>

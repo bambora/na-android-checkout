@@ -16,9 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Address;
-import com.beanstream.payform.models.Options;
 import com.beanstream.payform.validators.TextValidator;
 
 /**
@@ -29,13 +27,6 @@ public class AddressFragment extends Fragment {
     public final static String EXTRA_ADDRESS = "com.beanstream.payform.models.address";
 
     private Address address;
-    private Options options;
-
-    public boolean isBillingRequired() {
-        return billingRequired;
-    }
-
-    public boolean billingRequired;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -47,13 +38,9 @@ public class AddressFragment extends Fragment {
 
         if (getArguments() != null) {
             address = getArguments().getParcelable(EXTRA_ADDRESS);
-            options = getArguments().getParcelable(PayFormActivity.EXTRA_OPTIONS);
         } else {
             address = new Address();
-            options = new Options();
         }
-
-        billingRequired = options.getBillingAddressRequired();
     }
 
     @Override
@@ -64,7 +51,6 @@ public class AddressFragment extends Fragment {
         configureBillingCheckBox(view);
         setValidators(view);
         updateAddress(view, address);
-        updatePrimaryColor(view);
         updateTitle(view);
 
         return view;
@@ -99,10 +85,6 @@ public class AddressFragment extends Fragment {
         ((TextView) view.findViewById(R.id.address_postal)).setText(address.getPostal());
         ((TextView) view.findViewById(R.id.address_province)).setText(address.getProvince());
         ((TextView) view.findViewById(R.id.address_street)).setText(address.getStreet());
-    }
-
-    public void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(options.getColor());
     }
 
     public void updateTitle(View view) {

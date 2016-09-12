@@ -14,41 +14,49 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Address;
-import com.beanstream.payform.models.Options;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ShippingFragment extends AddressFragment {
 
+    public final static String EXTRA_BILLING_REQUIRED = "com.beanstream.payform.models.options.billingrequired";
     private static OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
         @Override
         public void onBillingCheckBoxChanged(boolean isChecked) {
         }
     };
-
+    private boolean billingRequired;
     private OnBillingCheckBoxChangedListener billingCallback = dummyBillingCallback;
-
-    private Options options;
 
     public ShippingFragment() {
         // Required empty public constructor
     }
 
     /**
-     * @param options PayForm options.
-     * @param address Saved address.
+     * @param address         Saved address.
+     * @param billingRequired Whether or not to show billing checkbox.
      * @return A new instance of fragment ShippingFragment.
      */
-    public static ShippingFragment newInstance(Options options, Address address) {
+    public static ShippingFragment newInstance(Address address, boolean billingRequired) {
         ShippingFragment fragment = new ShippingFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
         args.putParcelable(EXTRA_ADDRESS, address);
+        args.putBoolean(EXTRA_BILLING_REQUIRED, billingRequired);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            billingRequired = getArguments().getBoolean(EXTRA_BILLING_REQUIRED);
+        } else {
+            billingRequired = true;
+        }
     }
 
     @Override
@@ -79,7 +87,7 @@ public class ShippingFragment extends AddressFragment {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
         checkBox.setVisibility(View.GONE);
 
-        if (isBillingRequired()) {
+        if (billingRequired) {
             checkBox.setVisibility(View.VISIBLE);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

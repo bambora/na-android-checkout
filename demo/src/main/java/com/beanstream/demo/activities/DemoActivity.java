@@ -71,9 +71,6 @@ public class DemoActivity extends Activity {
 
         Options options = new Options();
 
-        if (!((CheckBox) findViewById(R.id.demo_checkbox_color)).isChecked()) {
-            options.setColor("#aa0000"); // default: "#067aed"
-        }
         if (!((CheckBox) findViewById(R.id.demo_checkbox_image)).isChecked()) {
             options.setCompanyLogoResourceId(R.drawable.custom_company_logo); // default: null
         }
@@ -85,6 +82,11 @@ public class DemoActivity extends Activity {
         if (!((CheckBox) findViewById(R.id.demo_checkbox_shipping)).isChecked()) {
             options.setShippingAddressRequired(false); // default: true
         }
+
+        if (!((CheckBox) findViewById(R.id.demo_checkbox_theme)).isChecked()) {
+            options.setThemeResourceId(R.style.Theme_PayFormCustom);
+        }
+
         if (!((CheckBox) findViewById(R.id.demo_checkbox_timeout)).isChecked()) {
             options.setTokenRequestTimeoutInSeconds(7); // default: 6
         }
