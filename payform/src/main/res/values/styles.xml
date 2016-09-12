@@ -64,12 +64,10 @@
     </style>
 
     <style name="ProcessingText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicPrimary</item>
         <item name="android:textSize">@dimen/processing_text_size</item>
         <item name="android:padding">@dimen/processing_text_padding</item>
     </style>
 
     <style name="ProcessingSecureText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicPrimaryText</item>
     </style>
 </resources>
