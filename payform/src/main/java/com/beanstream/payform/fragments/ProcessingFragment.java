@@ -55,7 +55,7 @@ public class ProcessingFragment extends Fragment {
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
         } else {
             options = new Options();
-            purchase = new Purchase();
+            purchase = new Purchase(0.0, "");
         }
     }
 

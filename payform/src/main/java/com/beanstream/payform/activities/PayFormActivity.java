@@ -11,12 +11,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -32,7 +29,7 @@ import com.beanstream.payform.models.Purchase;
 import com.beanstream.payform.services.TokenService;
 import com.beanstream.payform.validators.ViewValidator;
 
-public class PayFormActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,
+public class PayFormActivity extends BICActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
 
     public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
@@ -62,7 +59,7 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
         }
         purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
         if (purchase == null) {
-            purchase = new Purchase();
+            purchase = new Purchase(0.0, "");
         }
 
         payFormResult = intent.getParcelableExtra(EXTRA_PAYFORM_RESULT);
@@ -70,17 +67,14 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
             payFormResult = new PayFormResult();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         final Button button = (Button) findViewById(R.id.button_next);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 goToNext();
             }
         });
+
+        updatePurchaseHeader(options, purchase);
 
         Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(options.getTokenRequestTimeoutInSeconds()));
 
@@ -99,7 +93,6 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
             }
 
             updatePrimaryColor();
-            updatePurchaseHeader();
         } else {
             updateNextButton();
         }
@@ -107,22 +100,6 @@ public class PayFormActivity extends AppCompatActivity implements FragmentManage
 
     private void updatePrimaryColor() {
         findViewById(R.id.button_next).setBackgroundColor(options.getColor());
-    }
-
-    private void updatePurchaseHeader() {
-        findViewById(R.id.toolbar_header).setBackgroundColor(options.getColor());
-
-        ImageView imageView = ((ImageView) findViewById(R.id.header_company_logo));
-        if (purchase.getCompanyLogoResourceId() == 0) {
-            imageView.setVisibility(View.GONE);
-        } else {
-            imageView.setVisibility(View.VISIBLE);
-            imageView.setImageResource(purchase.getCompanyLogoResourceId());
-        }
-        ((TextView) findViewById(R.id.header_company_name)).setText(purchase.getCompanyName());
-
-        ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
-        ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());
     }
 
     @Override

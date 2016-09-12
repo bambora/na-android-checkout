@@ -29,6 +29,9 @@ public class Options implements Parcelable {
 
     private int color;
 
+    private int companyLogoResourceId;
+    private String companyName;
+
     private Boolean billingAddressRequired;
     private Boolean shippingAddressRequired;
 
@@ -47,15 +50,34 @@ public class Options implements Parcelable {
     private Options(Parcel parcel) {
         color = parcel.readInt();
 
+        companyLogoResourceId = parcel.readInt();
+        companyName = parcel.readString();
+
         billingAddressRequired = (parcel.readInt() == 0);
         shippingAddressRequired = (parcel.readInt() == 0);
 
         tokenRequestTimeoutInSeconds = parcel.readInt();
     }
+
     //endregion
 
-
     //region Getters and Setters
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public int getCompanyLogoResourceId() {
+        return companyLogoResourceId;
+    }
+
+    public void setCompanyLogoResourceId(int companyLogoResourceId) {
+        this.companyLogoResourceId = companyLogoResourceId;
+    }
+
     public int getColor() {
         return color;
     }
@@ -98,6 +120,9 @@ public class Options implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(color);
+
+        parcel.writeInt(companyLogoResourceId);
+        parcel.writeString(companyName);
 
         parcel.writeInt(billingAddressRequired ? 0 : 1);
         parcel.writeInt(shippingAddressRequired ? 0 : 1);

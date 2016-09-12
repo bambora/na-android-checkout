@@ -62,10 +62,6 @@ public class DemoActivity extends Activity {
 
         Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
 
-        if (!((CheckBox) findViewById(R.id.demo_checkbox_image)).isChecked()) {
-            purchase.setCompanyLogoResourceId(R.drawable.custom_company_logo); // default: null
-        }
-        purchase.setCompanyName("Cabinet of Curiosities"); // default: ""
         purchase.setDescription("Item 1, Item 2, Item 3, Item 4"); // default: ""
 
         return purchase;
@@ -78,6 +74,11 @@ public class DemoActivity extends Activity {
         if (!((CheckBox) findViewById(R.id.demo_checkbox_color)).isChecked()) {
             options.setColor("#aa0000"); // default: "#067aed"
         }
+        if (!((CheckBox) findViewById(R.id.demo_checkbox_image)).isChecked()) {
+            options.setCompanyLogoResourceId(R.drawable.custom_company_logo); // default: null
+        }
+        options.setCompanyName("Cabinet of Curiosities"); // default: ""
+
         if (!((CheckBox) findViewById(R.id.demo_checkbox_billing)).isChecked()) {
             options.setBillingAddressRequired(false); // default: true
         }
