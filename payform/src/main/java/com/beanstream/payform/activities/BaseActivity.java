@@ -4,6 +4,7 @@
 
 package com.beanstream.payform.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
         return value.data;
+    }
+
+    public static void forceKeyboardClosedFromFocus(Activity activity) {
+        if (null != activity) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (null != imm) {
+                View focus = activity.getCurrentFocus();
+                if (null != focus) {
+                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+                }
+            }
+        }
     }
 
     @Override
