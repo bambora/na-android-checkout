@@ -61,6 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         outState.putParcelable(EXTRA_PURCHASE, purchase);
     }
 
+    public void disableHeaderBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+    }
+
     public void updatePurchaseHeader(Options options, Purchase purchase) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
         setSupportActionBar(toolbar);

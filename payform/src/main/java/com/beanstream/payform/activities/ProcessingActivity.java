@@ -34,6 +34,7 @@ public class ProcessingActivity extends BaseActivity {
         }
 
         updatePurchaseHeader(options, purchase);
+        disableHeaderBackButton();
 
         if (savedInstanceState == null) {
             // First-time init;
