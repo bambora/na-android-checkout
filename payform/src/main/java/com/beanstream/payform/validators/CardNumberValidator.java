@@ -82,8 +82,6 @@ public class CardNumberValidator extends TextValidator {
 
     @Override
     public void afterTextChanged(Editable s) {
-
-        //TODO - It looks like this method is causing a lag, and when it hits 20ms its number interrupting entry.
         editText.removeTextChangedListener(this);
 
         // Get text
