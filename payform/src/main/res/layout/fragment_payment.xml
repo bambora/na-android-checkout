@@ -9,12 +9,14 @@
     android:id="@+id/fragment_payment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/header_padding"
     tools:context="com.beanstream.payform.fragments.PaymentFragment">
 
     <!--Title-->
     <TextView
         android:id="@+id/title_text"
         style="@style/TitleText"
+        android:layout_alignParentTop="true"
         android:text="@string/pay_title" />
 
     <!--Fields-->
@@ -64,9 +66,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".7"
-                android:maxLength="5"
                 android:hint="@string/pay_hint_expiry"
                 android:inputType="number"
+                android:maxLength="5"
                 android:nextFocusDown="@+id/pay_cvv"
                 android:singleLine="true" />
 

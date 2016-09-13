@@ -16,18 +16,29 @@
         layout="@layout/toolbar_purchase_header" />
 
     <!--Content-->
-    <FrameLayout
-        android:id="@+id/fragment_content"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_header" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bic_secure_footer"
+        android:layout_below="@+id/toolbar_header"
+        android:fillViewport="true">
 
-    <!-- Next Button-->
-    <Button
-        android:id="@+id/button_next"
-        style="@style/PrimaryButton"
-        android:layout_above="@+id/bic_secure_footer" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <FrameLayout
+                android:id="@+id/fragment_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button_next"
+                style="@style/PrimaryButton"
+                android:layout_below="@id/fragment_content"
+                android:background="@color/bicSecondary" />
+        </RelativeLayout>
+    </ScrollView>
 
     <!--Footer-->
     <RelativeLayout

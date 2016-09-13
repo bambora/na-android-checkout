@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -109,20 +110,25 @@ public class PaymentFragment extends Fragment {
         EditText textView;
 
         textView = (EditText) (view.findViewById(R.id.pay_email));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new EmailValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_name));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new TextValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_card_number));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.addTextChangedListener(new CardNumberValidator(textView));
         textView.setOnFocusChangeListener(new CardNumberValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_expiry));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.addTextChangedListener(new ExpiryValidator(textView));
         textView.setOnFocusChangeListener(new ExpiryValidator(textView));
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new CvvValidator(textView));
     }
 }

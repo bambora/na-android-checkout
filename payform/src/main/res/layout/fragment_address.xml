@@ -13,6 +13,7 @@
     <TextView
         android:id="@+id/title_text"
         style="@style/TitleText"
+        android:layout_alignParentTop="true"
         android:text="@string/address_title" />
 
     <TableLayout
@@ -42,6 +43,7 @@
         </TableRow>
 
         <TableRow>
+
             <EditText
                 android:id="@+id/address_postal"
                 android:layout_width="0dp"
