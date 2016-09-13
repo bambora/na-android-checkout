@@ -42,7 +42,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay_form);
+        setContentView(R.layout.activity_payform);
 
         Intent intent = getIntent();
         payFormResult = intent.getParcelableExtra(EXTRA_PAYFORM_RESULT);
