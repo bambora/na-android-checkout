@@ -69,16 +69,11 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
             } else {
                 switchContentToPayment();
             }
-
-            updatePrimaryColor();
         } else {
             payFormResult = savedInstanceState.getParcelable(EXTRA_PAYFORM_RESULT);
-            updateNextButton();
         }
-    }
 
-    private void updatePrimaryColor() {
-        findViewById(R.id.button_next).setBackgroundColor(getThemePrimaryColor(this));
+        updateNextButton();
     }
 
     @Override
@@ -161,9 +156,10 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
     //region Content Updates
     private void updateNextButton() {
-        TextView view = ((TextView) findViewById(R.id.button_next));
-        if (view != null) {
-            view.setText(getTextForNextButton());
+        TextView nextButton = ((TextView) findViewById(R.id.button_next));
+        if (nextButton != null) {
+            nextButton.setBackgroundColor(getThemePrimaryColor(this));
+            nextButton.setText(getTextForNextButton());
         }
     }
 
