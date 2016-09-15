@@ -77,7 +77,19 @@ public class CardNumberValidator extends TextValidator {
     }
 
     private void setCreditCardImage(String cardType) {
+        editText.setCompoundDrawables(null, null, null, null);
         editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, CardType.getImageForCardType(cardType), 0);
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        editText.removeTextChangedListener(this);
+
+        String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
+        Preferences.getInstance(editText.getContext()).saveData(Preferences.CardType, cardType);
+        setCreditCardImage(cardType);
+
+        editText.addTextChangedListener(this);
     }
 
     @Override
@@ -88,18 +100,13 @@ public class CardNumberValidator extends TextValidator {
         int index = editText.getSelectionStart();
         String cardNumber = editText.getText().toString();
 
-        // Get card type
-        String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
-        Preferences.getInstance(editText.getContext()).saveData(Preferences.CardType, cardType);
-
-        setCreditCardImage(cardType);
-
         // Clean cardNumber
         int cleanIndex = getIndexAfterClean(cardNumber, index);
         index = cleanIndex;
         cardNumber = getCleanCardNumber(cardNumber);
 
         // Format cardNumber
+        String cardType = Preferences.getInstance(editText.getContext()).getData(Preferences.CardType);
         ArrayList<Integer> segmentLengths = CardType.getSegmentLengthsForCardType(cardType);
         Integer start = 0;
         Integer end;
