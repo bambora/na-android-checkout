@@ -22,6 +22,8 @@
 
     <dimen name="checkbox_margin">5dp</dimen>
 
+    <dimen name="edittext_height">70dp</dimen>
+
     <dimen name="header_padding">10dp</dimen>
     <dimen name="header_padding_logo">10dp</dimen>
 

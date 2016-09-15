@@ -10,7 +10,6 @@
     android:layout_gravity="center"
     tools:context="com.beanstream.payform.fragments.ProcessingFragment">
 
-    <!--message-->
     <TextView
         android:id="@+id/processing_text"
         style="@style/ProcessingText"

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/header_padding"
-    tools:context="com.beanstream.payform.fragments.AddressFragment" >
+    tools:context="com.beanstream.payform.fragments.AddressFragment">
 
     <!--Title-->
     <TextView
@@ -28,6 +28,7 @@
 
             <EditText
                 android:id="@+id/address_name"
+                style="@style/EditText"
                 android:layout_span="2"
                 android:hint="@string/address_hint_name"
                 android:inputType="textPersonName|textNoSuggestions" />
@@ -37,6 +38,7 @@
 
             <EditText
                 android:id="@+id/address_street"
+                style="@style/EditText"
                 android:layout_span="2"
                 android:hint="@string/address_hint_street"
                 android:inputType="textPostalAddress|textCapWords" />
@@ -46,6 +48,7 @@
 
             <EditText
                 android:id="@+id/address_postal"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_weight=".4"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -56,6 +59,7 @@
 
             <EditText
                 android:id="@+id/address_city"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_weight=".6"
                 android:hint="@string/address_hint_city"
@@ -67,6 +71,7 @@
 
             <EditText
                 android:id="@+id/address_province"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_weight=".4"
                 android:hint="@string/address_hint_province"
@@ -75,6 +80,7 @@
 
             <EditText
                 android:id="@+id/address_country"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_weight=".6"
                 android:hint="@string/address_hint_country"
