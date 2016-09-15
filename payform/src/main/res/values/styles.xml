@@ -4,7 +4,6 @@
   ~ Created by dlight on 2016-08-04.
   -->
 <resources>
-
     <style name="PrimaryButton" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

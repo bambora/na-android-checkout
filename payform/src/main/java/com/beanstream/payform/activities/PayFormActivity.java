@@ -44,12 +44,6 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payform);
 
-        Intent intent = getIntent();
-        payFormResult = intent.getParcelableExtra(EXTRA_PAYFORM_RESULT);
-        if (payFormResult == null) {
-            payFormResult = new PayFormResult();
-        }
-
         final Button button = (Button) findViewById(R.id.button_next);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -62,8 +56,9 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(options.getTokenRequestTimeoutInSeconds()));
 
         if (savedInstanceState == null) {
-
             // First-time init;
+
+            payFormResult = new PayFormResult();
 
             getFragmentManager().addOnBackStackChangedListener(this);
 
@@ -77,6 +72,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
             updatePrimaryColor();
         } else {
+            payFormResult = savedInstanceState.getParcelable(EXTRA_PAYFORM_RESULT);
             updateNextButton();
         }
     }
@@ -147,16 +143,18 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
     private void saveCurrentFragment() {
         Fragment fragment = getCurrentFragment();
-        if (fragment instanceof ShippingFragment) {
-            payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
-            if (payFormResult.isBillingSameAsShipping()) {
-                payFormResult.setBilling(((ShippingFragment) fragment).getAddress());
+        if (fragment != null) {
+            if (fragment instanceof ShippingFragment) {
+                payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
+                if (payFormResult.isBillingSameAsShipping()) {
+                    payFormResult.setBilling(((ShippingFragment) fragment).getAddress());
+                }
+            } else if (fragment instanceof BillingFragment) {
+                payFormResult.setBilling(((BillingFragment) fragment).getAddress());
+            } else if (fragment instanceof PaymentFragment) {
+                payFormResult.setCardInfo(((PaymentFragment) fragment).getCardInfo());
+                creditCard = ((PaymentFragment) fragment).getCreditCard();
             }
-        } else if (fragment instanceof BillingFragment) {
-            payFormResult.setBilling(((BillingFragment) fragment).getAddress());
-        } else if (fragment instanceof PaymentFragment) {
-            payFormResult.setCardInfo(((PaymentFragment) fragment).getCardInfo());
-            creditCard = ((PaymentFragment) fragment).getCreditCard();
         }
     }
     //endregion

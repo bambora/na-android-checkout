@@ -49,17 +49,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Intent intent = getIntent();
-        options = intent.getParcelableExtra(EXTRA_OPTIONS);
-        if (options == null) {
-            options = new Options();
-        }
-        purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
-        if (purchase == null) {
-            purchase = new Purchase(0.0, "");
-        }
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            options = intent.getParcelableExtra(EXTRA_OPTIONS);
+            if (options == null) {
+                options = new Options();
+            }
+            purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
+            if (purchase == null) {
+                purchase = new Purchase(0.0, "");
+            }
+        } else {
+            options = savedInstanceState.getParcelable(EXTRA_OPTIONS);
+            purchase = savedInstanceState.getParcelable(EXTRA_PURCHASE);
+
+        }
 
         if (options.getThemeResourceId() == 0) {
             super.setTheme(R.style.Theme_PayForm);

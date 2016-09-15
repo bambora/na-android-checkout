@@ -27,23 +27,24 @@ public class ProcessingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processing);
 
-        Intent intent = getIntent();
-        creditCard = intent.getParcelableExtra(TokenService.EXTRA_CREDIT_CARD);
-        if (creditCard == null) {
-            creditCard = new CreditCard();
-        }
-
         updatePurchaseHeader(options, purchase);
         disableHeaderBackButton();
 
         if (savedInstanceState == null) {
             // First-time init;
+            Intent intent = getIntent();
+            creditCard = intent.getParcelableExtra(TokenService.EXTRA_CREDIT_CARD);
+            if (creditCard == null) {
+                creditCard = new CreditCard();
+            }
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.fragment_content, ProcessingFragment.newInstance(options, purchase)).commit();
 
             setupTokenReceiver();
             startTokenService();
+        } else {
+            creditCard = savedInstanceState.getParcelable(TokenService.EXTRA_CREDIT_CARD);
         }
     }
 

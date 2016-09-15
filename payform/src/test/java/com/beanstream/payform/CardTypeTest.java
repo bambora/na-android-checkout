@@ -35,7 +35,7 @@ public class CardTypeTest {
         assertEquals(CardType.DINERS, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.diners_valid));
         assertEquals(CardType.DISCOVER, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.discover_valid));
         assertEquals(CardType.MASTERCARD, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.mastercard_valid));
-        assertEquals(CardType.MASTERCARD, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.mastercard_newbin_valid));
+        assertEquals(CardType.MASTERCARD, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.mastercard_bintwo_valid));
         assertEquals(CardType.VISA, CardType.getCardTypeFromCardNumber(CardNumberValidatorTest.visa_valid));
     }
 

@@ -44,9 +44,9 @@ public class CardNumberValidatorTest {
     public final static String mastercard_invalid_number = "5555 5555 5555 44444";
     public final static String mastercard_invalid_luhn = "5555 5555 5555 4443";
 
-    public final static String mastercard_newbin_valid = "2221 0000 0000 0009";
-    public final static String mastercard_newbin_invalid_number = "2221 0000 0000 00090";
-    public final static String mastercard_newbin_invalid_luhn = "2720 9999 9999 9999";
+    public final static String mastercard_bintwo_valid = "2221 0000 0000 0009";
+    public final static String mastercard_bintwo_invalid_number = "2221 0000 0000 00090";
+    public final static String mastercard_bintwo_invalid_luhn = "2720 9999 9999 9999";
 
     public final static String visa_valid = "4012 8888 8888 1881";
     public final static String visa_invalid_cardtype = "1012888888881881";
@@ -60,7 +60,7 @@ public class CardNumberValidatorTest {
         assertTrue(CardNumberValidator.isValidCardNumber(diners_valid, CardType.DINERS));
         assertTrue(CardNumberValidator.isValidCardNumber(discover_valid, CardType.DISCOVER));
         assertTrue(CardNumberValidator.isValidCardNumber(mastercard_valid, CardType.MASTERCARD));
-        assertTrue(CardNumberValidator.isValidCardNumber(mastercard_newbin_valid, CardType.MASTERCARD));
+        assertTrue(CardNumberValidator.isValidCardNumber(mastercard_bintwo_valid, CardType.MASTERCARD));
         assertTrue(CardNumberValidator.isValidCardNumber(visa_valid, CardType.VISA));
     }
 
@@ -81,7 +81,7 @@ public class CardNumberValidatorTest {
         assertFalse(CardNumberValidator.isValidCardNumber(diners_invalid_number, CardType.DINERS));
         assertFalse(CardNumberValidator.isValidCardNumber(discover_invalid_number, CardType.DISCOVER));
         assertFalse(CardNumberValidator.isValidCardNumber(mastercard_invalid_number, CardType.MASTERCARD));
-        assertFalse(CardNumberValidator.isValidCardNumber(mastercard_newbin_invalid_number, CardType.MASTERCARD));
+        assertFalse(CardNumberValidator.isValidCardNumber(mastercard_bintwo_invalid_number, CardType.MASTERCARD));
         assertFalse(CardNumberValidator.isValidCardNumber(visa_invalid_number, CardType.VISA));
 
         assertFalse(CardNumberValidator.isValidCardNumber(amex_valid + "1", CardType.AMEX));
@@ -100,7 +100,7 @@ public class CardNumberValidatorTest {
         assertTrue(CardNumberValidator.isValidCardType(diners_valid));
         assertTrue(CardNumberValidator.isValidCardType(discover_valid));
         assertTrue(CardNumberValidator.isValidCardType(mastercard_valid));
-        assertTrue(CardNumberValidator.isValidCardType(mastercard_newbin_valid));
+        assertTrue(CardNumberValidator.isValidCardType(mastercard_bintwo_valid));
         assertTrue(CardNumberValidator.isValidCardType(visa_valid));
     }
 
@@ -130,7 +130,7 @@ public class CardNumberValidatorTest {
         assertTrue(CardNumberValidator.isValidLuhn(diners_valid));
         assertTrue(CardNumberValidator.isValidLuhn(discover_valid));
         assertTrue(CardNumberValidator.isValidLuhn(mastercard_valid));
-        assertTrue(CardNumberValidator.isValidLuhn(mastercard_newbin_valid));
+        assertTrue(CardNumberValidator.isValidLuhn(mastercard_bintwo_valid));
         assertTrue(CardNumberValidator.isValidLuhn(visa_valid));
     }
 
@@ -147,7 +147,7 @@ public class CardNumberValidatorTest {
         assertFalse("discover", CardNumberValidator.isValidLuhn(discover_invalid_luhn));
         assertFalse("diners", CardNumberValidator.isValidLuhn(diners_invalid_luhn));
         assertFalse("mastercard", CardNumberValidator.isValidLuhn(mastercard_invalid_luhn));
-        assertFalse("mastercard new bin", CardNumberValidator.isValidLuhn(mastercard_newbin_invalid_luhn));
+        assertFalse("mastercard bin two", CardNumberValidator.isValidLuhn(mastercard_bintwo_invalid_luhn));
         assertFalse("visa", CardNumberValidator.isValidLuhn(visa_invalid_luhn));
     }
     //endregion
