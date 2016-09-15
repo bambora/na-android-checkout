@@ -7,6 +7,7 @@ package com.beanstream.payform.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -81,13 +82,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void updatePurchaseHeader(Options options, Purchase purchase) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_header);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        findViewById(R.id.toolbar_header).setBackgroundColor(getThemePrimaryColor(this));
-
         ImageView imageView = ((ImageView) findViewById(R.id.header_company_logo));
         if (options.getCompanyLogoResourceId() == 0) {
             imageView.setVisibility(View.GONE);
@@ -95,9 +89,30 @@ public abstract class BaseActivity extends AppCompatActivity {
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(options.getCompanyLogoResourceId());
         }
-        ((TextView) findViewById(R.id.header_company_name)).setText(options.getCompanyName());
 
-        ((TextView) findViewById(R.id.header_amount)).setText(purchase.getFormattedAmount());
-        ((TextView) findViewById(R.id.header_description)).setText(purchase.getDescription());
+        TextView amount = ((TextView) findViewById(R.id.header_amount));
+        amount.setText(purchase.getFormattedAmount());
+
+        TextView company = ((TextView) findViewById(R.id.header_company_name));
+        company.setText(options.getCompanyName());
+
+        TextView description = ((TextView) findViewById(R.id.header_description));
+        description.setText(purchase.getDescription());
+
+        Toolbar cardHeader = (Toolbar) findViewById(R.id.toolbar_card_header);
+        if (cardHeader != null) {
+            cardHeader.setBackgroundColor(Color.WHITE);
+            amount.setTextColor(android.graphics.Color.BLACK);
+            company.setTextColor(android.graphics.Color.BLACK);
+            description.setTextColor(android.graphics.Color.BLACK);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_with_controls);
+        toolbar.setBackgroundColor(getThemePrimaryColor(this));
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 }

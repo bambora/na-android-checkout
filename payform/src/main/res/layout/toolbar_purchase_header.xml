@@ -5,9 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_purchase_header"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/action_bar_height"
     android:background="@color/bicPrimary"
     app:contentInsetStartWithNavigation="0dp"
+    app:contentInsetStart="0dp"
     >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/purchase_logo"
+            android:paddingStart="0dp"
             android:paddingEnd="@dimen/logo_padding_end"
             android:src="@drawable/default_merchant_logo" />
 

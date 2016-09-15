@@ -7,7 +7,7 @@
         <item name="colorPrimary">@color/bicPrimary</item>
         <item name="colorAccent">@color/bicSecondary</item>
         <item name="android:textColorPrimary">@color/bicPrimary</item>
-
+        
         <item name="android:colorBackground">@color/bicBackground</item>
         <item name="android:windowBackground">@color/bicBackground</item>
 

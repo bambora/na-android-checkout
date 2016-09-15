@@ -5,6 +5,9 @@
   -->
 
 <resources>
+    <dimen name="action_bar_height">80dp</dimen>
+    <dimen name="action_bar_height_x2">160dp</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
@@ -15,6 +18,7 @@
     <dimen name="button_text_size">30sp</dimen>
     <dimen name="button_margin">15dp</dimen>
     <dimen name="button_padding">5dp</dimen>
+    <dimen name="card_toolbar_height">100dp</dimen>
 
     <dimen name="checkbox_margin">5dp</dimen>
 
@@ -31,6 +35,8 @@
     <dimen name="processing_text_size">30sp</dimen>
     <dimen name="processing_text_size_larger">40sp</dimen>
     <dimen name="processing_text_padding">5sp</dimen>
+
+    <dimen name="secure_footer_padding">30dp</dimen>
 
     <dimen name="title_margin">16dp</dimen>
 </resources>

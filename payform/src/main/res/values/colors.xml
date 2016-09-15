@@ -9,6 +9,9 @@
 
     <color name="bicButtonText">@android:color/white</color>
 
+    <color name="bicCardToolbarBackground">@android:color/white</color>
+    <color name="bicCardToolbarText">@android:color/black</color>
+
     <color name="bicErrorText">@android:color/holo_red_light</color>
     <color name="bicWarningText">@android:color/holo_orange_light</color>
 
