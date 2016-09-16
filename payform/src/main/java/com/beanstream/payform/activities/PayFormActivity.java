@@ -92,7 +92,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             saveCurrentFragment();
-            forceKeyboardClosedFromFocus(this);
+            closeKeyboard(this);
 
             getFragmentManager().popBackStackImmediate();
         } else {

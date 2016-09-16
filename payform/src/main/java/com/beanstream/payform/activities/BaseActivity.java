@@ -35,13 +35,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         return value.data;
     }
 
-    public static void forceKeyboardClosedFromFocus(Activity activity) {
+    public static void closeKeyboard(Activity activity) {
         if (null != activity) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (null != imm) {
                 View focus = activity.getCurrentFocus();
                 if (null != focus) {
                     imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+                }
+            }
+        }
+    }
+
+    public static void showKeyboard(Activity activity) {
+        if (null != activity) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (null != imm) {
+                View focus = activity.getCurrentFocus();
+                if (null != focus) {
+                    imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
         }

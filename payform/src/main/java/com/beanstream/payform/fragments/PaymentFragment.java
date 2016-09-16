@@ -7,15 +7,18 @@
 package com.beanstream.payform.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.activities.BaseActivity;
 import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
@@ -70,6 +73,18 @@ public class PaymentFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showKeyboard();
+    }
+
+    public void showKeyboard() {
+        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
+        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textView.requestFocus();
+        BaseActivity.showKeyboard(getActivity());
+    }
 
     public void updateCardInfo(View view, CardInfo cardInfo) {
         ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());

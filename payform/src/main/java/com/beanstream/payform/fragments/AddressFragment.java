@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.activities.BaseActivity;
 import com.beanstream.payform.models.Address;
 import com.beanstream.payform.validators.TextValidator;
 
@@ -55,6 +56,19 @@ public class AddressFragment extends Fragment {
         updateTitle(view);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showKeyboard();
+    }
+
+    public void showKeyboard() {
+        EditText textView = (EditText) (getActivity().findViewById(R.id.address_name));
+        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textView.requestFocus();
+        BaseActivity.showKeyboard(getActivity());
     }
 
     public void setValidators(View view) {
@@ -102,7 +116,6 @@ public class AddressFragment extends Fragment {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
         checkBox.setVisibility(View.GONE);
     }
-
 
     public Address getAddress() {
 
