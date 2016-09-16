@@ -51,7 +51,6 @@
 
     <style name="EditText">
         <item name="android:layout_height">@dimen/edittext_height</item>
-        <item name="android:textColor">@android:color/holo_red_dark</item>
     </style>
 
     <style name="ErrorText" parent="@style/MediumText">
