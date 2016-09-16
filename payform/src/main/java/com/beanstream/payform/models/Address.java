@@ -24,20 +24,14 @@ public class Address implements Parcelable {
             return new Address[size];
         }
     };
-    private String name;
-    private String street;
-    private String postal;
-    private String city;
-    private String province;
-    private String country;
+    private String name = "";
+    private String street = "";
+    private String postal = "";
+    private String city = "";
+    private String province = "";
+    private String country = "";
 
     public Address() {
-        name = "";
-        street = "";
-        postal = "";
-        city = "";
-        province = "";
-        country = "";
     }
 
     private Address(Parcel parcel) {

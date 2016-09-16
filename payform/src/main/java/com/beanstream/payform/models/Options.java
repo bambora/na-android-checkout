@@ -26,26 +26,17 @@ public class Options implements Parcelable {
         }
     };
 
-    private int companyLogoResourceId;
-    private String companyName;
+    private int companyLogoResourceId = 0;
+    private String companyName = "";
 
-    private int themeResourceId;
+    private Boolean billingAddressRequired = true;
+    private Boolean shippingAddressRequired = true;
 
-    private Boolean billingAddressRequired;
-    private Boolean shippingAddressRequired;
+    private int themeResourceId = 0;
 
-    private int tokenRequestTimeoutInSeconds;
+    private int tokenRequestTimeoutInSeconds = 6;
 
     public Options() {
-        this.companyLogoResourceId = 0;
-        this.companyName = "";
-
-        this.billingAddressRequired = true;
-        this.shippingAddressRequired = true;
-
-        this.themeResourceId = 0;
-
-        this.tokenRequestTimeoutInSeconds = 6;
     }
 
     //region Parcelable Implementation

@@ -4,7 +4,6 @@
 
 package com.beanstream.payform.validators;
 
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -21,10 +20,7 @@ public class CvvValidator extends TextValidator {
     }
 
     public static boolean isValidCvv(String cvv, String cardType) {
-        if ((cvv == null) || (TextUtils.isEmpty(cvv.trim()))) {
-            return false;
-        }
-        return cvv.length() == CardType.getCvvLengthForCardType(cardType);
+        return (cvv != null) && (cvv.length() == CardType.getCvvLengthForCardType(cardType));
     }
 
     @Override

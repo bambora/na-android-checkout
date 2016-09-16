@@ -25,11 +25,11 @@ public class PayFormResult implements Parcelable {
         }
     };
 
-    private CardInfo cardInfo;
-    private Address shipping;
-    private Address billing;
+    private CardInfo cardInfo = new CardInfo();
 
-    private boolean isBillingSameAsShipping;
+    private Address billing = new Address();
+    private Address shipping = new Address();
+    private boolean isBillingSameAsShipping = false;
 
     private PayFormResult(Parcel parcel) {
         cardInfo = parcel.readParcelable(CardInfo.class.getClassLoader());
@@ -38,12 +38,6 @@ public class PayFormResult implements Parcelable {
     }
 
     public PayFormResult() {
-        cardInfo = new CardInfo();
-
-        isBillingSameAsShipping = false;
-
-        billing = new Address();
-        shipping = new Address();
     }
 
     @Override

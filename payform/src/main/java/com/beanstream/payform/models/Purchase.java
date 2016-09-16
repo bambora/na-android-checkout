@@ -30,7 +30,7 @@ public class Purchase implements Parcelable {
 
     private Double amount; // required
     private String currency; // required
-    private String description;
+    private String description = "";
 
     public Purchase(Double amount, String currency) {
         this.amount = amount;
