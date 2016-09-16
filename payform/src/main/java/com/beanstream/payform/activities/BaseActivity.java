@@ -26,16 +26,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     public final static String EXTRA_OPTIONS = "com.beanstream.payform.models.options";
     public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
 
-    public Options options;
-    public Purchase purchase;
+    Options options;
+    Purchase purchase;
 
-    public static int getThemePrimaryColor(final Context context) {
+    static int getThemePrimaryColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
         return value.data;
     }
 
-    public static void closeKeyboard(Activity activity) {
+    static void closeKeyboard(Activity activity) {
         if (null != activity) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (null != imm) {
@@ -94,12 +94,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         outState.putParcelable(EXTRA_PURCHASE, purchase);
     }
 
-    public void disableHeaderBackButton() {
+    void disableHeaderBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
-    public void updatePurchaseHeader(Options options, Purchase purchase) {
+    void updatePurchaseHeader(Options options, Purchase purchase) {
         ImageView imageView = ((ImageView) findViewById(R.id.header_company_logo));
         if (options.getCompanyLogoResourceId() == 0) {
             imageView.setVisibility(View.GONE);

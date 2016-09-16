@@ -11,11 +11,11 @@ import android.content.SharedPreferences;
  * Created by dlight on 2016-08-19.
  */
 public class Preferences {
-    public static String CardType = "cardType";
-    public static String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
+    public static final String CardType = "cardType";
+    public static final String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
 
     private static volatile Preferences preferences;
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     private Preferences(Context context) {
         sharedPreferences = context.getSharedPreferences("com.beanstream.payform", Context.MODE_PRIVATE);

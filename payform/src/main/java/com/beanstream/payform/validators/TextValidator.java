@@ -16,10 +16,9 @@ import com.beanstream.payform.R;
  * Created by dlight on 2016-08-18.
  */
 public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
-    private final TextView textView;
 
     public TextValidator(TextView view) {
-        this.textView = view;
+        TextView textView = view;
     }
 
     public boolean validate(TextView view) {

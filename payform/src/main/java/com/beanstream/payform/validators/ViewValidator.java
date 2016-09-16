@@ -32,12 +32,12 @@ public class ViewValidator {
         for (EditText field : fields) {
             View.OnFocusChangeListener focusListener = field.getOnFocusChangeListener();
             if (focusListener != null) {
-                ((TextValidator)field.getOnFocusChangeListener()).validate(field);
+                ((TextValidator) field.getOnFocusChangeListener()).validate(field);
             }
         }
     }
 
-    public static ArrayList<EditText> getFields(View view) {
+    private static ArrayList<EditText> getFields(View view) {
         ArrayList<EditText> fields = new ArrayList<>();
 
         for (View field : view.getFocusables(View.FOCUS_FORWARD)) {

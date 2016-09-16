@@ -22,8 +22,8 @@ import com.beanstream.payform.models.Address;
  */
 public class ShippingFragment extends AddressFragment {
 
-    public final static String EXTRA_BILLING_REQUIRED = "com.beanstream.payform.models.options.billingrequired";
-    private static OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
+    private final static String EXTRA_BILLING_REQUIRED = "com.beanstream.payform.models.options.billingrequired";
+    private static final OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
         @Override
         public void onBillingCheckBoxChanged(boolean isChecked) {
         }

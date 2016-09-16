@@ -30,9 +30,9 @@ public class TokenService extends IntentService {
     public final static String EXTRA_RECEIVER = "com.beanstream.payform.services.receiver";
     public final static String EXTRA_TOKEN = "com.beanstream.payform.services.token";
 
-    public final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
+    private final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
 
-    public final static int SERVICE_ERROR = 22;
+    private final static int SERVICE_ERROR = 22;
 
 
     public TokenService() {

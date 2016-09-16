@@ -18,7 +18,7 @@ public class ProcessingActivity extends BaseActivity {
 
     public final static int REQUEST_TOKEN = 2;
 
-    public TokenReceiver tokenReceiver;
+    private TokenReceiver tokenReceiver;
 
     private CreditCard creditCard;
 
@@ -60,7 +60,7 @@ public class ProcessingActivity extends BaseActivity {
         outState.putParcelable(TokenService.EXTRA_CREDIT_CARD, creditCard);
     }
 
-    public void setupTokenReceiver() {
+    private void setupTokenReceiver() {
         tokenReceiver = new TokenReceiver(new Handler());
 
         tokenReceiver.setReceiver(new TokenReceiver.Receiver() {
@@ -80,7 +80,7 @@ public class ProcessingActivity extends BaseActivity {
         });
     }
 
-    public void startTokenService() {
+    private void startTokenService() {
         Intent intent = new Intent(this, TokenService.class);
         intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);

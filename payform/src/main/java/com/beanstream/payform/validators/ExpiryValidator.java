@@ -18,11 +18,11 @@ import java.util.Calendar;
  */
 public class ExpiryValidator extends TextValidator {
 
-    public static int EXPIRY_LENGTH = 5; // MM/YY
-    public static int EXPIRY_DELIMITER_POSITION = 2;
-    public static String EXPIRY_DELIMITER = "/";
+    private static final int EXPIRY_LENGTH = 5; // MM/YY
+    private static final int EXPIRY_DELIMITER_POSITION = 2;
+    private static final String EXPIRY_DELIMITER = "/";
 
-    private EditText editText;
+    private final EditText editText;
 
     public ExpiryValidator(TextView view) {
         super(view);

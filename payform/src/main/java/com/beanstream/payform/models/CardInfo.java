@@ -32,6 +32,7 @@ public class CardInfo implements Parcelable {
 
     public CardInfo() {
     }
+
     private CardInfo(Parcel parcel) {
         code = parcel.readString();
         email = parcel.readString();

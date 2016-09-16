@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class CardNumberValidator extends TextValidator {
 
-    private EditText editText;
+    private final EditText editText;
 
     public CardNumberValidator(TextView view) {
         super(view);

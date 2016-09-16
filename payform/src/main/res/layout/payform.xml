@@ -8,7 +8,6 @@
     android:layout_height="wrap_content"
     tools:context="com.beanstream.payform.activities.PayFormActivity">
 
-    <!--Content-->
     <ScrollView
         android:id="@+id/payform_content"
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="@color/bicSecureProcessing" >
+    android:background="@color/bicSecureProcessing">
 
     <ImageView
         android:id="@+id/bic_secure_image"

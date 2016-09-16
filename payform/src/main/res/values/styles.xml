@@ -4,6 +4,7 @@
   ~ Created by dlight on 2016-08-04.
   -->
 <resources>
+
     <style name="PrimaryButton" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -47,10 +48,10 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="MessageText" parent="@style/MediumText"/>
+    <style name="MessageText" parent="@style/MediumText" />
 
     <style name="EditText">
-        <item name="android:layout_height">@dimen/edittext_height</item>
+        <item name="android:layout_height">@dimen/field_height</item>
     </style>
 
     <style name="ErrorText" parent="@style/MediumText">

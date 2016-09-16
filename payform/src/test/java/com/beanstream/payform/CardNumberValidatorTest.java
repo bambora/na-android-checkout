@@ -22,36 +22,36 @@ import static org.junit.Assert.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class CardNumberValidatorTest {
-    public final static String cardnumber_luhn_valid = "1234 5678 9012 3452";
+    private final static String cardnumber_luhn_valid = "1234 5678 9012 3452";
 
     public final static String amex_valid = "3782 8224 6310 005";
     public final static String amex_invalid_cardtype = "328282246310005";
-    public final static String amex_invalid_number = "37828224631000555";
-    public final static String amex_invalid_luhn = "378282246310015";
+    private final static String amex_invalid_number = "37828224631000555";
+    private final static String amex_invalid_luhn = "378282246310015";
 
     public final static String discover_valid = "6011 0009 9013 9424";
     public final static String discover_invalid_cardtype = "5011000990139424";
-    public final static String discover_invalid_number = "60110009901394244";
-    public final static String discover_invalid_luhn = "6011000990139434";
+    private final static String discover_invalid_number = "60110009901394244";
+    private final static String discover_invalid_luhn = "6011000990139434";
 
     public final static String diners_valid = "3852 0000 0232 37";
     public final static String diners_invalid_cardtype = "30620000023237";
-    public final static String diners_invalid_number = "385200000232377";
-    public final static String diners_invalid_luhn = "38520000023247";
+    private final static String diners_invalid_number = "385200000232377";
+    private final static String diners_invalid_luhn = "38520000023247";
 
     public final static String mastercard_valid = "5555 5555 5555 4444";
     public final static String mastercard_invalid_cardtype = "5655 5555 5555 4444";
-    public final static String mastercard_invalid_number = "5555 5555 5555 44444";
-    public final static String mastercard_invalid_luhn = "5555 5555 5555 4443";
+    private final static String mastercard_invalid_number = "5555 5555 5555 44444";
+    private final static String mastercard_invalid_luhn = "5555 5555 5555 4443";
 
     public final static String mastercard_bintwo_valid = "2221 0000 0000 0009";
-    public final static String mastercard_bintwo_invalid_number = "2221 0000 0000 00090";
-    public final static String mastercard_bintwo_invalid_luhn = "2720 9999 9999 9999";
+    private final static String mastercard_bintwo_invalid_number = "2221 0000 0000 00090";
+    private final static String mastercard_bintwo_invalid_luhn = "2720 9999 9999 9999";
 
     public final static String visa_valid = "4012 8888 8888 1881";
     public final static String visa_invalid_cardtype = "1012888888881881";
-    public final static String visa_invalid_number = "3012888888881881";
-    public final static String visa_invalid_luhn = "4012888888882881";
+    private final static String visa_invalid_number = "3012888888881881";
+    private final static String visa_invalid_luhn = "4012888888882881";
 
     //region isValidCardNumber
     @Test

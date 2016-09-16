@@ -7,13 +7,11 @@
 package com.beanstream.payform.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,7 +30,7 @@ import com.beanstream.payform.validators.TextValidator;
  * A simple {@link Fragment} subclass.
  */
 public class PaymentFragment extends Fragment {
-    public final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
+    private final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
 
     private CardInfo cardInfo;
 
@@ -79,18 +77,6 @@ public class PaymentFragment extends Fragment {
         showKeyboard();
     }
 
-    public void showKeyboard() {
-        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
-        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        textView.requestFocus();
-        BaseActivity.showKeyboard(getActivity());
-    }
-
-    public void updateCardInfo(View view, CardInfo cardInfo) {
-        ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());
-        ((TextView) view.findViewById(R.id.pay_email)).setText(cardInfo.getEmail());
-    }
-
     public CardInfo getCardInfo() {
         CardInfo cardInfo = new CardInfo();
 
@@ -121,7 +107,7 @@ public class PaymentFragment extends Fragment {
         return card;
     }
 
-    public void setValidators(View view) {
+    private void setValidators(View view) {
         EditText textView;
 
         textView = (EditText) (view.findViewById(R.id.pay_email));
@@ -145,5 +131,17 @@ public class PaymentFragment extends Fragment {
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
         textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new CvvValidator(textView));
+    }
+
+    private void showKeyboard() {
+        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
+        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textView.requestFocus();
+        BaseActivity.showKeyboard(getActivity());
+    }
+
+    private void updateCardInfo(View view, CardInfo cardInfo) {
+        ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());
+        ((TextView) view.findViewById(R.id.pay_email)).setText(cardInfo.getEmail());
     }
 }

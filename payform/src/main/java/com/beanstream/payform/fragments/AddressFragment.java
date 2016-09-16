@@ -26,7 +26,7 @@ import com.beanstream.payform.validators.TextValidator;
  */
 public class AddressFragment extends Fragment {
 
-    public final static String EXTRA_ADDRESS = "com.beanstream.payform.models.address";
+    final static String EXTRA_ADDRESS = "com.beanstream.payform.models.address";
 
     private Address address;
 
@@ -64,14 +64,7 @@ public class AddressFragment extends Fragment {
         showKeyboard();
     }
 
-    public void showKeyboard() {
-        EditText textView = (EditText) (getActivity().findViewById(R.id.address_name));
-        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        textView.requestFocus();
-        BaseActivity.showKeyboard(getActivity());
-    }
-
-    public void setValidators(View view) {
+    private void setValidators(View view) {
         EditText textView;
 
         textView = (EditText) (view.findViewById(R.id.address_name));
@@ -99,20 +92,11 @@ public class AddressFragment extends Fragment {
         textView.setOnFocusChangeListener(new TextValidator(textView));
     }
 
-    public void updateAddress(View view, Address address) {
-        ((TextView) view.findViewById(R.id.address_name)).setText(address.getName());
-        ((TextView) view.findViewById(R.id.address_city)).setText(address.getCity());
-        ((TextView) view.findViewById(R.id.address_country)).setText(address.getCountry());
-        ((TextView) view.findViewById(R.id.address_postal)).setText(address.getPostal());
-        ((TextView) view.findViewById(R.id.address_province)).setText(address.getProvince());
-        ((TextView) view.findViewById(R.id.address_street)).setText(address.getStreet());
-    }
-
     public void updateTitle(View view) {
         ((TextView) view.findViewById(R.id.title_text)).setText(R.string.address_title_billing);
     }
 
-    public void configureBillingCheckBox(View view) {
+    void configureBillingCheckBox(View view) {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
         checkBox.setVisibility(View.GONE);
     }
@@ -129,5 +113,21 @@ public class AddressFragment extends Fragment {
         address.setStreet(((TextView) getView().findViewById(R.id.address_street)).getText().toString());
 
         return address;
+    }
+
+    private void showKeyboard() {
+        EditText textView = (EditText) (getActivity().findViewById(R.id.address_name));
+        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textView.requestFocus();
+        BaseActivity.showKeyboard(getActivity());
+    }
+
+    private void updateAddress(View view, Address address) {
+        ((TextView) view.findViewById(R.id.address_name)).setText(address.getName());
+        ((TextView) view.findViewById(R.id.address_city)).setText(address.getCity());
+        ((TextView) view.findViewById(R.id.address_country)).setText(address.getCountry());
+        ((TextView) view.findViewById(R.id.address_postal)).setText(address.getPostal());
+        ((TextView) view.findViewById(R.id.address_province)).setText(address.getProvince());
+        ((TextView) view.findViewById(R.id.address_street)).setText(address.getStreet());
     }
 }

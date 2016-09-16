@@ -32,7 +32,7 @@ public class ProcessingFragment extends Fragment {
     }
 
     /**
-     * @param options PayForm options.
+     * @param options  PayForm options.
      * @param purchase Purchase info.
      * @return A new instance of fragment ProcessingFragment.
      */
