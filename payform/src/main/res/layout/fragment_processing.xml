@@ -10,7 +10,6 @@
     android:layout_gravity="center"
     tools:context="com.beanstream.payform.fragments.ProcessingFragment">
 
-    <!--message-->
     <TextView
         android:id="@+id/processing_text"
         style="@style/ProcessingText"
@@ -20,7 +19,7 @@
         android:id="@+id/processing_amount"
         style="@style/ProcessingText"
         android:layout_below="@+id/processing_text"
-        android:text="AMOUNT"
+        android:text="@string/processing_amount"
         android:textSize="@dimen/processing_text_size_larger" />
 
     <ProgressBar

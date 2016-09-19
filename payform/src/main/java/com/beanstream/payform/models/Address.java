@@ -24,12 +24,12 @@ public class Address implements Parcelable {
             return new Address[size];
         }
     };
-    private String name;
-    private String street;
-    private String postal;
-    private String city;
-    private String province;
-    private String country;
+    private String name = "";
+    private String street = "";
+    private String postal = "";
+    private String city = "";
+    private String province = "";
+    private String country = "";
 
     public Address() {
     }
@@ -112,14 +112,13 @@ public class Address implements Parcelable {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("{")
-                .append(" name:").append(name)
-                .append(", street:").append(street)
-                .append(", postal:").append(postal)
-                .append(", city:").append(city)
-                .append(", province:").append(province)
-                .append(", country:").append(country)
-                .append("}").toString();
+        return "{" +
+                "name:" + name + ", " +
+                "street:" + street + ", " +
+                "postal:" + postal + ", " +
+                "city:" + city + ", " +
+                "province:" + province + ", " +
+                "country:" + country +
+                "}";
     }
 }

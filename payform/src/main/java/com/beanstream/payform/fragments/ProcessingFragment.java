@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.Purchase;
 
 /**
@@ -25,22 +26,21 @@ import com.beanstream.payform.models.Purchase;
 public class ProcessingFragment extends Fragment {
 
     private Purchase purchase;
-    private int color;
 
     public ProcessingFragment() {
         // Required empty public constructor
     }
 
     /**
+     * @param options  PayForm options.
      * @param purchase Purchase info.
-     * @param color    Primary color.
      * @return A new instance of fragment ProcessingFragment.
      */
-    public static ProcessingFragment newInstance(Purchase purchase, int color) {
+    public static ProcessingFragment newInstance(Options options, Purchase purchase) {
         ProcessingFragment fragment = new ProcessingFragment();
         Bundle args = new Bundle();
+        args.putParcelable(PayFormActivity.EXTRA_OPTIONS, options);
         args.putParcelable(PayFormActivity.EXTRA_PURCHASE, purchase);
-        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,9 +48,11 @@ public class ProcessingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
-            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
+        } else {
+            purchase = new Purchase(0.0, "");
         }
     }
 
@@ -61,7 +63,6 @@ public class ProcessingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_processing, container, false);
 
         updateAmount(view);
-        updatePrimaryColor(view);
 
         return view;
     }
@@ -72,12 +73,5 @@ public class ProcessingFragment extends Fragment {
         if (textView != null) {
             textView.setText(purchase.getFormattedAmount());
         }
-    }
-
-    private void updatePrimaryColor(View view) {
-
-        ((TextView) view.findViewById(R.id.processing_text)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.processing_amount)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.processing_target)).setTextColor(color);
     }
 }

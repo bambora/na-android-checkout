@@ -30,8 +30,7 @@ public class EmailValidator extends TextValidator {
             if (isValidEmail(email)) {
                 return true;
             } else {
-                String name = view.getHint().toString().toUpperCase();
-                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
+                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + view.getHint();
                 view.setError(error);
             }
         }

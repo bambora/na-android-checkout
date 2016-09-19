@@ -27,7 +27,7 @@
     </style>
 
     <style name="BICSecureProcessing" parent="@style/BICSecure">
-        <item name="android:src">@drawable/ic_verified_user</item>
+        <item name="android:src">@drawable/ic_verified</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.Medium">
@@ -44,32 +44,26 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="BackLinkText">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerHorizontal">false</item>
-        <item name="android:layout_margin">@dimen/title_margin</item>
-    </style>
-
     <style name="TitleText" parent="@style/MediumText">
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_margin">@dimen/title_margin</item>
     </style>
 
-    <style name="MessageText" parent="@style/MediumText"></style>
+    <style name="MessageText" parent="@style/MediumText" />
+
+    <style name="EditText">
+        <item name="android:layout_height">@dimen/field_height</item>
+    </style>
 
     <style name="ErrorText" parent="@style/MediumText">
         <item name="android:textColor">@color/bicErrorText</item>
     </style>
 
     <style name="ProcessingText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicPrimary</item>
         <item name="android:textSize">@dimen/processing_text_size</item>
         <item name="android:padding">@dimen/processing_text_padding</item>
     </style>
 
     <style name="ProcessingSecureText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicPrimaryText</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

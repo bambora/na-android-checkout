@@ -32,9 +32,10 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# Intellij
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 *.iml
-.idea/workspace.xml
 
 # Keystore files
 *.jks

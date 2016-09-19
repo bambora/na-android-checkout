@@ -16,16 +16,14 @@ import com.beanstream.payform.R;
  * Created by dlight on 2016-08-18.
  */
 public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
-    private final TextView textView;
 
     public TextValidator(TextView view) {
-        this.textView = view;
+        TextView textView = view;
     }
 
     public boolean validate(TextView view) {
         if (TextUtils.isEmpty(view.getText().toString())) {
-            String name = view.getHint().toString().toUpperCase();
-            String error = name + " " + view.getResources().getString(R.string.validator_suffix_empty);
+            String error = view.getHint() + " " + view.getResources().getString(R.string.validator_suffix_empty);
             view.setError(error);
             return false;
         } else {

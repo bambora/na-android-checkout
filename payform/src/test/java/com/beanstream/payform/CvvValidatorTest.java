@@ -21,10 +21,10 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class CvvValidatorTest {
-    public final static String cvv_valid = "123";
-    public final static String cvv_valid_amex = "1234";
-    public final static String cvv_invalid_long = "12345";
-    public final static String cvv_invalid_short = "12";
+    private final static String cvv_valid = "123";
+    private final static String cvv_valid_amex = "1234";
+    private final static String cvv_invalid_long = "12345";
+    private final static String cvv_invalid_short = "12";
 
     //region isValidCvv
     @Test

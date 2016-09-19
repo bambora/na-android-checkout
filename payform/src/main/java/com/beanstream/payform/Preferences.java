@@ -11,31 +11,35 @@ import android.content.SharedPreferences;
  * Created by dlight on 2016-08-19.
  */
 public class Preferences {
-    private static Preferences preferences;
-    private SharedPreferences sharedPreferences;
+    public static final String CARD_TYPE = "cardType";
+    public static final String TOKEN_REQUEST_TIMEOUT_IN_SECONDS = "tokenRequestTimeoutInSeconds";
 
-    public static String CardType = "cardType";
-    public static String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
+    private static volatile Preferences preferences;
+    private final SharedPreferences sharedPreferences;
+
+    private Preferences(Context context) {
+        sharedPreferences = context.getSharedPreferences("com.beanstream.payform", Context.MODE_PRIVATE);
+    }
 
     public static Preferences getInstance(Context context) {
         if (preferences == null) {
-            preferences = new Preferences(context);
+            synchronized (Preferences.class) {
+                if (preferences == null) {
+                    preferences = new Preferences(context);
+                }
+            }
         }
         return preferences;
     }
 
-    private Preferences(Context context) {
-        sharedPreferences = context.getSharedPreferences("com.beanstream.payform",Context.MODE_PRIVATE);
-    }
-
     public void saveData(String key, String value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        prefsEditor .putString(key, value);
-        prefsEditor.commit();
+        prefsEditor.putString(key, value);
+        prefsEditor.apply();
     }
 
     public String getData(String key) {
-        if (sharedPreferences!= null) {
+        if (sharedPreferences != null) {
             return sharedPreferences.getString(key, "");
         }
         return "";

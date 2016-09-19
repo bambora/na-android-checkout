@@ -28,35 +28,23 @@ public class Purchase implements Parcelable {
         }
     };
 
-    private String companyName;
     private Double amount; // required
     private String currency; // required
-    private String description;
+    private String description = "";
 
     public Purchase(Double amount, String currency) {
         this.amount = amount;
         this.currency = currency;
     }
 
-    public Purchase() {
-    }
 
     private Purchase(Parcel parcel) {
-        companyName = parcel.readString();
         amount = parcel.readDouble();
         currency = parcel.readString();
         description = parcel.readString();
     }
 
     //region Getters and Setters
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getCurrency() {
         return currency;
     }
@@ -72,7 +60,6 @@ public class Purchase implements Parcelable {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-    //endregion
 
     public String getFormattedAmount() {
         return NumberFormat.getCurrencyInstance().format(amount) + " " + currency;
@@ -85,10 +72,11 @@ public class Purchase implements Parcelable {
     public void setDescription(String description) {
         this.description = description;
     }
+    //endregion
 
+    //Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(companyName);
         parcel.writeDouble(amount);
         parcel.writeString(currency);
         parcel.writeString(description);

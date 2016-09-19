@@ -39,7 +39,7 @@ public class EmailValidatorTest {
         assertFalse("no domain or com", EmailValidator.isValidEmail("name@"));
         assertFalse("no domain", EmailValidator.isValidEmail("name@.com"));
         assertFalse("no @ and domain", EmailValidator.isValidEmail("name"));
-        assertFalse("no .com", EmailValidator.isValidEmail("name@email"));;
+        assertFalse("no .com", EmailValidator.isValidEmail("name@email"));
         assertFalse("no com ", EmailValidator.isValidEmail("name@email."));
         assertFalse("no name and @", EmailValidator.isValidEmail("email.com"));
         assertFalse("no name", EmailValidator.isValidEmail("@email.com"));

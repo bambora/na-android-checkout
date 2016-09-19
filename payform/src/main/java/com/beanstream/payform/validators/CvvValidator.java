@@ -4,7 +4,6 @@
 
 package com.beanstream.payform.validators;
 
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -21,10 +20,7 @@ public class CvvValidator extends TextValidator {
     }
 
     public static boolean isValidCvv(String cvv, String cardType) {
-        if ((cvv == null) || (TextUtils.isEmpty(cvv.trim()))) {
-            return false;
-        }
-        return cvv.length() == CardType.getCvvLengthForCardType(cardType);
+        return (cvv != null) && (cvv.length() == CardType.getCvvLengthForCardType(cardType));
     }
 
     @Override
@@ -32,7 +28,7 @@ public class CvvValidator extends TextValidator {
         boolean result = false;
         if (super.validate(view)) {
             String cvv = view.getText().toString();
-            String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CardType);
+            String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CARD_TYPE);
 
             if (isValidCvv(cvv, cardType)) {
                 result = true;
@@ -40,8 +36,7 @@ public class CvvValidator extends TextValidator {
                 if (cvv.length() > CardType.CVV_MAX_LENGTH) {
                     view.setText(cvv.substring(0, CardType.CVV_MAX_LENGTH));
                 }
-                String name = view.getHint().toString().toUpperCase();
-                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + name;
+                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + view.getHint();
                 view.setError(error);
             }
         }

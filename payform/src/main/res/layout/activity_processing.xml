@@ -3,23 +3,16 @@
   ~
   ~ Created by dlight on 2016-08-15.
   -->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.beanstream.payform.activities.ProcessingActivity">
 
-    <!--Header-->
-    <FrameLayout
-        android:id="@+id/fragment_header"
-        android:name="com.beanstream.payform.fragments.HeaderFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        tools:layout="@layout/fragment_header" />
+    <include
+        android:id="@+id/toolbar_with_controls"
+        layout="@layout/toolbar_purchase_header" />
 
-    <!--Content-->
     <FrameLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
@@ -27,24 +20,10 @@
         android:layout_centerInParent="true"
         tools:layout="@layout/fragment_processing" />
 
-    <!--Footer-->
-    <RelativeLayout
-        android:id="@+id/bic_secure_footer"
+    <include
+        android:id="@+id/footer"
+        layout="@layout/secure_processing_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bicSecureProcessing">
-
-        <ImageView
-            android:id="@+id/bic_secure_image"
-            style="@style/BICSecureProcessing" />
-
-        <TextView
-            android:id="@+id/bic_secure_text"
-            style="@style/ProcessingSecureText"
-            android:layout_below="@id/bic_secure_image"
-            android:text="@string/processing_secure"
-            android:visibility="visible" />
-    </RelativeLayout>
-
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

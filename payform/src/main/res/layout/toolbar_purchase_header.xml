@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  -->
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_purchase_header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/action_bar_height"
+    android:background="@color/bicPrimary"
+    app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/header_padding">
+
+        <ImageView
+            android:id="@+id/header_company_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/purchase_logo"
+            android:paddingEnd="@dimen/logo_padding_end"
+            android:paddingStart="0dp"
+            android:src="@drawable/default_merchant_logo" />
+
+        <TextView
+            android:id="@+id/header_company_name"
+            style="@style/HeaderText"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_name"
+            android:textSize="@dimen/header_text_size_name" />
+
+        <TextView
+            android:id="@+id/header_amount"
+            style="@style/HeaderText"
+            android:layout_below="@id/header_company_name"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_amount"
+            android:textSize="@dimen/header_text_size_amount" />
+
+        <TextView
+            android:id="@+id/header_description"
+            style="@style/HeaderText"
+            android:layout_below="@id/header_amount"
+            android:layout_toEndOf="@id/header_company_logo"
+            android:text="@string/purchase_description"
+            android:textSize="@dimen/header_text_size_description" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

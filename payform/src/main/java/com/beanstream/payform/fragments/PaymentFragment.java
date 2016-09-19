@@ -11,37 +11,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.activities.PayFormActivity;
+import com.beanstream.payform.activities.BaseActivity;
+import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
-import com.beanstream.payform.models.Payment;
-import com.beanstream.payform.validators.CreditCardValidator;
+import com.beanstream.payform.validators.CardNumberValidator;
 import com.beanstream.payform.validators.CvvValidator;
 import com.beanstream.payform.validators.EmailValidator;
+import com.beanstream.payform.validators.ExpiryValidator;
 import com.beanstream.payform.validators.TextValidator;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PaymentFragment extends Fragment {
-    private int color;
+    private final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
+
+    private CardInfo cardInfo;
 
     public PaymentFragment() {
         // Required empty public constructor
     }
 
     /**
-     * @param color Primary color.
+     * @param cardInfo Non-sensitive card information.
      * @return A new instance of fragment PaymentFragment.
      */
-    public static PaymentFragment newInstance(int color) {
+    public static PaymentFragment newInstance(CardInfo cardInfo) {
         PaymentFragment fragment = new PaymentFragment();
         Bundle args = new Bundle();
-        args.putInt(PayFormActivity.EXTRA_SETTINGS_COLOR, color);
+        args.putParcelable(EXTRA_CARDINFO, cardInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +54,9 @@ public class PaymentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            color = getArguments().getInt(PayFormActivity.EXTRA_SETTINGS_COLOR);
+            cardInfo = getArguments().getParcelable(EXTRA_CARDINFO);
+        } else {
+            cardInfo = new CardInfo();
         }
     }
 
@@ -60,43 +66,24 @@ public class PaymentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
         setValidators(view);
-        updatePrimaryColor(view);
+        updateCardInfo(view, cardInfo);
 
         return view;
     }
 
-    private void updatePrimaryColor(View view) {
-        ((TextView) view.findViewById(R.id.back_link)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.title_text)).setTextColor(color);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showKeyboard();
     }
 
-    public Payment getPayment() {
-        Payment payment = new Payment();
+    public CardInfo getCardInfo() {
+        CardInfo cardInfo = new CardInfo();
 
-        payment.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
-        payment.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
+        cardInfo.setName(((TextView) getView().findViewById(R.id.pay_name)).getText().toString());
+        cardInfo.setEmail(((TextView) getView().findViewById(R.id.pay_email)).getText().toString());
 
-        return payment;
-    }
-
-    public void setValidators(View view) {
-        EditText textView;
-
-        textView = (EditText) (view.findViewById(R.id.pay_email));
-        textView.setOnFocusChangeListener(new EmailValidator(textView));
-
-        textView = (EditText) (view.findViewById(R.id.pay_name));
-        textView.setOnFocusChangeListener(new TextValidator(textView));
-
-        textView = (EditText) (view.findViewById(R.id.pay_card_number));
-        textView.addTextChangedListener(new CreditCardValidator(textView));
-        textView.setOnFocusChangeListener(new CreditCardValidator(textView));
-
-        textView = (EditText) (view.findViewById(R.id.pay_expiry));
-        textView.setOnFocusChangeListener(new TextValidator(textView));
-
-        textView = (EditText) (view.findViewById(R.id.pay_cvv));
-        textView.setOnFocusChangeListener(new CvvValidator(textView));
+        return cardInfo;
     }
 
     public CreditCard getCreditCard() {
@@ -106,12 +93,8 @@ public class PaymentFragment extends Fragment {
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
 
         String expiry = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-        String month = "";
-        String year = "";
-        if (expiry.length() > 0) {
-            month = expiry.substring(0, 2); //TODO
-            year = expiry.substring(2);
-        }
+        String month = ExpiryValidator.getMonthFromExpiry(expiry);
+        String year = ExpiryValidator.getYearFromExpiry(expiry);
 
         CreditCard card = new CreditCard();
 
@@ -122,5 +105,43 @@ public class PaymentFragment extends Fragment {
         card.setCardType(CardType.getCardTypeFromCardNumber(cardNumber));
 
         return card;
+    }
+
+    private void setValidators(View view) {
+        EditText textView;
+
+        textView = (EditText) (view.findViewById(R.id.pay_email));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        textView.setOnFocusChangeListener(new EmailValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_name));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        textView.setOnFocusChangeListener(new TextValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_card_number));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        textView.addTextChangedListener(new CardNumberValidator(textView));
+        textView.setOnFocusChangeListener(new CardNumberValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_expiry));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        textView.addTextChangedListener(new ExpiryValidator(textView));
+        textView.setOnFocusChangeListener(new ExpiryValidator(textView));
+
+        textView = (EditText) (view.findViewById(R.id.pay_cvv));
+        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        textView.setOnFocusChangeListener(new CvvValidator(textView));
+    }
+
+    private void showKeyboard() {
+        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
+        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textView.requestFocus();
+        BaseActivity.showKeyboard(getActivity());
+    }
+
+    private void updateCardInfo(View view, CardInfo cardInfo) {
+        ((TextView) view.findViewById(R.id.pay_name)).setText(cardInfo.getName());
+        ((TextView) view.findViewById(R.id.pay_email)).setText(cardInfo.getEmail());
     }
 }

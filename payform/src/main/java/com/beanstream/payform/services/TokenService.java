@@ -26,13 +26,13 @@ import java.net.URL;
  * Created by dlight on 2016-08-15.
  */
 public class TokenService extends IntentService {
-    public final static String EXTRA_CARD = "com.beanstream.payform.services.card";
+    public final static String EXTRA_CREDIT_CARD = "com.beanstream.payform.services.creditcard";
     public final static String EXTRA_RECEIVER = "com.beanstream.payform.services.receiver";
     public final static String EXTRA_TOKEN = "com.beanstream.payform.services.token";
 
-    public final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
+    private final static String URL_TOKENIZATION = "https://www.beanstream.com/scripts/tokenization/tokens";
 
-    public final static int SERVICE_ERROR = 22;
+    private final static int SERVICE_ERROR = 22;
 
 
     public TokenService() {
@@ -42,7 +42,7 @@ public class TokenService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
-        CreditCard card = intent.getParcelableExtra(EXTRA_CARD);
+        CreditCard card = intent.getParcelableExtra(EXTRA_CREDIT_CARD);
 
         TokenRequest request = new TokenRequest(card);
         TokenResponse response = callTokenService(request);
@@ -55,7 +55,6 @@ public class TokenService extends IntentService {
         } else {
             receiver.send(SERVICE_ERROR, bundle);
         }
-
     }
 
     private TokenResponse callTokenService(TokenRequest request) {
@@ -69,8 +68,7 @@ public class TokenService extends IntentService {
             connection = (HttpURLConnection) url.openConnection();
 
             // Set Timeouts
-
-            int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TokenRequestTimeoutInSeconds));
+            int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TOKEN_REQUEST_TIMEOUT_IN_SECONDS));
 
             connection.setReadTimeout(timeoutInSeconds * 1000);
             connection.setConnectTimeout(timeoutInSeconds * 1000);
@@ -95,22 +93,27 @@ public class TokenService extends IntentService {
                 JsonReader reader = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    String name = reader.nextName();
-                    if (name.equals("token")) {
-                        response.setToken(reader.nextString());
-                    } else if (name.equals("code")) {
-                        response.setCode(reader.nextInt());
-                    } else if (name.equals("version")) {
-                        response.setVersion(reader.nextString());
-                    } else if (name.equals("message")) {
-                        response.setMessage(reader.nextString());
-                    } else {
-                        reader.skipValue();
+                    switch (reader.nextName()) {
+                        case "token":
+                            response.setToken(reader.nextString());
+                            break;
+                        case "code":
+                            response.setCode(reader.nextInt());
+                            break;
+                        case "version":
+                            response.setVersion(reader.nextString());
+                            break;
+                        case "message":
+                            response.setMessage(reader.nextString());
+                            break;
+                        default:
+                            reader.skipValue();
+                            break;
                     }
                 }
                 reader.endObject();
             } else {
-                Log.d("HttpResult", connection.getResponseMessage());
+                Log.w("HttpResult", connection.getResponseMessage());
             }
 
         } catch (Exception e) {

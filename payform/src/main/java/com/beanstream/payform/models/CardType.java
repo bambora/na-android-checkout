@@ -19,23 +19,23 @@ public class CardType {
     public final static String AMEX = "amex";
     public final static String DINERS = "diners";
     public final static String DISCOVER = "discover";
-    public final static String JCB = "jcb";
+    private final static String JCB = "jcb";
     public final static String MASTERCARD = "mastercard";
     public final static String VISA = "visa";
 
-    public final static Pattern TYPE_PATTERN_AMEX = Pattern.compile("^3[47][0-9]{2}.*$");
-    public final static Pattern TYPE_PATTERN_DINERS = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9].*$");
-    public final static Pattern TYPE_PATTERN_DISCOVER = Pattern.compile("^6(?:011|5[0-9]{2}).*$");
-    public final static Pattern TYPE_PATTERN_JCB = Pattern.compile("^(?:2131|1800|35[0-9]{2}).*$");
-    public final static Pattern TYPE_PATTERN_MASTERCARD = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720).*$");
-    public final static Pattern TYPE_PATTERN_VISA = Pattern.compile("^4[0-9]{3}.*$");
+    private final static Pattern TYPE_PATTERN_AMEX = Pattern.compile("^3[47][0-9]{2}.*$");
+    private final static Pattern TYPE_PATTERN_DINERS = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9].*$");
+    private final static Pattern TYPE_PATTERN_DISCOVER = Pattern.compile("^6(?:011|5[0-9]{2}).*$");
+    private final static Pattern TYPE_PATTERN_JCB = Pattern.compile("^(?:2131|1800|35[0-9]{2}).*$");
+    private final static Pattern TYPE_PATTERN_MASTERCARD = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720).*$");
+    private final static Pattern TYPE_PATTERN_VISA = Pattern.compile("^4[0-9]{3}.*$");
 
-    public final static Pattern CARD_PATTERN_AMEX = Pattern.compile("^3[47][0-9]{13}$");
-    public final static Pattern CARD_PATTERN_DINERS = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{11}$");
-    public final static Pattern CARD_PATTERN_DISCOVER = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{12}$");
-    public final static Pattern CARD_PATTERN_JCB = Pattern.compile("^(?:2131|1800|35[0-9]{3})[0-9]{11}$");
-    public final static Pattern CARD_PATTERN_MASTERCARD = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$");
-    public final static Pattern CARD_PATTERN_VISA = Pattern.compile("^4[0-9]{15}$");
+    private final static Pattern CARD_PATTERN_AMEX = Pattern.compile("^3[47][0-9]{13}$");
+    private final static Pattern CARD_PATTERN_DINERS = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{11}$");
+    private final static Pattern CARD_PATTERN_DISCOVER = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{12}$");
+    private final static Pattern CARD_PATTERN_JCB = Pattern.compile("^(?:2131|1800|35[0-9]{3})[0-9]{11}$");
+    private final static Pattern CARD_PATTERN_MASTERCARD = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$");
+    private final static Pattern CARD_PATTERN_VISA = Pattern.compile("^4[0-9]{15}$");
 
     public static String getCardTypeFromCardNumber(String cardNumber) {
         if (cardNumber != null) {
@@ -57,7 +57,7 @@ public class CardType {
         return INVALID;
     }
 
-    public static ArrayList getSegmentLengthsForCardType(String cardType) {
+    public static ArrayList<Integer> getSegmentLengthsForCardType(String cardType) {
         ArrayList<Integer> format = new ArrayList<>();
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
@@ -85,18 +85,19 @@ public class CardType {
     public static Pattern getCardPatternForCardType(String cardType) {
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
-            if (AMEX.equals(cardType)) {
-                return CARD_PATTERN_AMEX;
-            } else if (DINERS.equals(cardType)) {
-                return CARD_PATTERN_DINERS;
-            } else if (DISCOVER.equals(cardType)) {
-                return CARD_PATTERN_DISCOVER;
-            } else if (JCB.equals(cardType)) {
-                return CARD_PATTERN_JCB;
-            } else if (MASTERCARD.equals(cardType)) {
-                return CARD_PATTERN_MASTERCARD;
-            } else if (VISA.equals(cardType)) {
-                return CARD_PATTERN_VISA;
+            switch (cardType) {
+                case AMEX:
+                    return CARD_PATTERN_AMEX;
+                case DINERS:
+                    return CARD_PATTERN_DINERS;
+                case DISCOVER:
+                    return CARD_PATTERN_DISCOVER;
+                case JCB:
+                    return CARD_PATTERN_JCB;
+                case MASTERCARD:
+                    return CARD_PATTERN_MASTERCARD;
+                case VISA:
+                    return CARD_PATTERN_VISA;
             }
         }
         return Pattern.compile(INVALID);
