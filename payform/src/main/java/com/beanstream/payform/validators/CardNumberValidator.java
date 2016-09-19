@@ -86,7 +86,7 @@ public class CardNumberValidator extends TextValidator {
         editText.removeTextChangedListener(this);
 
         String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
-        Preferences.getInstance(editText.getContext()).saveData(Preferences.CardType, cardType);
+        Preferences.getInstance(editText.getContext()).saveData(Preferences.CARD_TYPE, cardType);
         setCreditCardImage(cardType);
 
         editText.addTextChangedListener(this);
@@ -106,7 +106,7 @@ public class CardNumberValidator extends TextValidator {
         cardNumber = getCleanCardNumber(cardNumber);
 
         // Format cardNumber
-        String cardType = Preferences.getInstance(editText.getContext()).getData(Preferences.CardType);
+        String cardType = Preferences.getInstance(editText.getContext()).getData(Preferences.CARD_TYPE);
         ArrayList<Integer> segmentLengths = CardType.getSegmentLengthsForCardType(cardType);
         Integer start = 0;
         Integer end;

@@ -28,7 +28,7 @@ public class CvvValidator extends TextValidator {
         boolean result = false;
         if (super.validate(view)) {
             String cvv = view.getText().toString();
-            String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CardType);
+            String cardType = Preferences.getInstance(view.getContext()).getData(Preferences.CARD_TYPE);
 
             if (isValidCvv(cvv, cardType)) {
                 result = true;

@@ -63,20 +63,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) {
-            Intent intent = getIntent();
-            options = intent.getParcelableExtra(EXTRA_OPTIONS);
-            if (options == null) {
-                options = new Options();
-            }
-            purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
-            if (purchase == null) {
-                purchase = new Purchase(0.0, "");
-            }
-        } else {
-            options = savedInstanceState.getParcelable(EXTRA_OPTIONS);
-            purchase = savedInstanceState.getParcelable(EXTRA_PURCHASE);
-
+        Intent intent = getIntent();
+        options = intent.getParcelableExtra(EXTRA_OPTIONS);
+        if (options == null) {
+            options = new Options();
+        }
+        purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
+        if (purchase == null) {
+            purchase = new Purchase(0.0, "");
         }
 
         if (options.getThemeResourceId() == 0) {
@@ -84,14 +78,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.setTheme(options.getThemeResourceId());
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable(EXTRA_OPTIONS, options);
-        outState.putParcelable(EXTRA_PURCHASE, purchase);
     }
 
     void disableHeaderBackButton() {

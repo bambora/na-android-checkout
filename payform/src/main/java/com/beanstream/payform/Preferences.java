@@ -11,8 +11,8 @@ import android.content.SharedPreferences;
  * Created by dlight on 2016-08-19.
  */
 public class Preferences {
-    public static final String CardType = "cardType";
-    public static final String TokenRequestTimeoutInSeconds = "tokenRequestTimeoutInSeconds";
+    public static final String CARD_TYPE = "cardType";
+    public static final String TOKEN_REQUEST_TIMEOUT_IN_SECONDS = "tokenRequestTimeoutInSeconds";
 
     private static volatile Preferences preferences;
     private final SharedPreferences sharedPreferences;

@@ -68,7 +68,7 @@ public class TokenService extends IntentService {
             connection = (HttpURLConnection) url.openConnection();
 
             // Set Timeouts
-            int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TokenRequestTimeoutInSeconds));
+            int timeoutInSeconds = Integer.valueOf(Preferences.getInstance(this.getApplicationContext()).getData(Preferences.TOKEN_REQUEST_TIMEOUT_IN_SECONDS));
 
             connection.setReadTimeout(timeoutInSeconds * 1000);
             connection.setConnectTimeout(timeoutInSeconds * 1000);

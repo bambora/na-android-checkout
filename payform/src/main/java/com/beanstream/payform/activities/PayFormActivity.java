@@ -53,7 +53,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
         updatePurchaseHeader(options, purchase);
 
-        Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TokenRequestTimeoutInSeconds, String.valueOf(options.getTokenRequestTimeoutInSeconds()));
+        Preferences.getInstance(this.getApplicationContext()).saveData(Preferences.TOKEN_REQUEST_TIMEOUT_IN_SECONDS, String.valueOf(options.getTokenRequestTimeoutInSeconds()));
 
         if (savedInstanceState == null) {
             // First-time init;
