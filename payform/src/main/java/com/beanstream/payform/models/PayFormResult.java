@@ -56,7 +56,7 @@ public class PayFormResult implements Parcelable {
         return isBillingSameAsShipping;
     }
 
-    public void setBillingSameAsShipping(boolean billingSameAsShipping) {
+    public void setIsBillingSameAsShipping(boolean billingSameAsShipping) {
         isBillingSameAsShipping = billingSameAsShipping;
     }
 

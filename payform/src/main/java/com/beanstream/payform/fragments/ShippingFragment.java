@@ -23,12 +23,15 @@ import com.beanstream.payform.models.Address;
 public class ShippingFragment extends AddressFragment {
 
     private final static String EXTRA_BILLING_REQUIRED = "com.beanstream.payform.models.options.billingrequired";
+    private final static String EXTRA_BILLING_SAME_AS_SHIPPING = "com.beanstream.payform.billing.sameas.shipping";
+
     private static final OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
         @Override
         public void onBillingCheckBoxChanged(boolean isChecked) {
         }
     };
-    private boolean billingRequired;
+    private boolean isBillingRequired;
+    private boolean isBillingSameAsShipping;
     private OnBillingCheckBoxChangedListener billingCallback = dummyBillingCallback;
 
     public ShippingFragment() {
@@ -40,11 +43,12 @@ public class ShippingFragment extends AddressFragment {
      * @param billingRequired Whether or not to show billing checkbox.
      * @return A new instance of fragment ShippingFragment.
      */
-    public static ShippingFragment newInstance(Address address, boolean billingRequired) {
+    public static ShippingFragment newInstance(Address address, boolean billingRequired, boolean billingSameAsShipping) {
         ShippingFragment fragment = new ShippingFragment();
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_ADDRESS, address);
         args.putBoolean(EXTRA_BILLING_REQUIRED, billingRequired);
+        args.putBoolean(EXTRA_BILLING_SAME_AS_SHIPPING, billingSameAsShipping);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,9 +58,11 @@ public class ShippingFragment extends AddressFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            billingRequired = getArguments().getBoolean(EXTRA_BILLING_REQUIRED);
+            isBillingRequired = getArguments().getBoolean(EXTRA_BILLING_REQUIRED);
+            isBillingSameAsShipping = getArguments().getBoolean(EXTRA_BILLING_SAME_AS_SHIPPING);
         } else {
-            billingRequired = true;
+            isBillingRequired = true;
+            isBillingSameAsShipping = false;
         }
     }
 
@@ -92,17 +98,24 @@ public class ShippingFragment extends AddressFragment {
     @Override
     public void configureBillingCheckBox(View view) {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
-        checkBox.setVisibility(View.GONE);
-
-        if (billingRequired) {
-            checkBox.setVisibility(View.VISIBLE);
+        checkBox.setOnCheckedChangeListener(null);
+        if (isBillingRequired) {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    isBillingSameAsShipping = isChecked;
                     billingCallback.onBillingCheckBoxChanged(isChecked);
                 }
             });
+            checkBox.setChecked(isBillingSameAsShipping);
+            checkBox.setVisibility(View.VISIBLE);
+        } else {
+            checkBox.setVisibility(View.GONE);
         }
+    }
+
+    public boolean getIsBillingSameAsShipping() {
+        return ((CheckBox) getView().findViewById(R.id.billing_switch)).isChecked();
     }
 
     public interface OnBillingCheckBoxChangedListener {

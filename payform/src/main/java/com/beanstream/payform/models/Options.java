@@ -29,8 +29,8 @@ public class Options implements Parcelable {
     private int companyLogoResourceId = 0;
     private String companyName = "";
 
-    private Boolean billingAddressRequired = true;
-    private Boolean shippingAddressRequired = true;
+    private Boolean isBillingAddressRequired = true;
+    private Boolean isShippingAddressRequired = true;
 
     private int themeResourceId = 0;
 
@@ -44,8 +44,8 @@ public class Options implements Parcelable {
         companyLogoResourceId = parcel.readInt();
         companyName = parcel.readString();
 
-        billingAddressRequired = (parcel.readInt() == 0);
-        shippingAddressRequired = (parcel.readInt() == 0);
+        isBillingAddressRequired = (parcel.readInt() == 0);
+        isShippingAddressRequired = (parcel.readInt() == 0);
 
         themeResourceId = parcel.readInt();
 
@@ -70,21 +70,21 @@ public class Options implements Parcelable {
         this.companyLogoResourceId = resourceId;
     }
 
-    public Boolean getBillingAddressRequired() {
-        return billingAddressRequired;
+    public Boolean isBillingAddressRequired() {
+        return isBillingAddressRequired;
     }
 
-    public void setBillingAddressRequired(Boolean billingAddressRequired) {
-        this.billingAddressRequired = billingAddressRequired;
+    public void setIsBillingAddressRequired(Boolean isBillingAddressRequired) {
+        this.isBillingAddressRequired = isBillingAddressRequired;
     }
 
-    public Boolean getShippingAddressRequired() {
+    public Boolean isShippingAddressRequired() {
 
-        return shippingAddressRequired;
+        return isShippingAddressRequired;
     }
 
-    public void setShippingAddressRequired(Boolean shippingAddressRequired) {
-        this.shippingAddressRequired = shippingAddressRequired;
+    public void setIsShippingAddressRequired(Boolean isShippingAddressRequired) {
+        this.isShippingAddressRequired = isShippingAddressRequired;
     }
 
     public int getThemeResourceId() {
@@ -110,8 +110,8 @@ public class Options implements Parcelable {
         parcel.writeInt(companyLogoResourceId);
         parcel.writeString(companyName);
 
-        parcel.writeInt(billingAddressRequired ? 0 : 1);
-        parcel.writeInt(shippingAddressRequired ? 0 : 1);
+        parcel.writeInt(isBillingAddressRequired ? 0 : 1);
+        parcel.writeInt(isShippingAddressRequired ? 0 : 1);
 
         parcel.writeInt(themeResourceId);
 

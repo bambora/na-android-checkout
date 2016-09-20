@@ -62,9 +62,9 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
             getFragmentManager().addOnBackStackChangedListener(this);
 
-            if (options.getShippingAddressRequired()) {
+            if (options.isShippingAddressRequired()) {
                 switchContentToShipping();
-            } else if (options.getBillingAddressRequired()) {
+            } else if (options.isBillingAddressRequired()) {
                 switchContentToBilling();
             } else {
                 switchContentToPayment();
@@ -78,7 +78,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
     @Override
     public void onBillingCheckBoxChanged(boolean isChecked) {
-        payFormResult.setBillingSameAsShipping(isChecked);
+        payFormResult.setIsBillingSameAsShipping(isChecked);
         updateNextButton();
     }
 
@@ -115,7 +115,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         }
 
         if (fragment instanceof ShippingFragment) {
-            if (isBillingRequired()) {
+            if (isBillingNext()) {
                 switchContentToBilling();
             } else {
                 switchContentToPayment();
@@ -131,14 +131,16 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         return getFragmentManager().findFragmentById(R.id.fragment_content);
     }
 
-    private boolean isBillingRequired() {
-        return (options.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
+    private boolean isBillingNext() {
+        return (options.isBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
     }
 
     private void saveFragment(Fragment fragment) {
         if (fragment != null) {
             if (fragment instanceof ShippingFragment) {
                 payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
+                payFormResult.setIsBillingSameAsShipping(((ShippingFragment) fragment).getIsBillingSameAsShipping());
+
                 if (payFormResult.isBillingSameAsShipping()) {
                     payFormResult.setBilling(((ShippingFragment) fragment).getAddress());
                 }
@@ -165,7 +167,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         Fragment fragment = getCurrentFragment();
 
         if (fragment instanceof ShippingFragment) {
-            if (isBillingRequired()) {
+            if (isBillingNext()) {
                 return getResources().getString(R.string.next_button_to_billing);
             } else {
                 return getResources().getString(R.string.next_button_to_payment);
@@ -180,7 +182,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     private void switchContentToShipping() {
         String tag = ShippingFragment.class.getName();
         getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, ShippingFragment.newInstance(payFormResult.getShipping(), options.getBillingAddressRequired()), tag)
+                .replace(R.id.fragment_content, ShippingFragment.newInstance(payFormResult.getShipping(), options.isBillingAddressRequired(), payFormResult.isBillingSameAsShipping()), tag)
                 .addToBackStack(tag)
                 .commit();
     }
