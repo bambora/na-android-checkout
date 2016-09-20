@@ -39,6 +39,9 @@ public class PaymentFragment extends Fragment {
 
     private CardInfo cardInfo;
 
+    private Spinner monthSpinner;
+    private Spinner yearSpinner;
+
     public PaymentFragment() {
         // Required empty public constructor
     }
@@ -70,6 +73,9 @@ public class PaymentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
+        monthSpinner = (Spinner) view.findViewById(R.id.pay_expiry_month);
+        yearSpinner = (Spinner) view.findViewById(R.id.pay_expiry_year);
+
         setValidators(view);
         updateCardInfo(view, cardInfo);
 
@@ -97,8 +103,8 @@ public class PaymentFragment extends Fragment {
         cardNumber = cardNumber.replace(" ", "");
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
 
-        String month = ((Spinner) getView().findViewById(R.id.pay_expiry_month)).getSelectedItem().toString();
-        String year = ((Spinner) getView().findViewById(R.id.pay_expiry_year)).getSelectedItem().toString();
+        String month = monthSpinner.getSelectedItem().toString();
+        String year = yearSpinner.getSelectedItem().toString();
 
         CreditCard card = new CreditCard();
 
@@ -127,20 +133,15 @@ public class PaymentFragment extends Fragment {
         textView.addTextChangedListener(new CardNumberValidator(textView));
         textView.setOnFocusChangeListener(new CardNumberValidator(textView));
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.pay_expiry_month);
-        configureSpinnerForExpiry(spinner, R.string.pay_hint_expiry_month, ExpiryValidator.expiryMonths());
+        monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
+        monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));
 
-        spinner = (Spinner) view.findViewById(R.id.pay_expiry_year);
-        configureSpinnerForExpiry(spinner, R.string.pay_hint_expiry_year, ExpiryValidator.expiryYears());
+        yearSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryYears(), getResources().getString(R.string.pay_hint_expiry_year)));
+        yearSpinner.setOnItemSelectedListener(new ExpiryValidator(yearSpinner));
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
         textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new CvvValidator(textView));
-    }
-
-    private void configureSpinnerForExpiry(Spinner spinner, int hintResourceId, ArrayList<String> list) {
-        spinner.setAdapter(adapterWithList(list, getResources().getString(hintResourceId)));
-        spinner.setOnItemSelectedListener(new ExpiryValidator(spinner));
     }
 
     private ArrayAdapter<String> adapterWithList(ArrayList<String> list, String hint) {
