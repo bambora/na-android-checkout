@@ -141,9 +141,7 @@ public class PaymentFragment extends Fragment {
 
     private void configureSpinnerForExpiry(Spinner spinner, int hintResourceId, ArrayList<String> list) {
         spinner.setAdapter(adapterWithList(list, getResources().getString(hintResourceId)));
-        spinner.setFocusable(true);
-        spinner.setFocusableInTouchMode(true);
-        spinner.setOnFocusChangeListener(new ExpiryValidator(spinner));
+        spinner.setOnItemSelectedListener(new ExpiryValidator(spinner));
     }
 
     private ArrayAdapter<String> adapterWithList(ArrayList<String> list, String hint) {

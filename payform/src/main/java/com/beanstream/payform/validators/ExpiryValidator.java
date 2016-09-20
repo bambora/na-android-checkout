@@ -6,6 +6,7 @@ package com.beanstream.payform.validators;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ import java.util.Locale;
 /**
  * Created by dlight on 2016-09-06.
  */
-public class ExpiryValidator implements View.OnFocusChangeListener {
+public class ExpiryValidator implements Spinner.OnItemSelectedListener {
 
     private final Spinner spinner;
 
@@ -59,6 +60,16 @@ public class ExpiryValidator implements View.OnFocusChangeListener {
         return str.matches("^\\d+$");
     }
 
+    @Override
+    public void onItemSelected(AdapterView parent, View v, int position, long id) {
+        // Do nothing.
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView parent) {
+        // Do nothing.
+    }
+
     public boolean validate(Spinner spinner) {
         boolean result = false;
         String expiry = spinner.getSelectedItem().toString();
@@ -72,11 +83,5 @@ public class ExpiryValidator implements View.OnFocusChangeListener {
             expiryView.setError(error);
         }
         return result;
-    }
-
-    public void onFocusChange(View view, boolean hasFocus) {
-        if (!hasFocus) {
-            validate((Spinner) view);
-        }
     }
 }
