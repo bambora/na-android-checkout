@@ -28,7 +28,7 @@ public class ViewValidator {
                 if (field instanceof EditText) {
                     EditText editText = (EditText) field;
                     ((TextValidator) focusListener).validate(editText);
-                    error = error + (editText.getError() == null ? null : editText.getError().toString());
+                    error = error + (editText.getError() == null ? "" : " " + editText.getError().toString());
                 }
             }
         }
@@ -38,7 +38,7 @@ public class ViewValidator {
             if (itemListener != null) {
                 ((ExpiryValidator) itemListener).validate(spinner);
                 TextView spinnerView = (TextView) spinner.getSelectedView();
-                error = error + (spinnerView.getError() == null ? null : spinnerView.getError().toString());
+                error = error + (spinnerView.getError() == null ? "" : " " + spinnerView.getError().toString());
             }
         }
 

@@ -79,7 +79,7 @@ public class ExpiryValidator implements Spinner.OnItemSelectedListener {
             result = true;
             expiryView.setError(null);
         } else {
-            String error = spinner.getResources().getString(R.string.validator_prefix_invalid) + expiry;
+            String error = expiry + " " + spinner.getResources().getString(R.string.validator_suffix_empty);
             expiryView.setError(error);
         }
         return result;
