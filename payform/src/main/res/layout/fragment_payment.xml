@@ -59,16 +59,26 @@
                 android:hint="@string/pay_hint_card_number"
                 android:inputType="number"
                 android:minHeight="10dp"
-                android:nextFocusDown="@+id/pay_expiry_month"
+                android:nextFocusDown="@+id/pay_cvv"
                 android:singleLine="true" />
         </TableRow>
 
         <TableRow>
 
+            <EditText
+                android:id="@+id/pay_cvv"
+                style="@style/EditText"
+                android:layout_width="wrap_content"
+                android:layout_weight=".3"
+                android:drawableEnd="@drawable/cvc_hint_color"
+                android:hint="@string/pay_hint_cvv"
+                android:inputType="number" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/field_height"
                 android:layout_weight=".7"
+                android:paddingStart="@dimen/expiry_padding"
                 android:orientation="horizontal">
 
                 <Spinner
@@ -79,15 +89,6 @@
                     android:id="@+id/pay_expiry_year"
                     style="@style/DateSpinner" />
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/pay_cvv"
-                style="@style/EditText"
-                android:layout_width="wrap_content"
-                android:layout_weight=".3"
-                android:drawableEnd="@drawable/cvc_hint_color"
-                android:hint="@string/pay_hint_cvv"
-                android:inputType="number" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>
