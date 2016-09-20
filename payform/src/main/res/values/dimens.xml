@@ -22,6 +22,9 @@
 
     <dimen name="checkbox_margin">5dp</dimen>
 
+    <dimen name="date_spinner_text_size">18sp</dimen>
+    <dimen name="date_spinner_width">150dp</dimen>
+
     <dimen name="field_height">70dp</dimen>
 
     <dimen name="header_padding">10dp</dimen>

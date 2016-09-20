@@ -4,137 +4,79 @@
 
 package com.beanstream.payform.validators;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by dlight on 2016-09-06.
  */
-public class ExpiryValidator extends TextValidator {
+public class ExpiryValidator implements View.OnFocusChangeListener {
 
-    private static final int EXPIRY_LENGTH = 5; // MM/YY
-    private static final int EXPIRY_DELIMITER_POSITION = 2;
-    private static final String EXPIRY_DELIMITER = "/";
+    private final Spinner spinner;
 
-    private final EditText editText;
-
-    public ExpiryValidator(TextView view) {
-        super(view);
-        this.editText = (EditText) view;
+    public ExpiryValidator(Spinner spinner) {
+        this.spinner = spinner;
     }
 
     public static boolean isValidExpiry(String expiry) {
-        if ((expiry == null) || (TextUtils.isEmpty(expiry)) || (expiry.length() != EXPIRY_LENGTH)) {
-            return false;
+        return ((expiry != null) && (!TextUtils.isEmpty(expiry))) && isNumeric(expiry);
+    }
+
+    public static ArrayList<String> expiryMonths() {
+        ArrayList<String> months = new ArrayList<>();
+
+        int january = 1;
+        int december = 12;
+        for (int i = january; i <= december; i++) {
+            months.add(String.format(Locale.US, "%02d", i));
         }
 
-        return isValidMonth(expiry) && isValidYear(expiry);
+        return months;
     }
 
-    public static String formatExpiry(String expiry) {
-        if ((expiry == null) || (TextUtils.isEmpty(cleanExpiry(expiry)))) {
-            expiry = "";
-        } else {
-            expiry = cleanExpiry(expiry);
-            expiry = delimitExpiry(expiry);
-            expiry = resizeExpiry(expiry);
-        }
-        return expiry;
-    }
+    public static ArrayList<String> expiryYears() {
+        ArrayList<String> years = new ArrayList<>();
 
-    public static String getMonthFromExpiry(String expiry) {
-        return expiry.split(EXPIRY_DELIMITER)[0];
-    }
-
-    public static String getYearFromExpiry(String expiry) {
-        String year = "";
-        String[] split = expiry.split(EXPIRY_DELIMITER);
-        if (split.length > 1) {
-            return split[1];
-        }
-        return year;
-    }
-
-    private static boolean isValidMonth(String expiry) {
-        int month = Integer.parseInt(getMonthFromExpiry(expiry));
-        return (month >= 1 && month <= 12);
-    }
-
-    private static boolean isValidYear(String expiry) {
-        int year = Integer.parseInt(getYearFromExpiry(expiry));
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
-        return (year >= currentYear);
-    }
-
-    private static String cleanExpiry(String expiry) {
-        return expiry.replaceAll("[^0-9]", "");
-    }
-
-    private static String delimitExpiry(String expiry) {
-        if (expiry.length() > EXPIRY_DELIMITER_POSITION) {
-            String month = expiry.substring(0, EXPIRY_DELIMITER_POSITION);
-            String year = expiry.substring(EXPIRY_DELIMITER_POSITION);
-            expiry = month + EXPIRY_DELIMITER + year;
-
-        } else if (expiry.length() == EXPIRY_DELIMITER_POSITION) {
-            expiry = expiry + EXPIRY_DELIMITER;
-        }
-        return expiry;
-    }
-
-    private static String resizeExpiry(String expiry) {
-        if (expiry.length() > EXPIRY_LENGTH) {
-            expiry = expiry.substring(0, EXPIRY_LENGTH);
-        }
-        return expiry;
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-        editText.removeTextChangedListener(this);
-
-        // Get text
-        int index = editText.getSelectionStart();
-        String expiry = editText.getText().toString();
-
-        // Format expiry
-        expiry = formatExpiry(expiry);
-
-        // Reset index
-        if (index == EXPIRY_DELIMITER_POSITION) {
-            index = index + 1;
-        }
-        if (index >= expiry.length()) {
-            index = expiry.length();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        int maxExpiryInYears = 10;
+        int maxYear = thisYear + maxExpiryInYears;
+        for (int i = thisYear; i <= maxYear; i++) {
+            years.add(Integer.toString(i));
         }
 
-        // Set text
-        editText.setText(expiry);
-        editText.setSelection(index);
-
-        editText.addTextChangedListener(this);
+        return years;
     }
 
-    @Override
-    public boolean validate(TextView view) {
+    private static boolean isNumeric(String str) {
+        return str.matches("^\\d+$");
+    }
+
+    public boolean validate(Spinner spinner) {
         boolean result = false;
-        if (super.validate(view)) {
-            String expiry = view.getText().toString();
+        String expiry = spinner.getSelectedItem().toString();
 
-            if (isValidExpiry(expiry)) {
-                result = true;
-            } else {
-                String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + view.getHint();
-                view.setError(error);
-            }
+        TextView expiryView = (TextView) spinner.getSelectedView();
+        if (isValidExpiry(expiry)) {
+            result = true;
+            expiryView.setError(null);
+        } else {
+            String error = spinner.getResources().getString(R.string.validator_prefix_invalid) + expiry;
+            expiryView.setError(error);
         }
         return result;
+    }
+
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (!hasFocus) {
+            validate((Spinner) view);
+        }
     }
 }

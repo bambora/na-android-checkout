@@ -50,6 +50,11 @@
 
     <style name="MessageText" parent="@style/MediumText" />
 
+    <style name="DateSpinner">
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:layout_width">@dimen/date_spinner_width</item>
+    </style>
+
     <style name="EditText">
         <item name="android:layout_height">@dimen/field_height</item>
     </style>

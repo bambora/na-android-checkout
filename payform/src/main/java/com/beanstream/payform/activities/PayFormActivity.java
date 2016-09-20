@@ -91,7 +91,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 1) {
-            saveCurrentFragment();
+            saveFragment(getCurrentFragment());
             closeKeyboard(this);
 
             getFragmentManager().popBackStackImmediate();
@@ -107,11 +107,10 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     }
 
     private void goToNext() {
-        saveCurrentFragment();
-
         Fragment fragment = getCurrentFragment();
-        ViewValidator.validateAllFields(fragment.getView());
-        if (!(ViewValidator.isViewValid(fragment.getView()))) {
+        saveFragment(fragment);
+
+        if (!ViewValidator.validateAllFields(fragment.getView())) {
             return;
         }
 
@@ -136,8 +135,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         return (options.getBillingAddressRequired() && !(payFormResult.isBillingSameAsShipping()));
     }
 
-    private void saveCurrentFragment() {
-        Fragment fragment = getCurrentFragment();
+    private void saveFragment(Fragment fragment) {
         if (fragment != null) {
             if (fragment instanceof ShippingFragment) {
                 payFormResult.setShipping(((ShippingFragment) fragment).getAddress());
