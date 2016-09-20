@@ -78,8 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/field_height"
                 android:layout_weight=".7"
-                android:paddingStart="@dimen/expiry_padding"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/expiry_padding">
 
                 <Spinner
                     android:id="@+id/pay_expiry_month"

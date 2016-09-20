@@ -7,6 +7,8 @@
 
 package com.beanstream.payform;
 
+import android.os.Build;
+
 import com.beanstream.payform.validators.EmailValidator;
 
 import org.junit.Test;
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class EmailValidatorTest {
 
     @Test

@@ -11,6 +11,8 @@ package com.beanstream.payform;
  * Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
  */
 
+import android.os.Build;
+
 import com.beanstream.payform.models.CardType;
 
 import org.junit.Test;
@@ -25,7 +27,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class CardTypeTest {
 
     //region getCardTypeFromCardNumber

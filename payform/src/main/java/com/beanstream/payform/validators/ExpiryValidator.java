@@ -28,7 +28,7 @@ public class ExpiryValidator implements Spinner.OnItemSelectedListener {
     }
 
     public static boolean isValidExpiry(String expiry) {
-        return ((expiry != null) && (!TextUtils.isEmpty(expiry))) && isNumeric(expiry);
+        return ((expiry != null) && (!TextUtils.isEmpty(expiry))) && TextUtils.isDigitsOnly(expiry);
     }
 
     public static ArrayList<String> expiryMonths() {
@@ -54,10 +54,6 @@ public class ExpiryValidator implements Spinner.OnItemSelectedListener {
         }
 
         return years;
-    }
-
-    private static boolean isNumeric(String str) {
-        return str.matches("^\\d+$");
     }
 
     @Override

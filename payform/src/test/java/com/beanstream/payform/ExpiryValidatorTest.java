@@ -4,6 +4,8 @@
 
 package com.beanstream.payform;
 
+import android.os.Build;
+
 import com.beanstream.payform.validators.ExpiryValidator;
 
 import org.junit.Test;
@@ -11,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -20,36 +21,14 @@ import static junit.framework.Assert.assertTrue;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class ExpiryValidatorTest {
-
-    //region formatExpiry
-    @Test
-    public void expiryValidator_formatExpiry_Correct_ReturnsExpected() {
-        assertEquals("11/12", ExpiryValidator.formatExpiry("11/12"));
-        assertEquals("11/12", ExpiryValidator.formatExpiry(" 11/12"));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("11/12 "));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("1112"));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("1112 "));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("11/12 "));
-        assertEquals("11/12", ExpiryValidator.formatExpiry(" 1112"));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("111 2"));
-        assertEquals("11/12", ExpiryValidator.formatExpiry("1112abc"));
-    }
-
-    @Test
-    public void expiryValidator_formatExpiry_Empty_ReturnsExpected() {
-        assertEquals("", ExpiryValidator.formatExpiry(null));
-        assertEquals("", ExpiryValidator.formatExpiry(""));
-        assertEquals("", ExpiryValidator.formatExpiry(" "));
-    }
-
     //region isValidExpiry
     @Test
     public void expiryValidator_isValidExpiry_Correct_ReturnsTrue() {
-        assertTrue(ExpiryValidator.isValidExpiry("11/22"));
-        assertTrue(ExpiryValidator.isValidExpiry("01/22"));
-        assertTrue(ExpiryValidator.isValidExpiry("12/22"));
+        assertTrue(ExpiryValidator.isValidExpiry("11"));
+        assertTrue(ExpiryValidator.isValidExpiry("2106"));
+        assertTrue(ExpiryValidator.isValidExpiry("01"));
     }
 
     @Test
