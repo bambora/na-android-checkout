@@ -117,12 +117,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(primaryColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(primaryColor);
+            getWindow().setStatusBarColor(getDarkerShade(primaryColor));
         }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    private int getDarkerShade(int color) {
+        float SHADE_FACTOR = 0.6f;
+        return Color.rgb((int) (SHADE_FACTOR * Color.red(color)),
+                (int) (SHADE_FACTOR * Color.green(color)),
+                (int) (SHADE_FACTOR * Color.blue(color)));
     }
 }
