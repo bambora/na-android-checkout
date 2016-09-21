@@ -21,7 +21,6 @@ import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class DemoActivity extends Activity {
 
@@ -106,15 +105,14 @@ public class DemoActivity extends Activity {
 
     private void showResults(PayFormResult payFormResult) {
         TextView text = (TextView) findViewById(R.id.demo_payform_results);
-        String result = payFormResult.toString();
-
         try {
-            result = new JSONObject(result).toString(4);
-        } catch (JSONException ignored) {
-            Log.e("showResults", "Invalid json in result: " + result);
+            String result = payFormResult.toJsonObject().toString(4);
+            Log.d("showResults", result);
+            text.setText(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        Log.d("showResults", result);
-        text.setText(result);
+
         text.setVisibility(View.VISIBLE);
         text.setMovementMethod(new ScrollingMovementMethod());
     }
