@@ -12,7 +12,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="activity_padding">10dp</dimen>
-    <dimen name="activity_padding_field_separator">30dp</dimen>
+    <dimen name="activity_padding_field_separator">10dp</dimen>
     <dimen name="activity_padding_title">20dp</dimen>
 
     <dimen name="button_text_size">30sp</dimen>
@@ -21,6 +21,13 @@
     <dimen name="card_toolbar_height">100dp</dimen>
 
     <dimen name="checkbox_margin">5dp</dimen>
+    <dimen name="cvv_width">85dp</dimen>
+
+    <dimen name="date_spinner_text_size">18sp</dimen>
+    <dimen name="date_spinner_width">120dp</dimen>
+    <dimen name="date_spinner_width_month">120dp</dimen>
+
+    <dimen name="expiry_padding">25dp</dimen>
 
     <dimen name="field_height">70dp</dimen>
 

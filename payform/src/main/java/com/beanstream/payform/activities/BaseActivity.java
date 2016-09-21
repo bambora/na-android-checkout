@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -111,8 +112,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             description.setTextColor(android.graphics.Color.BLACK);
         }
 
+        int primaryColor = getThemePrimaryColor(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_with_controls);
-        toolbar.setBackgroundColor(getThemePrimaryColor(this));
+        toolbar.setBackgroundColor(primaryColor);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(primaryColor);
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

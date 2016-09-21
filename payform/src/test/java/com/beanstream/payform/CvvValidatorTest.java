@@ -4,6 +4,8 @@
 
 package com.beanstream.payform;
 
+import android.os.Build;
+
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.validators.CvvValidator;
 
@@ -19,7 +21,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by dlight on 2016-08-18.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class CvvValidatorTest {
     private final static String cvv_valid = "123";
     private final static String cvv_valid_amex = "1234";

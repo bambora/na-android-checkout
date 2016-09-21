@@ -22,7 +22,7 @@
     <!--Fields-->
     <TableLayout
         android:id="@+id/pay_fields"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text"
         android:layout_margin="@dimen/activity_padding"
@@ -33,7 +33,7 @@
             <EditText
                 android:id="@+id/pay_email"
                 style="@style/EditText"
-                android:layout_span="2"
+                android:layout_span="3"
                 android:hint="@string/pay_hint_email"
                 android:inputType="textEmailAddress" />
         </TableRow>
@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/pay_name"
                 style="@style/EditText"
-                android:layout_span="2"
+                android:layout_span="3"
                 android:hint="@string/pay_hint_name"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -53,37 +53,35 @@
             <EditText
                 android:id="@+id/pay_card_number"
                 style="@style/EditText"
-                android:layout_span="2"
+                android:layout_span="3"
                 android:digits="0123456789 "
                 android:drawableEnd="@drawable/ic_credit_card_black"
                 android:hint="@string/pay_hint_card_number"
                 android:inputType="number"
                 android:minHeight="10dp"
-                android:nextFocusDown="@+id/pay_expiry"
+                android:nextFocusDown="@+id/pay_cvv"
                 android:singleLine="true" />
         </TableRow>
 
         <TableRow>
 
             <EditText
-                android:id="@+id/pay_expiry"
-                style="@style/EditText"
-                android:layout_width="0dp"
-                android:layout_weight=".7"
-                android:hint="@string/pay_hint_expiry"
-                android:inputType="number"
-                android:maxLength="5"
-                android:nextFocusDown="@+id/pay_cvv"
-                android:singleLine="true" />
-
-            <EditText
                 android:id="@+id/pay_cvv"
                 style="@style/EditText"
-                android:layout_width="0dp"
-                android:layout_weight=".3"
+                android:layout_width="@dimen/cvv_width"
                 android:drawableEnd="@drawable/cvc_hint_color"
                 android:hint="@string/pay_hint_cvv"
-                android:inputType="number" />
+                android:inputType="number"
+                android:paddingEnd="@dimen/expiry_padding"/>
+
+            <Spinner
+                android:id="@+id/pay_expiry_month"
+                style="@style/DateSpinner"
+                android:layout_width="@dimen/date_spinner_width_month" />
+
+            <Spinner
+                android:id="@+id/pay_expiry_year"
+                style="@style/DateSpinner" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>

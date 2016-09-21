@@ -77,10 +77,10 @@ public class DemoActivity extends Activity {
         options.setCompanyName("Cabinet of Curiosities"); // default: ""
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_billing)).isChecked()) {
-            options.setBillingAddressRequired(false); // default: true
+            options.setIsBillingAddressRequired(false); // default: true
         }
         if (!((CheckBox) findViewById(R.id.demo_checkbox_shipping)).isChecked()) {
-            options.setShippingAddressRequired(false); // default: true
+            options.setIsShippingAddressRequired(false); // default: true
         }
 
         if (!((CheckBox) findViewById(R.id.demo_checkbox_theme)).isChecked()) {

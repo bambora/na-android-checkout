@@ -26,7 +26,8 @@
     <string name="pay_hint_email">email</string>
     <string name="pay_hint_name">name</string>
     <string name="pay_hint_card_number">card number</string>
-    <string name="pay_hint_expiry">expiry mm/yy</string>
+    <string name="pay_hint_expiry_month">month</string>
+    <string name="pay_hint_expiry_year">year</string>
     <string name="pay_hint_cvv">cvv</string>
 
     <string name="pay_title">Payment</string>

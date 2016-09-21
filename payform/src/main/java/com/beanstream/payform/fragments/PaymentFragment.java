@@ -12,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
 import com.beanstream.payform.activities.BaseActivity;
+import com.beanstream.payform.adapters.SpinnerAdapter;
 import com.beanstream.payform.models.CardInfo;
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.models.CreditCard;
@@ -26,6 +29,8 @@ import com.beanstream.payform.validators.EmailValidator;
 import com.beanstream.payform.validators.ExpiryValidator;
 import com.beanstream.payform.validators.TextValidator;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -33,6 +38,9 @@ public class PaymentFragment extends Fragment {
     private final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
 
     private CardInfo cardInfo;
+
+    private Spinner monthSpinner;
+    private Spinner yearSpinner;
 
     public PaymentFragment() {
         // Required empty public constructor
@@ -65,6 +73,9 @@ public class PaymentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
+        monthSpinner = (Spinner) view.findViewById(R.id.pay_expiry_month);
+        yearSpinner = (Spinner) view.findViewById(R.id.pay_expiry_year);
+
         setValidators(view);
         updateCardInfo(view, cardInfo);
 
@@ -92,9 +103,8 @@ public class PaymentFragment extends Fragment {
         cardNumber = cardNumber.replace(" ", "");
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
 
-        String expiry = ((TextView) getView().findViewById(R.id.pay_expiry)).getText().toString();
-        String month = ExpiryValidator.getMonthFromExpiry(expiry);
-        String year = ExpiryValidator.getYearFromExpiry(expiry);
+        String month = monthSpinner.getSelectedItem().toString();
+        String year = yearSpinner.getSelectedItem().toString();
 
         CreditCard card = new CreditCard();
 
@@ -123,14 +133,19 @@ public class PaymentFragment extends Fragment {
         textView.addTextChangedListener(new CardNumberValidator(textView));
         textView.setOnFocusChangeListener(new CardNumberValidator(textView));
 
-        textView = (EditText) (view.findViewById(R.id.pay_expiry));
-        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        textView.addTextChangedListener(new ExpiryValidator(textView));
-        textView.setOnFocusChangeListener(new ExpiryValidator(textView));
+        monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
+        monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));
+
+        yearSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryYears(), getResources().getString(R.string.pay_hint_expiry_year)));
+        yearSpinner.setOnItemSelectedListener(new ExpiryValidator(yearSpinner));
 
         textView = (EditText) (view.findViewById(R.id.pay_cvv));
         textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new CvvValidator(textView));
+    }
+
+    private ArrayAdapter<String> adapterWithList(ArrayList<String> list, String hint) {
+        return new SpinnerAdapter(this.getActivity(), R.layout.expiry_spinner_item, list, hint);
     }
 
     private void showKeyboard() {

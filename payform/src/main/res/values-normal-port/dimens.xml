@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~
+  ~ Created by dlight on 2016-08-04.
+  -->
+
+<resources>
+    <dimen name="date_spinner_width">90dp</dimen>
+    <dimen name="date_spinner_width_month">105dp</dimen>
+
+    <dimen name="expiry_padding">5dp</dimen>
+</resources>

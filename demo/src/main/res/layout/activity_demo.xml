@@ -34,6 +34,7 @@
         </TableRow>
 
         <TableRow>
+
             <CheckBox
                 android:id="@+id/demo_checkbox_image"
                 style="@style/DemoCheckBox"
@@ -46,6 +47,7 @@
         </TableRow>
 
         <TableRow>
+
             <CheckBox
                 android:id="@+id/demo_checkbox_billing"
                 style="@style/DemoCheckBox"

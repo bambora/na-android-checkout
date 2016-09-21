@@ -4,6 +4,8 @@
 
 package com.beanstream.payform;
 
+import android.os.Build;
+
 import com.beanstream.payform.models.CardType;
 import com.beanstream.payform.validators.CardNumberValidator;
 
@@ -20,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class CardNumberValidatorTest {
     private final static String cardnumber_luhn_valid = "1234 5678 9012 3452";
 

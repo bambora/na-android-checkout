@@ -56,7 +56,7 @@ public class PayFormResult implements Parcelable {
         return isBillingSameAsShipping;
     }
 
-    public void setBillingSameAsShipping(boolean billingSameAsShipping) {
+    public void setIsBillingSameAsShipping(boolean billingSameAsShipping) {
         isBillingSameAsShipping = billingSameAsShipping;
     }
 
@@ -86,7 +86,6 @@ public class PayFormResult implements Parcelable {
         this.billing = billing;
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -109,5 +108,4 @@ public class PayFormResult implements Parcelable {
         sb.append("}");
         return sb.toString();
     }
-
 }
