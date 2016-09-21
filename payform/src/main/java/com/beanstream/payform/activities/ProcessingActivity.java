@@ -7,9 +7,10 @@ package com.beanstream.payform.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.fragments.ProcessingFragment;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.services.TokenReceiver;
 import com.beanstream.payform.services.TokenService;
@@ -37,9 +38,6 @@ public class ProcessingActivity extends BaseActivity {
             if (creditCard == null) {
                 creditCard = new CreditCard();
             }
-
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(options, purchase)).commit();
 
             setupTokenReceiver();
             startTokenService();
@@ -85,5 +83,12 @@ public class ProcessingActivity extends BaseActivity {
         intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
         startService(intent);
+    }
+
+    private void updateAmount(View view) {
+        TextView textView = ((TextView) view.findViewById(R.id.processing_amount));
+        if (textView != null) {
+            textView.setText(purchase.getFormattedAmount());
+        }
     }
 }

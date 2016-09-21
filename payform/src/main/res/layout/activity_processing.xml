@@ -13,17 +13,11 @@
         android:id="@+id/toolbar_with_controls"
         layout="@layout/toolbar_purchase_header" />
 
-    <FrameLayout
-        android:id="@+id/fragment_content"
+    <include
+        android:id="@+id/processing"
+        layout="@layout/processing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        tools:layout="@layout/fragment_processing" />
-
-    <include
-        android:id="@+id/footer"
-        layout="@layout/secure_processing_footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/toolbar_with_controls"
+        />
 </RelativeLayout>

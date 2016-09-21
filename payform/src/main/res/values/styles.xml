@@ -68,7 +68,16 @@
         <item name="android:padding">@dimen/processing_text_padding</item>
     </style>
 
-    <style name="ProcessingSecureText" parent="@style/MediumText">
-        <item name="android:textColor">@android:color/white</item>
+    <style name="SecureText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/bicSecureText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SecureTextBold" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/bicSecureBicText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -38,14 +38,7 @@
                 android:id="@+id/payform"
                 layout="@layout/payform"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <include
-                android:id="@+id/footer"
-                layout="@layout/secure_footer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/secure_footer_padding" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

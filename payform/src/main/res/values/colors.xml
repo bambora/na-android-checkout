@@ -25,5 +25,8 @@
     <color name="bicSecurePayForm">@android:color/black</color>
     <color name="bicSecureProcessing">@color/bicSecondary</color>
 
+    <color name="bicSecureText">@android:color/darker_gray</color>
+    <color name="bicSecureBicText">@android:color/darker_gray</color>
+
     <color name="bicSwitchText">@android:color/black</color>
 </resources>

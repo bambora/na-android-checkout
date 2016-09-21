@@ -45,7 +45,7 @@
     <dimen name="processing_text_size_larger">40sp</dimen>
     <dimen name="processing_text_padding">5sp</dimen>
 
-    <dimen name="secure_footer_padding">30dp</dimen>
+    <dimen name="secured_by_padding">5dp</dimen>
 
     <dimen name="title_margin">16dp</dimen>
 </resources>
