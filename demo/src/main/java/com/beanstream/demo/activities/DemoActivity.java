@@ -136,6 +136,7 @@ public class DemoActivity extends Activity {
     }
 
     private void onPayFormSuccess(PayFormResult payFormResult) {
+        hideError();
         showResults(payFormResult);
     }
     //endregion
