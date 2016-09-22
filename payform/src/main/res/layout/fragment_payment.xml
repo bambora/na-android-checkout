@@ -50,17 +50,27 @@
 
         <TableRow>
 
-            <EditText
-                android:id="@+id/pay_card_number"
-                style="@style/EditText"
-                android:layout_span="3"
-                android:digits="0123456789 "
-                android:drawableEnd="@drawable/ic_credit_card_black"
-                android:hint="@string/pay_hint_card_number"
-                android:inputType="number"
-                android:minHeight="10dp"
-                android:nextFocusDown="@+id/pay_cvv"
-                android:singleLine="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="3">
+
+                <EditText
+                    android:id="@+id/pay_card_number"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:digits="0123456789 "
+                    android:hint="@string/pay_hint_card_number"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/pay_cvv"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/pay_card_image"
+                    style="@style/CardImage"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_credit_card_black" />
+            </RelativeLayout>
         </TableRow>
 
         <TableRow>
@@ -72,7 +82,7 @@
                 android:drawableEnd="@drawable/cvc_hint_color"
                 android:hint="@string/pay_hint_cvv"
                 android:inputType="number"
-                android:paddingEnd="@dimen/expiry_padding"/>
+                android:paddingEnd="@dimen/expiry_padding" />
 
             <Spinner
                 android:id="@+id/pay_expiry_month"

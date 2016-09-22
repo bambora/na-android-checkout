@@ -127,7 +127,7 @@ public class CardType {
         }
     }
 
-    public static int getImage(String cardType) {
+    public static int getImageResource(String cardType) {
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
             if (AMEX.equals(cardType)) {

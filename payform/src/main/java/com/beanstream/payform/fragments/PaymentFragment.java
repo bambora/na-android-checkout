@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -130,8 +131,11 @@ public class PaymentFragment extends Fragment {
 
         textView = (EditText) (view.findViewById(R.id.pay_card_number));
         textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        textView.addTextChangedListener(new CardNumberValidator(textView));
-        textView.setOnFocusChangeListener(new CardNumberValidator(textView));
+        ImageView cardImage = (ImageView) (view.findViewById(R.id.pay_card_image));
+
+        CardNumberValidator validator = new CardNumberValidator(textView, cardImage);
+        textView.addTextChangedListener(validator);
+        textView.setOnFocusChangeListener(validator);
 
         monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
         monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));

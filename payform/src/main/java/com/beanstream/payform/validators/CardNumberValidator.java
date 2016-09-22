@@ -6,7 +6,9 @@ package com.beanstream.payform.validators;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beanstream.payform.Preferences;
@@ -21,14 +23,15 @@ import java.util.ArrayList;
 public class CardNumberValidator extends TextValidator {
 
     private final EditText editText;
+    private final ImageView imageView;
 
-    public CardNumberValidator(TextView view) {
+    public CardNumberValidator(TextView view, ImageView imageView) {
         super(view);
+
         this.editText = (EditText) view;
 
-        Preferences preferences = Preferences.getInstance(editText.getContext());
-        String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
-        preferences.saveData(Preferences.CARD_TYPE, cardType);
+        clearSavedCardType();
+        this.imageView = imageView;
     }
 
     public static boolean isValidCardNumber(String cardNumber, String cardType) {
@@ -69,6 +72,12 @@ public class CardNumberValidator extends TextValidator {
         return (sum % 10 == 0);
     }
 
+    private void clearSavedCardType() {
+        Preferences preferences = Preferences.getInstance(editText.getContext());
+        String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
+        preferences.saveData(Preferences.CARD_TYPE, cardType);
+    }
+
     private String getCleanCardNumber(String cardNumber) {
         return cardNumber.replaceAll("[^0-9]", "");
     }
@@ -80,21 +89,31 @@ public class CardNumberValidator extends TextValidator {
         return index - offset;
     }
 
-    private void setCreditCardImage(String cardType) {
-        editText.setCompoundDrawables(null, null, null, null);
-        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, CardType.getImage(cardType), 0);
+    private void updateCreditCardImage(String cardType) {
+        if (imageView != null) {
+            imageView.setImageResource(CardType.getImageResource(cardType));
+        }
+    }
+
+    private void hideCreditCardImage() {
+        imageView.setVisibility(View.INVISIBLE);
+    }
+
+    private void showCreditCardImage() {
+        imageView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         editText.removeTextChangedListener(this);
-
+        showCreditCardImage();
         Preferences preferences = Preferences.getInstance(editText.getContext());
         String savedCardType = preferences.getData(Preferences.CARD_TYPE);
         String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
+
         if (!cardType.equals(savedCardType)) {
             preferences.saveData(Preferences.CARD_TYPE, cardType);
-            setCreditCardImage(cardType);
+            updateCreditCardImage(cardType);
             setEditTextMaxLength(editText, CardType.getLengthOfFormattedCardNumber(cardType));
         }
 
@@ -154,11 +173,16 @@ public class CardNumberValidator extends TextValidator {
             if (isValidCardType(cardNumber)
                     && isValidCardNumber(cardNumber, cardType)
                     && isValidLuhn(cardNumber)) {
+                view.setError(null);
+                showCreditCardImage();
                 return true;
             } else {
                 String error = view.getResources().getString(R.string.validator_prefix_invalid) + " " + view.getHint();
+                hideCreditCardImage();
                 view.setError(error);
             }
+        } else {
+            hideCreditCardImage();
         }
         return false;
     }
