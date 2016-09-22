@@ -8,11 +8,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.text.NumberFormat;
+import java.util.Currency;
 
 /**
  * Created by dlight on 2016-08-09.
  */
 public class Purchase implements Parcelable {
+
+    public static final String CURRENCY_CODE_CANADA = "CAD";
+    public static final String CURRENCY_CODE_UNITED_STATES = "USD";
 
     public static final Parcelable.Creator<Purchase> CREATOR
             = new Parcelable.Creator<Purchase>() {
@@ -29,27 +33,26 @@ public class Purchase implements Parcelable {
     };
 
     private Double amount; // required
-    private String currency; // required
+    private Currency currency; // required
     private String description = "";
 
-    public Purchase(Double amount, String currency) {
+    public Purchase(Double amount, Currency currency) {
         this.amount = amount;
         this.currency = currency;
     }
 
-
     private Purchase(Parcel parcel) {
         amount = parcel.readDouble();
-        currency = parcel.readString();
+        currency = Currency.getInstance(parcel.readString());
         description = parcel.readString();
     }
 
     //region Getters and Setters
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -62,7 +65,9 @@ public class Purchase implements Parcelable {
     }
 
     public String getFormattedAmount() {
-        return NumberFormat.getCurrencyInstance().format(amount) + " " + currency;
+        NumberFormat format = NumberFormat.getInstance();
+        format.setCurrency(currency);
+        return format.getCurrency().getSymbol() + format.format(amount) + " " + currency;
     }
 
     public String getDescription() {
@@ -78,7 +83,7 @@ public class Purchase implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeDouble(amount);
-        parcel.writeString(currency);
+        parcel.writeString(currency.getCurrencyCode());
         parcel.writeString(description);
     }
 

@@ -22,6 +22,8 @@ import com.beanstream.payform.R;
 import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.Purchase;
 
+import java.util.Currency;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public final static String EXTRA_OPTIONS = "com.beanstream.payform.models.options";
@@ -71,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         purchase = intent.getParcelableExtra(EXTRA_PURCHASE);
         if (purchase == null) {
-            purchase = new Purchase(0.0, "");
+            purchase = new Purchase(0.0, Currency.getInstance(Purchase.CURRENCY_CODE_CANADA));
         }
 
         if (options.getThemeResourceId() == 0) {

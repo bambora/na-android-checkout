@@ -20,6 +20,8 @@ import com.beanstream.payform.activities.PayFormActivity;
 import com.beanstream.payform.models.Options;
 import com.beanstream.payform.models.Purchase;
 
+import java.util.Currency;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -52,7 +54,7 @@ public class ProcessingFragment extends Fragment {
         if (getArguments() != null) {
             purchase = getArguments().getParcelable(PayFormActivity.EXTRA_PURCHASE);
         } else {
-            purchase = new Purchase(0.0, "");
+            purchase = new Purchase(0.0, Currency.getInstance(Purchase.CURRENCY_CODE_CANADA));
         }
     }
 

@@ -22,6 +22,8 @@ import com.beanstream.payform.models.Purchase;
 
 import org.json.JSONException;
 
+import java.util.Currency;
+
 public class DemoActivity extends Activity {
 
     @Override
@@ -61,7 +63,8 @@ public class DemoActivity extends Activity {
     //region private helper methods
     private Purchase getPurchaseForThisDemo() {
 
-        Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
+        Currency currency = Currency.getInstance(Purchase.CURRENCY_CODE_CANADA);
+        Purchase purchase = new Purchase(123.45, currency); // Required fields: amount, currency
 
         purchase.setDescription("Item 1, Item 2, Item 3, Item 4"); // default: ""
 
