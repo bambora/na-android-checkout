@@ -50,13 +50,6 @@
 
     <style name="MessageText" parent="@style/MediumText" />
 
-    <style name="CardImage">
-        <item name="android:layout_height">@dimen/field_height</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:paddingBottom">@dimen/card_image_padding_bottom</item>
-        <item name="android:paddingTop">@dimen/card_image_padding_top</item>
-    </style>
-
     <style name="DateSpinner">
         <item name="android:layout_height">@dimen/field_height</item>
         <item name="android:layout_width">@dimen/date_spinner_width</item>
@@ -69,6 +62,13 @@
 
     <style name="ErrorText" parent="@style/MediumText">
         <item name="android:textColor">@color/bicErrorText</item>
+    </style>
+
+    <style name="FieldImage">
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/field_image_padding_bottom</item>
+        <item name="android:paddingTop">@dimen/field_image_padding_top</item>
     </style>
 
     <style name="ProcessingText" parent="@style/MediumText">
