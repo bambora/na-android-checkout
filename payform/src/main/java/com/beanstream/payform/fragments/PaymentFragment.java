@@ -94,25 +94,28 @@ public class PaymentFragment extends Fragment {
             cardNumberError = savedInstanceState.getString(EXTRA_CARD_NUMBER_ERROR);
             cvvError = savedInstanceState.getString(EXTRA_CVV_ERROR);
         }
+
         cardNumberEditText.setError(cardNumberError);
         cvvEditText.setError(cvvError);
 
         updateCardInfo(view, cardInfo);
-
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        showKeyboard();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        setValidators(getView());
+        View view = getView();
+        setValidators(view);
+
+        EditText editText = (EditText) view.findViewById(R.id.pay_email);
+        BaseActivity.showKeyboardWhenEmpty(getActivity(), editText);
     }
 
     @Override
@@ -194,13 +197,6 @@ public class PaymentFragment extends Fragment {
 
     private ArrayAdapter<String> adapterWithList(ArrayList<String> list, String hint) {
         return new SpinnerAdapter(this.getActivity(), R.layout.expiry_spinner_item, list, hint);
-    }
-
-    private void showKeyboard() {
-        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
-        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        textView.requestFocus();
-        BaseActivity.showKeyboard(getActivity());
     }
 
     private void updateCardInfo(View view, CardInfo cardInfo) {

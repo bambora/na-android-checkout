@@ -59,9 +59,11 @@ public class AddressFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        showKeyboard();
+    public void onResume() {
+        super.onResume();
+
+        EditText editText = (EditText) getView().findViewById(R.id.address_name);
+        BaseActivity.showKeyboardWhenEmpty(getActivity(), editText);
     }
 
     private void setValidators(View view) {
@@ -113,13 +115,6 @@ public class AddressFragment extends Fragment {
         address.setStreet(((TextView) getView().findViewById(R.id.address_street)).getText().toString());
 
         return address;
-    }
-
-    private void showKeyboard() {
-        EditText textView = (EditText) (getActivity().findViewById(R.id.address_name));
-        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        textView.requestFocus();
-        BaseActivity.showKeyboard(getActivity());
     }
 
     private void updateAddress(View view, Address address) {

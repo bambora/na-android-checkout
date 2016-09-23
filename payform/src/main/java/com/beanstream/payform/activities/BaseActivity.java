@@ -12,9 +12,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,25 +41,33 @@ public abstract class BaseActivity extends AppCompatActivity {
         return value.data;
     }
 
-    static void closeKeyboard(Activity activity) {
+    public static void hideKeyboard(Activity activity, View view) {
         if (null != activity) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (null != imm) {
-                View focus = activity.getCurrentFocus();
-                if (null != focus) {
-                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+                if (null != view) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
         }
     }
 
-    public static void showKeyboard(Activity activity) {
+    public static void showKeyboardWhenEmpty(Activity activity, EditText editText) {
+        if (TextUtils.isEmpty(editText.getText())) {
+            editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            editText.requestFocus();
+            BaseActivity.showKeyboard(activity, editText);
+        } else {
+            BaseActivity.hideKeyboard(activity, editText);
+        }
+    }
+
+    public static void showKeyboard(Activity activity, View view) {
         if (null != activity) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (null != imm) {
-                View focus = activity.getCurrentFocus();
-                if (null != focus) {
-                    imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
+                if (null != view) {
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
         }

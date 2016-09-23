@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.activities.BaseActivity;
 import com.beanstream.payform.models.Address;
 
 /**
@@ -69,7 +68,6 @@ public class ShippingFragment extends AddressFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        BaseActivity.showKeyboard(getActivity());
     }
 
     @Override

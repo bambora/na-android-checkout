@@ -90,9 +90,10 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
     @Override
     public void onBackPressed() {
+        hideKeyboard(this, getCurrentFocus());
+
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             saveFragment(getCurrentFragment());
-            closeKeyboard(this);
 
             getFragmentManager().popBackStackImmediate();
         } else {
