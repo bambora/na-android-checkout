@@ -44,6 +44,8 @@
     <string name="purchase_amount">PURCHASE AMOUNT</string>
     <string name="purchase_description">DESCRIPTION</string>
 
+    <string name="error_no_connection">Please check that you are connected to the Internet.</string>
+
     <string name="validator_suffix_empty"> is required!</string>
     <string name="validator_prefix_invalid">Enter a valid </string>
 </resources>

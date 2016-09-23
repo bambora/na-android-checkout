@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
@@ -124,8 +125,18 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         } else if (fragment instanceof BillingFragment) {
             switchContentToPayment();
         } else if (fragment instanceof PaymentFragment) {
-            startProcessing();
+            if (BaseActivity.isNetworkConnected(getApplicationContext())) {
+                startProcessing();
+            } else {
+                showToast(getResources().getString(R.string.error_no_connection));
+            }
         }
+    }
+
+    private void showToast(String text) {
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        toast.show();
     }
 
     private Fragment getCurrentFragment() {
