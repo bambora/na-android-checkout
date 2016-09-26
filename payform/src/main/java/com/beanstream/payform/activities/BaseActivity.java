@@ -137,7 +137,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         int primaryColor = getThemePrimaryColor(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_with_controls);
         toolbar.setBackgroundColor(primaryColor);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getDarkerShade(primaryColor));
         }

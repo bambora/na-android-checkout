@@ -4,8 +4,15 @@
 <resources>
 
     <style name="Theme.PayFormCustom" parent="Theme.PayForm">
-        <item name="colorPrimary">@android:color/holo_purple</item>
-        <item name="colorAccent">@android:color/holo_orange_light</item>
-        <item name="android:textColorPrimary">@android:color/holo_green_dark</item>
+        <!--primary-->
+        <item name="android:textColorPrimary">@color/demoSecondary</item>
+        <item name="colorPrimary">@color/demoPrimary</item>
+
+        <!--accents-->
+        <item name="colorAccent">@color/demoAccent</item>
+
+        <!--backgrounds-->
+        <item name="android:colorBackground">@color/demoBackground</item>
+        <item name="android:windowBackground">@color/demoBackground</item>
     </style>
 </resources>

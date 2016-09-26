@@ -6,4 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_height_x2"
     android:background="@color/bicPrimary"
+    android:theme="@style/Toolbar.PayForm"
     app:contentInsetStartWithNavigation="0dp" />

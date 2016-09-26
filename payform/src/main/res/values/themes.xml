@@ -4,12 +4,18 @@
 <resources>
 
     <style name="Theme.PayForm" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorPrimary">@color/bicPrimary</item>
-        <item name="colorAccent">@color/bicSecondary</item>
+        <!--primary-->
         <item name="android:textColorPrimary">@color/bicPrimary</item>
+        <item name="colorPrimary">@color/bicPrimary</item>
 
+        <!--accents-->
+        <item name="colorAccent">@color/bicSecondary</item>
+
+        <!--backgrounds-->
         <item name="android:colorBackground">@color/bicBackground</item>
         <item name="android:windowBackground">@color/bicBackground</item>
+    </style>
+
+    <style name="Toolbar.PayForm" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
     </style>
 </resources>

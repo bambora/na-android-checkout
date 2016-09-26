@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Demo Colors -->
+    <color name="demoAccent">@android:color/holo_orange_light</color>
+    <color name="demoBackground">@android:color/white</color>
+    <color name="demoPrimary">@android:color/holo_orange_dark</color>
+    <color name="demoSecondary">@android:color/holo_red_dark</color>
+</resources>
