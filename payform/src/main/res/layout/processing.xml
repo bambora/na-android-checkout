@@ -20,7 +20,7 @@
         android:textSize="@dimen/processing_text_size_larger" />
 
     <ProgressBar
-        android:id="@+id/processing_spinner"
+        android:id="@+id/processing_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/processing_amount"
@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/processing_target"
         style="@style/ProcessingText"
-        android:layout_below="@+id/processing_spinner"
+        android:layout_below="@+id/processing_progress_bar"
         android:text="@string/processing_target" />
 
     <include

@@ -5,9 +5,11 @@
 package com.beanstream.payform.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
+import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -28,7 +30,10 @@ public class ProcessingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processing);
 
+        updateAmount();
+        updateProgressBar();
         updatePurchaseHeader(options, purchase);
+
         disableHeaderBackButton();
 
         if (savedInstanceState == null) {
@@ -85,10 +90,17 @@ public class ProcessingActivity extends BaseActivity {
         startService(intent);
     }
 
-    private void updateAmount(View view) {
-        TextView textView = ((TextView) view.findViewById(R.id.processing_amount));
+    private void updateAmount() {
+        TextView textView = ((TextView) findViewById(R.id.processing_amount));
         if (textView != null) {
             textView.setText(purchase.getFormattedAmount());
         }
+    }
+
+    private void updateProgressBar() {
+        Log.d("updateProgressBar", "view");
+        int color = getThemeAccentColor(this);
+        ProgressBar progressBar = ((ProgressBar) findViewById(R.id.processing_progress_bar));
+        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 }
