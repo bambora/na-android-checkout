@@ -75,6 +75,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,17 +148,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    public int getDarkerShade(int color) {
+        float SHADE_FACTOR_DARKER = 0.6f;
+        return getShade(color, SHADE_FACTOR_DARKER);
     }
 
-    private int getDarkerShade(int color) {
-        float SHADE_FACTOR = 0.6f;
-        return Color.rgb((int) (SHADE_FACTOR * Color.red(color)),
-                (int) (SHADE_FACTOR * Color.green(color)),
-                (int) (SHADE_FACTOR * Color.blue(color)));
+    public int getLighterShade(int color) {
+        int alpha = 200;
+        return getAlphaColor(color, alpha);
+    }
+
+    private int getAlphaColor(int color, int alpha) {
+        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    private int getShade(int color, float shadeFactor) {
+        return Color.rgb((int) (shadeFactor * Color.red(color)),
+                (int) (shadeFactor * Color.green(color)),
+                (int) (shadeFactor * Color.blue(color)));
     }
 }

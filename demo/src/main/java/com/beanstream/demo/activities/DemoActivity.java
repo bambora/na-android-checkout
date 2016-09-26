@@ -34,11 +34,7 @@ public class DemoActivity extends Activity {
         final Button button = (Button) findViewById(R.id.demo_pay_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent("payform.LAUNCH");
-                intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
-                intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
-
-                startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+                startPayForm();
             }
         });
     }
@@ -61,6 +57,14 @@ public class DemoActivity extends Activity {
     }
 
     //region private helper methods
+    private void startPayForm() {
+        Intent intent = new Intent("payform.LAUNCH");
+        intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
+        intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
+
+        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+    }
+
     private Purchase getPurchaseForThisDemo() {
 
         Currency currency = Currency.getInstance(Purchase.CURRENCY_CODE_CANADA);

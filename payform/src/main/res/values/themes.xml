@@ -11,7 +11,5 @@
 
         <item name="android:colorBackground">@color/bicBackground</item>
         <item name="android:windowBackground">@color/bicBackground</item>
-
-        <item name="android:button">@drawable/button_primary</item>
     </style>
 </resources>
