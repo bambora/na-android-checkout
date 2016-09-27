@@ -52,13 +52,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/field_height"
                 android:layout_span="3">
 
                 <EditText
                     android:id="@+id/pay_card_number"
-                    style="@style/EditText"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:digits="0123456789 "
                     android:hint="@string/pay_hint_card_number"
                     android:inputType="number"
@@ -77,14 +77,14 @@
 
             <RelativeLayout
                 android:layout_width="@dimen/cvv_width"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/field_height"
                 android:layout_span="1"
                 android:paddingEnd="@dimen/expiry_padding">
 
                 <EditText
                     android:id="@+id/pay_cvv"
-                    style="@style/EditText"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:hint="@string/pay_hint_cvv"
                     android:inputType="number" />
 

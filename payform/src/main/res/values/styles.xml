@@ -43,7 +43,7 @@
     </style>
 
     <style name="FieldImage">
-        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:paddingBottom">@dimen/field_image_padding_bottom</item>
         <item name="android:paddingTop">@dimen/field_image_padding_top</item>

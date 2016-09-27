@@ -4,6 +4,7 @@
 
 package com.beanstream.payform.validators;
 
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ public class CardNumberValidator extends TextValidator {
 
         String cardType = refreshSavedCardType();
         swapCreditCardImage(cardType);
-        updateCreditCardImage();
+        toggleCreditCardImage();
     }
 
     public static boolean isValidCardNumber(String cardNumber, String cardType) {
@@ -100,13 +101,25 @@ public class CardNumberValidator extends TextValidator {
         }
     }
 
-    private void updateCreditCardImage() {
+    private void toggleCreditCardImage() {
 
         if (TextUtils.isEmpty(editText.getError())) {
             imageView.setVisibility(View.VISIBLE);
         } else {
             imageView.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void updateCreditCardType(String cardType) {
+        Preferences preferences = Preferences.getInstance(editText.getContext());
+        String savedCardType = preferences.getData(Preferences.CARD_TYPE);
+
+        if (!cardType.equals(savedCardType)) {
+            preferences.saveData(Preferences.CARD_TYPE, cardType);
+            swapCreditCardImage(cardType);
+            setEditTextMaxLength(editText, CardType.getLengthOfFormattedCardNumber(cardType));
+        }
+        toggleCreditCardImage();
     }
 
     private String formatCardNumberField(String cardNumber, String cardType) {
@@ -141,29 +154,21 @@ public class CardNumberValidator extends TextValidator {
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void afterTextChanged(Editable s) {
         editText.removeTextChangedListener(this);
         editText.setError(null);
+        selection = editText.getSelectionStart();
 
-        selection = start + count;
         String cardNumber = s.toString();
-
         String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
-
-        Preferences preferences = Preferences.getInstance(editText.getContext());
-        String savedCardType = preferences.getData(Preferences.CARD_TYPE);
-
-        if (!cardType.equals(savedCardType)) {
-            preferences.saveData(Preferences.CARD_TYPE, cardType);
-            swapCreditCardImage(cardType);
-            setEditTextMaxLength(editText, CardType.getLengthOfFormattedCardNumber(cardType));
-        }
-        updateCreditCardImage();
+        updateCreditCardType(cardType);
 
         cardNumber = formatCardNumberField(cardNumber, cardType);
 
         // Set text
-        editText.setText(cardNumber);
+        s.clear();
+        s.append(cardNumber);
+
         editText.setSelection(selection);
         editText.addTextChangedListener(this);
     }
@@ -183,7 +188,7 @@ public class CardNumberValidator extends TextValidator {
                 view.setError(error);
             }
         }
-        updateCreditCardImage();
+        toggleCreditCardImage();
 
         return TextUtils.isEmpty(view.getError());
     }
