@@ -67,7 +67,7 @@ public class Purchase implements Parcelable {
     public String getFormattedAmount() {
         NumberFormat format = NumberFormat.getInstance();
         format.setCurrency(currency);
-        return format.getCurrency().getSymbol() + format.format(amount) + " " + currency;
+        return format.getCurrency().getSymbol() + format.format(amount);
     }
 
     public String getDescription() {
