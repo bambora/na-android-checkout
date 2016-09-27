@@ -4,7 +4,6 @@
 
 package com.beanstream.payform.validators;
 
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +24,8 @@ public class CardNumberValidator extends TextValidator {
     private final EditText editText;
     private final ImageView imageView;
 
+    private int selection;
+
     public CardNumberValidator(TextView view, ImageView imageView) {
         super(view);
 
@@ -33,6 +34,7 @@ public class CardNumberValidator extends TextValidator {
 
         String cardType = refreshSavedCardType();
         swapCreditCardImage(cardType);
+        updateCreditCardImage();
     }
 
     public static boolean isValidCardNumber(String cardNumber, String cardType) {
@@ -85,17 +87,16 @@ public class CardNumberValidator extends TextValidator {
         return cardNumber.replaceAll("[^0-9]", "");
     }
 
-    private int getIndexAfterClean(String cardNumber, int index) {
-        cardNumber = cardNumber.substring(0, index);
+    private void getSelectionAfterClean(String cardNumber) {
+        cardNumber = cardNumber.substring(0, selection);
         int offset = cardNumber.length() - getCleanCardNumber(cardNumber).length();
 
-        return index - offset;
+        selection = selection - offset;
     }
 
     private void swapCreditCardImage(String cardType) {
         if (imageView != null) {
             imageView.setImageResource(CardType.getImageResource(cardType));
-            updateCreditCardImage();
         }
     }
 
@@ -108,40 +109,13 @@ public class CardNumberValidator extends TextValidator {
         }
     }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        editText.removeTextChangedListener(this);
-        editText.setError(null);
-        updateCreditCardImage();
-
-        Preferences preferences = Preferences.getInstance(editText.getContext());
-        String savedCardType = preferences.getData(Preferences.CARD_TYPE);
-        String cardType = CardType.getCardTypeFromCardNumber(editText.getText().toString());
-
-        if (!cardType.equals(savedCardType)) {
-            preferences.saveData(Preferences.CARD_TYPE, cardType);
-            swapCreditCardImage(cardType);
-            setEditTextMaxLength(editText, CardType.getLengthOfFormattedCardNumber(cardType));
-        }
-
-        editText.addTextChangedListener(this);
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        editText.removeTextChangedListener(this);
-
-        // Get text
-        int index = editText.getSelectionStart();
-        String cardNumber = editText.getText().toString();
-
+    private String formatCardNumberField(String cardNumber, String cardType) {
         // Clean cardNumber
-        int cleanIndex = getIndexAfterClean(cardNumber, index);
-        index = cleanIndex;
+        int cleanIndex = selection;
+        getSelectionAfterClean(cardNumber);
         cardNumber = getCleanCardNumber(cardNumber);
 
         // Format cardNumber
-        String cardType = Preferences.getInstance(editText.getContext()).getData(Preferences.CARD_TYPE);
         ArrayList<Integer> segmentLengths = CardType.getSegmentLengths(cardType);
         Integer start = 0;
         Integer end;
@@ -154,20 +128,43 @@ public class CardNumberValidator extends TextValidator {
                 } else {
                     formatted = formatted + " " + cardNumber.substring(start);
                 }
-                formatted = formatted.trim();
                 if (end < cleanIndex) {
-                    index++;
+                    selection++;
                 }
             }
             start = end;
         }
-        cardNumber = formatted;
-        index = (index <= cardNumber.length()) ? index : cardNumber.length();
+        formatted = formatted.trim();
+        selection = (selection <= formatted.length()) ? selection : formatted.length();
+
+        return formatted;
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        editText.removeTextChangedListener(this);
+        editText.setError(null);
+
+        selection = start + count;
+        String cardNumber = s.toString();
+
+        String cardType = CardType.getCardTypeFromCardNumber(cardNumber);
+
+        Preferences preferences = Preferences.getInstance(editText.getContext());
+        String savedCardType = preferences.getData(Preferences.CARD_TYPE);
+
+        if (!cardType.equals(savedCardType)) {
+            preferences.saveData(Preferences.CARD_TYPE, cardType);
+            swapCreditCardImage(cardType);
+            setEditTextMaxLength(editText, CardType.getLengthOfFormattedCardNumber(cardType));
+        }
+        updateCreditCardImage();
+
+        cardNumber = formatCardNumberField(cardNumber, cardType);
 
         // Set text
         editText.setText(cardNumber);
-        editText.setSelection(index);
-
+        editText.setSelection(selection);
         editText.addTextChangedListener(this);
     }
 
