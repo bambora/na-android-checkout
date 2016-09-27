@@ -5,13 +5,13 @@
   -->
 <resources>
     <!-- Beanstream Colors -->
-    <color name="bicBackground">@android:color/white</color>
-    <color name="bicButtonText">@android:color/white</color>
+    <color name="bicBackground">#FFFFFF</color>
+    <color name="bicButtonText">#FFFFFF</color>
 
     <color name="bicPrimary">#067AED</color>
-    <color name="bicPrimaryText">@android:color/white</color>
+    <color name="bicPrimaryText">#FFFFFF</color>
     <color name="bicSecondary">#6ED700</color>
 
     <color name="bicSecureText">#aaaaaa</color>
-    <color name="bicSwitchText">@android:color/black</color>
+    <color name="bicSwitchText">#000000</color>
 </resources>
