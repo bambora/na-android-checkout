@@ -32,15 +32,19 @@
 
     <string name="pay_title">Payment</string>
 
-    <string name="processing_secure">secured by beanstream</string>
     <string name="processing_target">payment</string>
     <string name="processing_text">processing</string>
     <string name="processing_amount">AMOUNT</string>
+
+    <string name="secured_by">"secured by "</string>
+    <string name="beanstream">beanstream</string>
 
     <string name="purchase_logo">LOGO</string>
     <string name="purchase_name">COMPANY NAME</string>
     <string name="purchase_amount">PURCHASE AMOUNT</string>
     <string name="purchase_description">DESCRIPTION</string>
+
+    <string name="error_no_connection">Please check that you are connected to the Internet.</string>
 
     <string name="validator_suffix_empty"> is required!</string>
     <string name="validator_prefix_invalid">Enter a valid </string>

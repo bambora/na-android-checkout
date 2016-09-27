@@ -12,9 +12,10 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beanstream.payform.Preferences;
 import com.beanstream.payform.R;
@@ -34,6 +35,8 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
     public final static int REQUEST_PAYFORM = 1;
 
+    private Button nextButton;
+
     // PayFormResult
     private PayFormResult payFormResult;
     private CreditCard creditCard;
@@ -43,13 +46,6 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payform);
-
-        final Button button = (Button) findViewById(R.id.button_next);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                goToNext();
-            }
-        });
 
         updatePurchaseHeader(options, purchase);
 
@@ -73,26 +69,28 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
             payFormResult = savedInstanceState.getParcelable(EXTRA_PAYFORM_RESULT);
         }
 
-        updateNextButton();
+        nextButton = (Button) findViewById(R.id.button_next);
+        configureNextButton(nextButton);
     }
 
     @Override
     public void onBillingCheckBoxChanged(boolean isChecked) {
         payFormResult.setIsBillingSameAsShipping(isChecked);
-        updateNextButton();
+        updateNextButtonText();
     }
 
     //region Navigation
     @Override
     public void onBackStackChanged() {
-        updateNextButton();
+        updateNextButtonText();
     }
 
     @Override
     public void onBackPressed() {
+        hideKeyboard(this, getCurrentFocus());
+
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             saveFragment(getCurrentFragment());
-            closeKeyboard(this);
 
             getFragmentManager().popBackStackImmediate();
         } else {
@@ -104,6 +102,29 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    private void configureNextButton(final Button button) {
+        final int buttonColorDefault = getThemePrimaryColor(this);
+        final int buttonColorPressed = getLighterShade(getThemePrimaryColor(this));
+
+        button.setBackgroundColor(buttonColorDefault);
+        updateNextButtonText();
+
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        button.setBackgroundColor(buttonColorPressed);
+                        return true;
+                    default:
+                        button.setBackgroundColor(buttonColorDefault);
+                        goToNext();
+                        return true;
+                }
+            }
+        });
     }
 
     private void goToNext() {
@@ -123,8 +144,18 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         } else if (fragment instanceof BillingFragment) {
             switchContentToPayment();
         } else if (fragment instanceof PaymentFragment) {
-            startProcessing();
+            if (BaseActivity.isInternetAvailable(getApplicationContext())) {
+                startProcessing();
+            } else {
+                showToast(getResources().getString(R.string.error_no_connection));
+            }
         }
+    }
+
+    private void showToast(String text) {
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        toast.show();
     }
 
     private Fragment getCurrentFragment() {
@@ -155,12 +186,8 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
     //endregion
 
     //region Content Updates
-    private void updateNextButton() {
-        TextView nextButton = ((TextView) findViewById(R.id.button_next));
-        if (nextButton != null) {
-            nextButton.setBackgroundColor(getThemePrimaryColor(this));
-            nextButton.setText(getTextForNextButton());
-        }
+    private void updateNextButtonText() {
+        nextButton.setText(getTextForNextButton());
     }
 
     private String getTextForNextButton() {

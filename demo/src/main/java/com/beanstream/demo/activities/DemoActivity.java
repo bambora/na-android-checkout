@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,7 +21,8 @@ import com.beanstream.payform.models.PayFormResult;
 import com.beanstream.payform.models.Purchase;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.util.Currency;
 
 public class DemoActivity extends Activity {
 
@@ -32,11 +34,7 @@ public class DemoActivity extends Activity {
         final Button button = (Button) findViewById(R.id.demo_pay_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent("payform.LAUNCH");
-                intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
-                intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
-
-                startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+                startPayForm();
             }
         });
     }
@@ -52,15 +50,25 @@ public class DemoActivity extends Activity {
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 onPayFormCancel();
             } else {
-                onPayFormError();
+                PayFormResult result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
+                onPayFormError(result);
             }
         }
     }
 
     //region private helper methods
+    private void startPayForm() {
+        Intent intent = new Intent("payform.LAUNCH");
+        intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
+        intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
+
+        startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+    }
+
     private Purchase getPurchaseForThisDemo() {
 
-        Purchase purchase = new Purchase(123.45, "CAD"); // Required fields: amount, currencyCode
+        Currency currency = Currency.getInstance(Purchase.CURRENCY_CODE_CANADA);
+        Purchase purchase = new Purchase(123.45, currency); // Required fields: amount, currency
 
         purchase.setDescription("Item 1, Item 2, Item 3, Item 4"); // default: ""
 
@@ -94,9 +102,26 @@ public class DemoActivity extends Activity {
         return options;
     }
 
-    private void hideResults() {
+    private void hideError() {
         findViewById(R.id.demo_payform_error).setVisibility(View.GONE);
+    }
+
+    private void hideResults() {
         findViewById(R.id.demo_payform_results).setVisibility(View.GONE);
+    }
+
+    private void showResults(PayFormResult payFormResult) {
+        TextView text = (TextView) findViewById(R.id.demo_payform_results);
+        try {
+            String result = payFormResult.toJsonObject().toString(4);
+            Log.d("showResults", result);
+            text.setText(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        text.setVisibility(View.VISIBLE);
+        text.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void onPayFormCancel() {
@@ -107,8 +132,8 @@ public class DemoActivity extends Activity {
         text.setVisibility(View.VISIBLE);
     }
 
-    private void onPayFormError() {
-        hideResults();
+    private void onPayFormError(PayFormResult payFormResult) {
+        showResults(payFormResult);
 
         TextView text = (TextView) findViewById(R.id.demo_payform_error);
         text.setText(getResources().getString(R.string.demo_payform_error));
@@ -116,18 +141,8 @@ public class DemoActivity extends Activity {
     }
 
     private void onPayFormSuccess(PayFormResult payFormResult) {
-        hideResults();
-
-        TextView text = (TextView) findViewById(R.id.demo_payform_results);
-        String result = payFormResult.toString();
-        try {
-            result = new JSONObject(result).toString(4);
-        } catch (JSONException ignored) {
-
-        }
-        text.setText(result);
-        text.setVisibility(View.VISIBLE);
-        text.setMovementMethod(new ScrollingMovementMethod());
+        hideError();
+        showResults(payFormResult);
     }
     //endregion
 }

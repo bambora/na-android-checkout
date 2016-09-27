@@ -7,6 +7,9 @@ package com.beanstream.payform.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by dlight on 2016-08-09.
  */
@@ -110,15 +113,18 @@ public class Address implements Parcelable {
     }
     //endregion
 
-    @Override
-    public String toString() {
-        return "{" +
-                "name:" + name + ", " +
-                "street:" + street + ", " +
-                "postal:" + postal + ", " +
-                "city:" + city + ", " +
-                "province:" + province + ", " +
-                "country:" + country +
-                "}";
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", name);
+            json.put("street", street);
+            json.put("postal", postal);
+            json.put("city", city);
+            json.put("province", province);
+            json.put("country", country);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

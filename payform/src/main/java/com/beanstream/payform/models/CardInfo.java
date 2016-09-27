@@ -7,6 +7,9 @@ package com.beanstream.payform.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by dlight on 2016-08-09.
  */
@@ -79,12 +82,15 @@ public class CardInfo implements Parcelable {
 
     //endregion
 
-    @Override
-    public String toString() {
-        return "{" +
-                "code:" + code + ", " +
-                "email:" + email + ", " +
-                "name:" + name +
-                "}";
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("code", code);
+            json.put("email", email);
+            json.put("name", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

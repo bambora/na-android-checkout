@@ -7,20 +7,11 @@
     android:layout_height="match_parent"
     tools:context="com.beanstream.demo.activities.DemoActivity">
 
-    <!--Header-->
-    <ImageView
-        android:id="@+id/bic_secure_header"
-        style="@style/BICSecurePayForm"
-        android:layout_alignParentTop="true"
-        android:background="@color/bicSecurePayForm"
-        android:contentDescription="@string/processing_secure" />
-
     <!--Settings-->
     <TableLayout
         android:id="@+id/demo_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bic_secure_header"
         android:layout_margin="@dimen/activity_padding"
         android:stretchColumns="*">
 
@@ -91,9 +82,17 @@
 
     <TextView
         android:id="@+id/demo_payform_results"
-        style="@style/MessageText"
-        android:layout_below="@+id/demo_pay_button"
+        style="@style/MediumText"
+        android:layout_below="@+id/demo_payform_error"
         android:gravity="center"
         android:text="@string/demo_payform_token"
         android:visibility="gone" />
+
+    <!--Secured By-->
+    <include
+        layout="@layout/secured_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/demo_payform_results"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

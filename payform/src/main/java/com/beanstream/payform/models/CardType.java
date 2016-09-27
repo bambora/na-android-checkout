@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
  * Created by dlight on 2016-08-17.
  */
 public class CardType {
-    public final static int CVV_MAX_LENGTH = 4;
-
     public final static String INVALID = "invalid";
     public final static String AMEX = "amex";
     public final static String DINERS = "diners";
@@ -57,7 +55,25 @@ public class CardType {
         return INVALID;
     }
 
-    public static ArrayList<Integer> getSegmentLengthsForCardType(String cardType) {
+    public static int getLengthOfFormattedCardNumber(String cardType) {
+        int length = 0;
+        if (cardType != null) {
+            cardType = cardType.replace(" ", "");
+            if (AMEX.equals(cardType)) {
+                // 4-6-5
+                length = 17;
+            } else if (DINERS.equals(cardType)) {
+                // 4-6-4
+                length = 14;
+            } else {
+                // 4-4-4-4
+                length = 19;
+            }
+        }
+        return length;
+    }
+
+    public static ArrayList<Integer> getSegmentLengths(String cardType) {
         ArrayList<Integer> format = new ArrayList<>();
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
@@ -82,7 +98,7 @@ public class CardType {
         return format;
     }
 
-    public static Pattern getCardPatternForCardType(String cardType) {
+    public static Pattern getCardPattern(String cardType) {
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
             switch (cardType) {
@@ -103,7 +119,7 @@ public class CardType {
         return Pattern.compile(INVALID);
     }
 
-    public static int getCvvLengthForCardType(String cardType) {
+    public static int getCvvLength(String cardType) {
         if (AMEX.equals(cardType)) {
             return 4;
         } else {
@@ -111,7 +127,7 @@ public class CardType {
         }
     }
 
-    public static int getImageForCardType(String cardType) {
+    public static int getImageResource(String cardType) {
         if (cardType != null) {
             cardType = cardType.replace(" ", "");
             if (AMEX.equals(cardType)) {

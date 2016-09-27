@@ -7,6 +7,9 @@ package com.beanstream.payform.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by dlight on 2016-08-11.
  */
@@ -86,26 +89,22 @@ public class PayFormResult implements Parcelable {
         this.billing = billing;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        if (cardInfo != null) {
-            sb.append("cardInfo:").append(cardInfo.toString());
-        }
-        if (billing != null) {
+
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        try {
             if (cardInfo != null) {
-                sb.append(",");
+                json.put("cardInfo", cardInfo.toJsonObject());
             }
-            sb.append("billingAddress:").append(billing.toString());
-        }
-        if (shipping != null) {
-            if ((cardInfo != null) || (billing != null)) {
-                sb.append(",");
+            if (billing != null) {
+                json.put("billingAddress", billing.toJsonObject());
             }
-            sb.append("shippingAddress:").append(shipping.toString());
+            if (shipping != null) {
+                json.put("shippingAddress", shipping.toJsonObject());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        sb.append("}");
-        return sb.toString();
+        return json;
     }
 }

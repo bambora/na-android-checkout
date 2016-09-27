@@ -5,11 +5,14 @@
 package com.beanstream.payform.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.beanstream.payform.R;
-import com.beanstream.payform.fragments.ProcessingFragment;
 import com.beanstream.payform.models.CreditCard;
 import com.beanstream.payform.services.TokenReceiver;
 import com.beanstream.payform.services.TokenService;
@@ -27,7 +30,10 @@ public class ProcessingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_processing);
 
+        updateAmount();
+        updateProgressBar();
         updatePurchaseHeader(options, purchase);
+
         disableHeaderBackButton();
 
         if (savedInstanceState == null) {
@@ -37,9 +43,6 @@ public class ProcessingActivity extends BaseActivity {
             if (creditCard == null) {
                 creditCard = new CreditCard();
             }
-
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, ProcessingFragment.newInstance(options, purchase)).commit();
 
             setupTokenReceiver();
             startTokenService();
@@ -85,5 +88,19 @@ public class ProcessingActivity extends BaseActivity {
         intent.putExtra(TokenService.EXTRA_CREDIT_CARD, creditCard);
         intent.putExtra(TokenService.EXTRA_RECEIVER, tokenReceiver);
         startService(intent);
+    }
+
+    private void updateAmount() {
+        TextView textView = ((TextView) findViewById(R.id.processing_amount));
+        if (textView != null) {
+            textView.setText(purchase.getFormattedAmount());
+        }
+    }
+
+    private void updateProgressBar() {
+        Log.d("updateProgressBar", "view");
+        int color = getThemeAccentColor(this);
+        ProgressBar progressBar = ((ProgressBar) findViewById(R.id.processing_progress_bar));
+        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 }

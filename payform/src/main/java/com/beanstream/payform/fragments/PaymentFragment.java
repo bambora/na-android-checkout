@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,11 +37,16 @@ import java.util.ArrayList;
  */
 public class PaymentFragment extends Fragment {
     private final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
+    private final static String EXTRA_CARD_NUMBER_ERROR = "com.beanstream.payform.payfragment.cardnumber.error";
+    private final static String EXTRA_CVV_ERROR = "com.beanstream.payform.payfragment.cvv.error";
 
     private CardInfo cardInfo;
 
     private Spinner monthSpinner;
     private Spinner yearSpinner;
+
+    private EditText cardNumberEditText;
+    private EditText cvvEditText;
 
     public PaymentFragment() {
         // Required empty public constructor
@@ -61,6 +67,7 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             cardInfo = getArguments().getParcelable(EXTRA_CARDINFO);
         } else {
@@ -76,17 +83,56 @@ public class PaymentFragment extends Fragment {
         monthSpinner = (Spinner) view.findViewById(R.id.pay_expiry_month);
         yearSpinner = (Spinner) view.findViewById(R.id.pay_expiry_year);
 
-        setValidators(view);
-        updateCardInfo(view, cardInfo);
+        cardNumberEditText = (EditText) view.findViewById(R.id.pay_card_number);
+        cvvEditText = (EditText) view.findViewById(R.id.pay_cvv);
 
+        // Restore errors where fields have images
+        String cardNumberError = null;
+        String cvvError = null;
+
+        if (savedInstanceState != null) {
+            cardNumberError = savedInstanceState.getString(EXTRA_CARD_NUMBER_ERROR);
+            cvvError = savedInstanceState.getString(EXTRA_CVV_ERROR);
+        }
+
+        cardNumberEditText.setError(cardNumberError);
+        cvvEditText.setError(cvvError);
+
+        updateCardInfo(view, cardInfo);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        showKeyboard();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        View view = getView();
+        setValidators(view);
+
+        EditText editText = (EditText) view.findViewById(R.id.pay_email);
+        BaseActivity.showKeyboardWhenEmpty(getActivity(), editText);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        CharSequence error = cardNumberEditText.getError();
+        cardNumberEditText.setError(null);
+        String cardErrorText = (error == null ? null : error.toString());
+        outState.putString(EXTRA_CARD_NUMBER_ERROR, cardErrorText);
+
+        error = cvvEditText.getError();
+        cvvEditText.setError(null);
+        String cvvErrorText = (error == null ? null : error.toString());
+        outState.putString(EXTRA_CVV_ERROR, cvvErrorText);
+    }
+
 
     public CardInfo getCardInfo() {
         CardInfo cardInfo = new CardInfo();
@@ -98,7 +144,6 @@ public class PaymentFragment extends Fragment {
     }
 
     public CreditCard getCreditCard() {
-
         String cardNumber = ((TextView) getView().findViewById(R.id.pay_card_number)).getText().toString();
         cardNumber = cardNumber.replace(" ", "");
         String cvv = ((TextView) getView().findViewById(R.id.pay_cvv)).getText().toString();
@@ -128,10 +173,12 @@ public class PaymentFragment extends Fragment {
         textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         textView.setOnFocusChangeListener(new TextValidator(textView));
 
-        textView = (EditText) (view.findViewById(R.id.pay_card_number));
-        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        textView.addTextChangedListener(new CardNumberValidator(textView));
-        textView.setOnFocusChangeListener(new CardNumberValidator(textView));
+        cardNumberEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        ImageView cardImage = (ImageView) (view.findViewById(R.id.pay_card_image));
+
+        CardNumberValidator validator = new CardNumberValidator(cardNumberEditText, cardImage);
+        cardNumberEditText.addTextChangedListener(validator);
+        cardNumberEditText.setOnFocusChangeListener(validator);
 
         monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
         monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));
@@ -139,20 +186,17 @@ public class PaymentFragment extends Fragment {
         yearSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryYears(), getResources().getString(R.string.pay_hint_expiry_year)));
         yearSpinner.setOnItemSelectedListener(new ExpiryValidator(yearSpinner));
 
-        textView = (EditText) (view.findViewById(R.id.pay_cvv));
-        textView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        textView.setOnFocusChangeListener(new CvvValidator(textView));
+        cvvEditText = (EditText) (view.findViewById(R.id.pay_cvv));
+        cvvEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        ImageView cvvImage = (ImageView) (view.findViewById(R.id.pay_cvv_image));
+
+        CvvValidator cvvValidator = new CvvValidator(cvvEditText, cvvImage);
+        cvvEditText.addTextChangedListener(cvvValidator);
+        cvvEditText.setOnFocusChangeListener(cvvValidator);
     }
 
     private ArrayAdapter<String> adapterWithList(ArrayList<String> list, String hint) {
         return new SpinnerAdapter(this.getActivity(), R.layout.expiry_spinner_item, list, hint);
-    }
-
-    private void showKeyboard() {
-        EditText textView = (EditText) (getActivity().findViewById(R.id.pay_email));
-        textView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        textView.requestFocus();
-        BaseActivity.showKeyboard(getActivity());
     }
 
     private void updateCardInfo(View view, CardInfo cardInfo) {

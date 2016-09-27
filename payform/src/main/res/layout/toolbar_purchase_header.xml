@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_height"
     android:background="@color/bicPrimary"
+    android:theme="@style/Toolbar.PayForm"
     app:contentInsetStart="0dp"
     app:contentInsetStartWithNavigation="0dp">
 
@@ -29,6 +30,7 @@
             style="@style/HeaderText"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/header_company_logo"
+            android:maxLines="1"
             android:text="@string/purchase_name"
             android:textSize="@dimen/header_text_size_name" />
 
@@ -45,6 +47,7 @@
             style="@style/HeaderText"
             android:layout_below="@id/header_amount"
             android:layout_toEndOf="@id/header_company_logo"
+            android:maxLines="2"
             android:text="@string/purchase_description"
             android:textSize="@dimen/header_text_size_description" />
     </RelativeLayout>

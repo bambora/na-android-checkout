@@ -10,4 +10,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:checked">true</item>
     </style>
+
+    <style name="ErrorText" parent="@style/MediumText">
+        <item name="android:textColor">@color/demoErrorText</item>
+    </style>
 </resources>

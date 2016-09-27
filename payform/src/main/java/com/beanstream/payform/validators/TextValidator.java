@@ -5,9 +5,11 @@
 package com.beanstream.payform.validators;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
@@ -51,5 +53,11 @@ public class TextValidator implements TextWatcher, View.OnFocusChangeListener {
         if (!hasFocus) {
             validate((TextView) view);
         }
+    }
+
+    public void setEditTextMaxLength(final EditText editText, int length) {
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(length);
+        editText.setFilters(FilterArray);
     }
 }

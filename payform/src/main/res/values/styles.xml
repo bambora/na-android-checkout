@@ -11,23 +11,7 @@
         <item name="android:layout_margin">@dimen/button_margin</item>
         <item name="android:padding">@dimen/button_padding</item>
         <item name="android:textColor">@color/bicButtonText</item>
-        <item name="android:background">@drawable/button_primary</item>
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="BICSecure">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:padding">@dimen/logo_padding</item>
-    </style>
-
-    <style name="BICSecurePayForm" parent="@style/BICSecure">
-        <item name="android:src">@drawable/beanstream_logo</item>
-    </style>
-
-    <style name="BICSecureProcessing" parent="@style/BICSecure">
-        <item name="android:src">@drawable/ic_verified</item>
     </style>
 
     <style name="HeaderText" parent="@android:style/TextAppearance.Medium">
@@ -48,8 +32,6 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="MessageText" parent="@style/MediumText" />
-
     <style name="DateSpinner">
         <item name="android:layout_height">@dimen/field_height</item>
         <item name="android:layout_width">@dimen/date_spinner_width</item>
@@ -57,10 +39,14 @@
 
     <style name="EditText">
         <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="ErrorText" parent="@style/MediumText">
-        <item name="android:textColor">@color/bicErrorText</item>
+    <style name="FieldImage">
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/field_image_padding_bottom</item>
+        <item name="android:paddingTop">@dimen/field_image_padding_top</item>
     </style>
 
     <style name="ProcessingText" parent="@style/MediumText">
@@ -68,7 +54,13 @@
         <item name="android:padding">@dimen/processing_text_padding</item>
     </style>
 
-    <style name="ProcessingSecureText" parent="@style/MediumText">
-        <item name="android:textColor">@android:color/white</item>
+    <style name="SecureText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/bicSecureText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SecureTextBold" parent="@style/SecureText">
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
