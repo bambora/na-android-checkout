@@ -6,27 +6,12 @@
 <resources>
     <!-- Beanstream Colors -->
     <color name="bicBackground">@android:color/white</color>
-
     <color name="bicButtonText">@android:color/white</color>
 
-    <color name="bicCardToolbarBackground">@android:color/white</color>
-    <color name="bicCardToolbarText">@android:color/black</color>
-
-    <color name="bicErrorText">@android:color/holo_red_light</color>
-    <color name="bicWarningText">@android:color/holo_orange_light</color>
-
     <color name="bicPrimary">#067AED</color>
-    <color name="bicPrimaryPressed">#33AEDF</color>
     <color name="bicPrimaryText">@android:color/white</color>
-
     <color name="bicSecondary">#6ED700</color>
-    <color name="bicSecondaryPressed">#ACDF33</color>
 
-    <color name="bicSecurePayForm">@android:color/black</color>
-    <color name="bicSecureProcessing">@color/bicSecondary</color>
-
-    <color name="bicSecureText">@android:color/darker_gray</color>
-    <color name="bicSecureBicText">@android:color/darker_gray</color>
-
+    <color name="bicSecureText">#aaaaaa</color>
     <color name="bicSwitchText">@android:color/black</color>
 </resources>

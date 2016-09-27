@@ -5,4 +5,6 @@
     <color name="demoBackground">@android:color/white</color>
     <color name="demoPrimary">@android:color/holo_orange_dark</color>
     <color name="demoSecondary">@android:color/holo_red_dark</color>
+
+    <color name="demoErrorText">@android:color/holo_red_light</color>
 </resources>

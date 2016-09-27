@@ -50,10 +50,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void hideKeyboard(Activity activity, View view) {
-        if (null != activity) {
+        if (activity != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (null != imm) {
-                if (null != view) {
+            if (imm != null) {
+                if (view != null) {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
@@ -71,17 +71,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void showKeyboard(Activity activity, View view) {
-        if (null != activity) {
+        if (activity != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (null != imm) {
-                if (null != view) {
+            if (imm != null) {
+                if (view != null) {
                     imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
         }
     }
 
-    public static boolean isNetworkConnected(Context context) {
+    public static boolean isInternetAvailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();

@@ -144,7 +144,7 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
         } else if (fragment instanceof BillingFragment) {
             switchContentToPayment();
         } else if (fragment instanceof PaymentFragment) {
-            if (BaseActivity.isNetworkConnected(getApplicationContext())) {
+            if (BaseActivity.isInternetAvailable(getApplicationContext())) {
                 startProcessing();
             } else {
                 showToast(getResources().getString(R.string.error_no_connection));
