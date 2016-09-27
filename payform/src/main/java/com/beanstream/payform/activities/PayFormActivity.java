@@ -117,12 +117,13 @@ public class PayFormActivity extends BaseActivity implements FragmentManager.OnB
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         button.setBackgroundColor(buttonColorPressed);
-                        return true;
-                    default:
+                        break;
+                    case MotionEvent.ACTION_UP:
                         button.setBackgroundColor(buttonColorDefault);
                         goToNext();
-                        return true;
+                        break;
                 }
+                return true;
             }
         });
     }
