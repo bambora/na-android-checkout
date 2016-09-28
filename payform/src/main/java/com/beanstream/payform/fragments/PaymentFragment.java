@@ -40,10 +40,16 @@ public class PaymentFragment extends Fragment {
     private final static String EXTRA_CARD_NUMBER_ERROR = "com.beanstream.payform.payfragment.cardnumber.error";
     private final static String EXTRA_CVV_ERROR = "com.beanstream.payform.payfragment.cvv.error";
 
+    private final static String EXTRA_EXPIRY_MONTH = "com.beanstream.payform.payfragment.expiry.month";
+    private final static String EXTRA_EXPIRY_YEAR = "com.beanstream.payform.payfragment.expiry.year";
+
     private CardInfo cardInfo;
 
     private Spinner monthSpinner;
     private Spinner yearSpinner;
+
+    private String expiryMonth;
+    private String expiryYear;
 
     private EditText cardNumberEditText;
     private EditText cvvEditText;
@@ -90,9 +96,16 @@ public class PaymentFragment extends Fragment {
         String cardNumberError = null;
         String cvvError = null;
 
+        // Restore expiry spinners
+        expiryMonth = null;
+        expiryYear = null;
+
         if (savedInstanceState != null) {
             cardNumberError = savedInstanceState.getString(EXTRA_CARD_NUMBER_ERROR);
             cvvError = savedInstanceState.getString(EXTRA_CVV_ERROR);
+
+            expiryMonth = savedInstanceState.getString(EXTRA_EXPIRY_MONTH);
+            expiryYear = savedInstanceState.getString(EXTRA_EXPIRY_YEAR);
         }
 
         cardNumberEditText.setError(cardNumberError);
@@ -100,11 +113,6 @@ public class PaymentFragment extends Fragment {
 
         updateCardInfo(view, cardInfo);
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -131,6 +139,9 @@ public class PaymentFragment extends Fragment {
         cvvEditText.setError(null);
         String cvvErrorText = (error == null ? null : error.toString());
         outState.putString(EXTRA_CVV_ERROR, cvvErrorText);
+
+        outState.putString(EXTRA_EXPIRY_MONTH, monthSpinner.getSelectedItem().toString());
+        outState.putString(EXTRA_EXPIRY_YEAR, yearSpinner.getSelectedItem().toString());
     }
 
 
@@ -182,9 +193,11 @@ public class PaymentFragment extends Fragment {
 
         monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
         monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));
+        SpinnerAdapter.selectItem(monthSpinner, expiryMonth);
 
         yearSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryYears(), getResources().getString(R.string.pay_hint_expiry_year)));
         yearSpinner.setOnItemSelectedListener(new ExpiryValidator(yearSpinner));
+        SpinnerAdapter.selectItem(yearSpinner, expiryYear);
 
         cvvEditText = (EditText) (view.findViewById(R.id.pay_cvv));
         cvvEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
