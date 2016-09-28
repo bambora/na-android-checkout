@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -49,6 +51,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         return value.data;
     }
 
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null) {
+            Window window = activity.getWindow();
+            if (window != null) {
+                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            }
+        }
+    }
+
     public static void hideKeyboard(Activity activity, View view) {
         if (activity != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -66,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             editText.requestFocus();
             BaseActivity.showKeyboard(activity, editText);
         } else {
-            BaseActivity.hideKeyboard(activity, editText);
+            BaseActivity.hideKeyboard(activity);
         }
     }
 
