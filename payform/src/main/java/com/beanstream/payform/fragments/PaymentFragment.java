@@ -191,12 +191,16 @@ public class PaymentFragment extends Fragment {
         cardNumberEditText.addTextChangedListener(validator);
         cardNumberEditText.setOnFocusChangeListener(validator);
 
+        ExpiryValidator monthValidator = new ExpiryValidator(monthSpinner);
         monthSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryMonths(), getResources().getString(R.string.pay_hint_expiry_month)));
-        monthSpinner.setOnItemSelectedListener(new ExpiryValidator(monthSpinner));
+        monthSpinner.setOnItemSelectedListener(monthValidator);
+        monthSpinner.setOnTouchListener(monthValidator);
         SpinnerAdapter.selectItem(monthSpinner, expiryMonth);
 
+        ExpiryValidator yearValidator = new ExpiryValidator(yearSpinner);
         yearSpinner.setAdapter(adapterWithList(ExpiryValidator.expiryYears(), getResources().getString(R.string.pay_hint_expiry_year)));
-        yearSpinner.setOnItemSelectedListener(new ExpiryValidator(yearSpinner));
+        yearSpinner.setOnItemSelectedListener(yearValidator);
+        yearSpinner.setOnTouchListener(yearValidator);
         SpinnerAdapter.selectItem(yearSpinner, expiryYear);
 
         cvvEditText = (EditText) (view.findViewById(R.id.pay_cvv));

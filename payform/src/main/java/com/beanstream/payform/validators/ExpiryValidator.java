@@ -4,13 +4,16 @@
 
 package com.beanstream.payform.validators;
 
+import android.app.Activity;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.beanstream.payform.R;
+import com.beanstream.payform.activities.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +22,7 @@ import java.util.Locale;
 /**
  * Created by dlight on 2016-09-06.
  */
-public class ExpiryValidator implements Spinner.OnItemSelectedListener {
+public class ExpiryValidator implements Spinner.OnItemSelectedListener, View.OnTouchListener {
 
     private final Spinner spinner;
 
@@ -57,13 +60,19 @@ public class ExpiryValidator implements Spinner.OnItemSelectedListener {
     }
 
     @Override
-    public void onItemSelected(AdapterView parent, View v, int position, long id) {
+    public void onItemSelected(AdapterView parent, View view, int position, long id) {
         // Do nothing.
     }
 
     @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        BaseActivity.hideKeyboard((Activity)view.getContext(), view);
+        return false;
     }
 
     public boolean validate(Spinner spinner) {
