@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Demo Colors -->
-    <color name="demoAccent">@android:color/holo_orange_light</color>
-    <color name="demoBackground">@android:color/white</color>
-    <color name="demoPrimary">@android:color/holo_orange_dark</color>
-    <color name="demoSecondary">@android:color/holo_red_dark</color>
+    <color name="demoAccent">#8ed4ed</color>
+    <color name="demoBackground">#FFFFFF</color>
+    <color name="demoPrimary">#664c8e</color>
+    <color name="demoSecondary">#25a998</color>
 
-    <color name="demoErrorText">@android:color/holo_red_light</color>
+    <color name="demoErrorText">#e62232</color>
 </resources>

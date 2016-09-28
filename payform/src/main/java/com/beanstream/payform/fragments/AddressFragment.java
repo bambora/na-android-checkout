@@ -100,7 +100,7 @@ public class AddressFragment extends Fragment {
 
     void configureBillingCheckBox(View view) {
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.billing_switch);
-        checkBox.setVisibility(View.GONE);
+        checkBox.setVisibility(View.INVISIBLE);
     }
 
     public Address getAddress() {

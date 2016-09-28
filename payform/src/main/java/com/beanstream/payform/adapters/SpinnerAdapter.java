@@ -2,6 +2,7 @@ package com.beanstream.payform.adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -18,9 +19,23 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         this.hint = hint;
     }
 
+    public static void selectItem(Spinner spinner, String item) {
+        int position = 0;
+        SpinnerAdapter adapter = (SpinnerAdapter) spinner.getAdapter();
+        if (adapter != null) {
+            position = adapter.getPosition(item);
+        }
+        spinner.setSelection(position);
+    }
+
     @Override
     public int getCount() {
         return super.getCount() + 1;
+    }
+
+    @Override
+    public int getPosition(String item) {
+        return super.getPosition(item) + 1;
     }
 
     @Override
@@ -33,7 +48,6 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public long getItemId(int position) {
-
         return position;
     }
 
