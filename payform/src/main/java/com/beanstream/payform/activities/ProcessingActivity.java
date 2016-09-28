@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,7 +19,7 @@ import com.beanstream.payform.services.TokenService;
 public class ProcessingActivity extends BaseActivity {
 
     public final static int REQUEST_TOKEN = 2;
-
+    private int DELAY_RETURN_IN_MILLISECONDS = 1500;
     private TokenReceiver tokenReceiver;
 
     private CreditCard creditCard;
@@ -63,6 +62,14 @@ public class ProcessingActivity extends BaseActivity {
         outState.putParcelable(TokenService.EXTRA_CREDIT_CARD, creditCard);
     }
 
+    public void finishWithDelay() {
+        (new Handler()).postDelayed(new Runnable() {
+            public void run() {
+                finish();
+            }
+        }, DELAY_RETURN_IN_MILLISECONDS);
+    }
+
     private void setupTokenReceiver() {
         tokenReceiver = new TokenReceiver(new Handler());
 
@@ -73,12 +80,11 @@ public class ProcessingActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     token = resultData.getString(TokenService.EXTRA_TOKEN);
                 }
-
                 Intent intent = getIntent();
                 intent.putExtra(TokenService.EXTRA_TOKEN, token);
                 setResult(resultCode, intent);
 
-                finish();
+                finishWithDelay();
             }
         });
     }
@@ -98,7 +104,6 @@ public class ProcessingActivity extends BaseActivity {
     }
 
     private void updateProgressBar() {
-        Log.d("updateProgressBar", "view");
         int color = getThemeAccentColor(this);
         ProgressBar progressBar = ((ProgressBar) findViewById(R.id.processing_progress_bar));
         progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
