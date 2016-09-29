@@ -72,7 +72,7 @@ public class ExpiryValidator implements Spinner.OnItemSelectedListener, View.OnT
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_DOWN:
                 BaseActivity.hideKeyboard((Activity)view.getContext(), view);
                 break;
         }
