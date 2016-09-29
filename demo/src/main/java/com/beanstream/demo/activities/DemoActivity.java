@@ -43,24 +43,31 @@ public class DemoActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PayFormActivity.REQUEST_PAYFORM) {
+            String error = "";
+            PayFormResult result = null;
 
             if (resultCode == Activity.RESULT_OK) {
-                PayFormResult result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
-                onPayFormSuccess(result);
+                result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                onPayFormCancel();
+                error = getResources().getString(R.string.demo_payform_cancelled);
             } else {
-                PayFormResult result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
-                onPayFormError(result);
+                error = getResources().getString(R.string.demo_payform_error);
+                result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
             }
+
+            showError(error);
+            showResults(result);
         }
     }
 
-    //region private helper methods
     private void startPayForm() {
+
+        Options options = getOptionsForThisDemo();
+        Purchase purchase = getPurchaseForThisDemo();
+
         Intent intent = new Intent("payform.LAUNCH");
-        intent.putExtra(PayFormActivity.EXTRA_OPTIONS, getOptionsForThisDemo());
-        intent.putExtra(PayFormActivity.EXTRA_PURCHASE, getPurchaseForThisDemo());
+        intent.putExtra(PayFormActivity.EXTRA_OPTIONS, options);
+        intent.putExtra(PayFormActivity.EXTRA_PURCHASE, purchase);
 
         startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
     }
@@ -102,47 +109,27 @@ public class DemoActivity extends Activity {
         return options;
     }
 
-    private void hideError() {
-        findViewById(R.id.demo_payform_error).setVisibility(View.GONE);
-    }
-
-    private void hideResults() {
-        findViewById(R.id.demo_payform_results).setVisibility(View.GONE);
+    private void showError(String error) {
+        TextView text = (TextView) findViewById(R.id.demo_payform_error);
+        text.setText(error);
     }
 
     private void showResults(PayFormResult payFormResult) {
-        TextView text = (TextView) findViewById(R.id.demo_payform_results);
+        String result = "";
         try {
-            String result = payFormResult.toJsonObject().toString(4);
-            Log.d("showResults", result);
-            text.setText(result);
+            if (payFormResult != null) {
+                result = payFormResult.toJsonObject().toString(4);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        Log.d("showResults", result);
+
+        TextView text = (TextView) findViewById(R.id.demo_payform_results);
+        text.setText(result);
         text.setVisibility(View.VISIBLE);
         text.setMovementMethod(new ScrollingMovementMethod());
     }
-
-    private void onPayFormCancel() {
-        hideResults();
-
-        TextView text = (TextView) findViewById(R.id.demo_payform_error);
-        text.setText(getResources().getString(R.string.demo_payform_cancelled));
-        text.setVisibility(View.VISIBLE);
-    }
-
-    private void onPayFormError(PayFormResult payFormResult) {
-        showResults(payFormResult);
-
-        TextView text = (TextView) findViewById(R.id.demo_payform_error);
-        text.setText(getResources().getString(R.string.demo_payform_error));
-        text.setVisibility(View.VISIBLE);
-    }
-
-    private void onPayFormSuccess(PayFormResult payFormResult) {
-        hideError();
-        showResults(payFormResult);
-    }
-    //endregion
 }
