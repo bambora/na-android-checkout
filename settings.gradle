@@ -1,1 +1,1 @@
-include ':demo', ':payform', ':payform'
+include ':demo', ':payform'

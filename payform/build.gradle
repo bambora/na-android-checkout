@@ -27,3 +27,44 @@ dependencies {
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
 }
+
+/*** ARTIFACTORY ***/
+apply plugin: "com.jfrog.artifactory"
+apply plugin: 'maven-publish'
+
+String publishRepoKey = version.endsWith('SNAPSHOT') ? 'ext-snapshot-local' : 'ext-release-local'
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = 'com.beanstream.android'
+            artifactId project.name
+            version = version
+            artifact "${project.buildDir}/outputs/aar/${project.name}-release.aar"
+
+            pom.withXml {
+                def root = asNode()
+                def license = root.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'The Apache Software License, Version 2.0')
+                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                license.appendNode('distribution', 'repo')
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = artifactory_contextUrl
+    publish {
+        repository {
+            repoKey = publishRepoKey
+            username = "${bic_artifactory_user}"
+            password = "${bic_artifactory_password}"
+            maven = true
+        }
+        defaults {
+            publishArtifacts = true
+            publications('aar')
+        }
+    }
+}
