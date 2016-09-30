@@ -28,13 +28,13 @@ echo
 echo "-----------------------------"
 echo "Assembling..." 
 echo "-----------------------------"
-bash ./gradlew assembleRelease
+bash ./gradlew payform:assembleRelease
 echo
 
 echo "-----------------------------"
 echo "Publishing..."
 echo "-----------------------------"
-bash ./gradlew artifactoryPublish
+bash ./gradlew payform:artifactoryPublish
 echo
 
 echo "-----------------------------"
