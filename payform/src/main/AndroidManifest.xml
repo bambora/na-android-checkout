@@ -18,9 +18,9 @@
         android:theme="@style/Theme.PayForm">
 
         <activity android:name="com.beanstream.payform.activities.PayFormActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
-                <action android:name="bicpayform.LAUNCH" />
+                <action android:name="payform.LAUNCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
