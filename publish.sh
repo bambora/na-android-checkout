@@ -22,13 +22,13 @@ echo
 echo "-----------------------------"
 echo "Cleaning..."
 echo "-----------------------------"
-bash ./gradlew clean --debug
+bash ./gradlew clean 
 echo
 
 echo "-----------------------------"
 echo "Publishing..."
 echo "-----------------------------"
-bash ./gradlew --debug assembleRelease artifactoryPublish
+bash ./gradlew assembleRelease artifactoryPublish
 echo
 
 echo "-----------------------------"
