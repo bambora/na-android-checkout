@@ -30,6 +30,7 @@ import com.beanstream.payform.validators.ViewValidator;
 
 public class PayFormActivity extends BaseActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
+    public final static String ACTION_PAYFORM_LAUNCH = "com.beanstream.payform.LAUNCH";
 
     public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
 

@@ -16,6 +16,5 @@
         <item name="android:windowBackground">@color/bicBackground</item>
     </style>
 
-    <style name="Toolbar.PayForm" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
-    </style>
+    <style name="Toolbar.PayForm" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>
