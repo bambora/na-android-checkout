@@ -22,19 +22,13 @@ echo
 echo "-----------------------------"
 echo "Cleaning..."
 echo "-----------------------------"
-bash ./gradlew clean
-echo
-
-echo "-----------------------------"
-echo "Assembling..." 
-echo "-----------------------------"
-bash ./gradlew payform:assembleRelease
+bash ./gradlew clean --debug
 echo
 
 echo "-----------------------------"
 echo "Publishing..."
 echo "-----------------------------"
-bash ./gradlew payform:artifactoryPublish
+bash ./gradlew --debug assembleRelease artifactoryPublish
 echo
 
 echo "-----------------------------"
