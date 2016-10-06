@@ -1,11 +1,12 @@
 <img src="http://www.beanstream.com/wp-content/uploads/2015/08/Beanstream-logo.png" />
-# Beanstream PayForm for Android
+# PayForm for Android
 
 ##### Table of Contents
 
 * [Platform Support](#platform-support)
 * [PayForm](#payform)
 * [How It Works](#payform-functionality)
+* [Demo App](#payform-demo)
 * [Integration](#payform-integration)
 * [Customization](#payform-customization)
 * [Building Locally and Contributing](#contributing)
@@ -30,6 +31,9 @@ Once the user has completed all fields with valid input an onActivityResult, pro
 
 By integrating PayForm a developer can easily provide a way for users to accept payments in an Android app. PayForm provides some client-side validation, smart field data formatting and a design that works in all Android device form factors.
 
+<a name="payform-demo"/>
+## Demo App
+Use this [demo](https://github.com/Beanstream/beanstream-android-payform-demo) to see how to integrate PayForm
 
 <a name="payform-integration"/>
 ## Integration
