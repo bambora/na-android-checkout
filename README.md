@@ -42,7 +42,7 @@ Use this [demo](https://github.com/Beanstream/beanstream-android-payform-demo) t
 Add your Artifactory credentials to ***[USER_HOME]/.gradle/gradle.properties***
 ```
 # Artifactory Credentials
-bic_artifactory_url=https://beanstream.jfrog.io/beanstream/libs-release
+bic_artifactory_url=https://beanstream.jfrog.io/beanstream
 
 ## Replace USERNAME and PASSWORD
 bic_artifactory_user=USERNAME
@@ -61,7 +61,7 @@ android {
                 username "${bic_artifactory_user}"
                 password "${bic_artifactory_password}"
             }
-            url "${bic_artifactory_url}"
+            url "${bic_artifactory_url}/libs-release"
         }
     }
 }

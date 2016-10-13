@@ -54,7 +54,7 @@ publishing {
 }
 
 artifactory {
-    contextUrl = "${bic_artifactory_url_publish}"
+    contextUrl = "${bic_artifactory_url}"
     publish {
         repository {
             repoKey = publishRepoKey
