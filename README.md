@@ -136,8 +136,7 @@ You can supply several parameters to configure the form, such as your company na
 | :------------- | :------------- |
 | description  | description of the purchase  |
 | companyLogoResourceId  | your company logo's resource id |
-| companyName  | your company logo's resource id |
-| companyLogoResourceId  | your company name |
+| companyName  | your company name |
 | isBillingAddressRequired  | if the billing address is required - **true/false** |
 | isShippingAddressRequired  | if the shipping address is required - **true/false** |
 | themeResourceId  | the resourceId of the custom theme |
@@ -178,6 +177,5 @@ To set custom colors for the PayForm you will need to add ***res/values/themes.x
 * [REST API](http://developer.beanstream.com/documentation/rest-api-reference/)
 * [Tokenization](http://developer.beanstream.com/documentation/take-payments/purchases/take-payment-legato-token/)
 * [Payment](http://developer.beanstream.com/documentation/take-payments/purchases/card/)
-* [Legato](http://developer.beanstream.com/documentation/legato/)
 
 ---
