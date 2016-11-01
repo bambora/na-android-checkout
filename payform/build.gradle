@@ -32,7 +32,7 @@ dependencies {
 apply plugin: "com.jfrog.artifactory"
 apply plugin: 'maven-publish'
 
-String publishRepoKey = version.endsWith('SNAPSHOT') ? 'ext-snapshot-local' : 'ext-release-local'
+String publishRepoKey = version.endsWith('SNAPSHOT') ? 'libs-snapshot-local' : 'libs-release-local'
 
 publishing {
     publications {
