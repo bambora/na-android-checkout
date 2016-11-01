@@ -38,18 +38,7 @@ Use this [demo](https://github.com/Beanstream/beanstream-android-payform-demo) t
 <a name="payform-integration"/>
 ## Integration
 
-#### Step 1: Setup Artifactory Credentials
-Add your Artifactory credentials to ***[USER_HOME]/.gradle/gradle.properties***
-```
-# Artifactory Credentials
-bic_artifactory_url=https://beanstream.jfrog.io/beanstream
-
-## Replace USERNAME and PASSWORD
-bic_artifactory_user=USERNAME
-bic_artifactory_password=PASSWORD
-```
-
-#### Step 2: Import PayForm Library
+#### Step 1: Import PayForm Library
 * Add the following to your app's ***build.gradle***:
 ```
 android {
@@ -57,11 +46,7 @@ android {
     repositories {
         jcenter()
         maven {
-            credentials {
-                username "${bic_artifactory_user}"
-                password "${bic_artifactory_password}"
-            }
-            url "${bic_artifactory_url}/libs-release"
+            url "https://beanstream.jfrog.io/beanstream/libs-release"
         }
     }
 }
@@ -74,7 +59,7 @@ dependencies {
 }
 ```
 
-#### Step 3: Launch PayForm Activity
+#### Step 2: Launch PayForm Activity
 From your app you will need to launch the activity with ***options*** and ***purchase*** information.
 
 ***Example:***
@@ -90,7 +75,7 @@ private void startPayForm() {
   startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
 }
 ```
-#### Step 4: Get the Results
+#### Step 3: Get the Results
 You will need to collect the ***PayFromResult*** that contains the ***cardInfo.code*** that is your payment processing token.
 
 ***Example:***
@@ -116,7 +101,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-#### Step 5: Process the Token
+#### Step 4: Process the Token
 Now that you have tokenized card data on your server, use it to either
 * [process or pre-authorize a payment](http://developer.beanstream.com/documentation/take-payments/purchases/take-payment-legato-token/)
 * [create a payment profile](http://developer.beanstream.com/tokenize-payments/create-new-profile/).
