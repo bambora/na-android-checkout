@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    compile(group: 'com.beanstream.android', name: 'payform', version: '0.1.1', ext: 'aar')
+    compile(group: 'com.beanstream.android', name: 'payform', version: '0.1.1.3-SNAPSHOT', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     ...
