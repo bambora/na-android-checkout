@@ -84,7 +84,7 @@ public class CreditCard implements Parcelable {
     }
 
     public void setExpiryYear(String year) {
-        this.expiryYear = year;
+        this.expiryYear = year.substring(2);
     }
 
     public String getCvv() {
