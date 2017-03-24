@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~ Copyright (c) 2017 Bambora
   ~
   ~ Created by dlight on 2016-08-04.
   -->
@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/header_padding"
-    tools:context="com.beanstream.payform.fragments.PaymentFragment">
+    tools:context="com.bambora.payform.fragments.PaymentFragment">
 
     <!--Title-->
     <TextView

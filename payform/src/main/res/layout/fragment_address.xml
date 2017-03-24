@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~ Copyright (c) 2017 Bambora
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/header_padding"
-    tools:context="com.beanstream.payform.fragments.AddressFragment" >
+    tools:context="com.bambora.payform.fragments.AddressFragment" >
 
     <!--Title-->
     <TextView

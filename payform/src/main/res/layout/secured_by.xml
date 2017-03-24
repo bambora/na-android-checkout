@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~ Copyright (c) 2017 Bambora
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bic_secured_by"
@@ -16,5 +16,5 @@
     <TextView
         style="@style/SecureTextBold"
         android:layout_toEndOf="@id/secure_text"
-        android:text="@string/beanstream" />
+        android:text="@string/bambora" />
 </RelativeLayout>

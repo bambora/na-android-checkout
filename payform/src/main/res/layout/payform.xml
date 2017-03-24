@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2016 Beanstream Internet Commerce, Inc. All rights reserved.
+  ~ Copyright (c) 2017 Bambora
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.beanstream.payform.activities.PayFormActivity">
+    tools:context="com.bambora.payform.activities.PayFormActivity">
 
     <ScrollView
         android:id="@+id/payform_content"

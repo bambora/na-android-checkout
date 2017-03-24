@@ -37,7 +37,7 @@ String publishRepoKey = version.endsWith('SNAPSHOT') ? 'libs-snapshot-local' : '
 publishing {
     publications {
         aar(MavenPublication) {
-            groupId = 'com.beanstream.android'
+            groupId = 'com.bambora.android'
             artifactId project.name
             version = version
             artifact "${project.buildDir}/outputs/aar/${project.name}-release.aar"
