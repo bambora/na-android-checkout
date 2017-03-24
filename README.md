@@ -56,7 +56,7 @@ android {
 }
 
 dependencies {
-    compile(group: 'com.bambora.android', name: 'payform', version: '0.1.1', ext: 'aar')
+    compile(group: 'com.bambora.android', name: 'payform', version: '0.1.2', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     ...
