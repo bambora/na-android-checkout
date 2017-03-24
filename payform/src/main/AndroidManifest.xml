@@ -20,7 +20,7 @@
         <activity android:name="com.bambora.payform.activities.PayFormActivity"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
-                <action android:name="com.beanstream.payform.LAUNCH" />
+                <action android:name="com.bambora.payform.LAUNCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

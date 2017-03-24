@@ -18,7 +18,7 @@ public class Preferences {
     private final SharedPreferences sharedPreferences;
 
     private Preferences(Context context) {
-        sharedPreferences = context.getSharedPreferences("com.beanstream.payform", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("com.bambora.payform", Context.MODE_PRIVATE);
     }
 
     public static Preferences getInstance(Context context) {

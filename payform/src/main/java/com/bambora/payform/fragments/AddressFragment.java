@@ -26,7 +26,7 @@ import com.bambora.payform.validators.TextValidator;
  */
 public class AddressFragment extends Fragment {
 
-    final static String EXTRA_ADDRESS = "com.beanstream.payform.models.address";
+    final static String EXTRA_ADDRESS = "com.bambora.payform.models.address";
 
     private Address address;
 

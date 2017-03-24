@@ -33,8 +33,8 @@ import java.util.Currency;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public final static String EXTRA_OPTIONS = "com.beanstream.payform.models.options";
-    public final static String EXTRA_PURCHASE = "com.beanstream.payform.models.purchase";
+    public final static String EXTRA_OPTIONS = "com.bambora.payform.models.options";
+    public final static String EXTRA_PURCHASE = "com.bambora.payform.models.purchase";
 
     Options options;
     Purchase purchase;

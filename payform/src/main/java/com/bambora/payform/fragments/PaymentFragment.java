@@ -36,12 +36,12 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class PaymentFragment extends Fragment {
-    private final static String EXTRA_CARDINFO = "com.beanstream.payform.models.cardinfo";
-    private final static String EXTRA_CARD_NUMBER_ERROR = "com.beanstream.payform.payfragment.cardnumber.error";
-    private final static String EXTRA_CVV_ERROR = "com.beanstream.payform.payfragment.cvv.error";
+    private final static String EXTRA_CARDINFO = "com.bambora.payform.models.cardinfo";
+    private final static String EXTRA_CARD_NUMBER_ERROR = "com.bambora.payform.payfragment.cardnumber.error";
+    private final static String EXTRA_CVV_ERROR = "com.bambora.payform.payfragment.cvv.error";
 
-    private final static String EXTRA_EXPIRY_MONTH = "com.beanstream.payform.payfragment.expiry.month";
-    private final static String EXTRA_EXPIRY_YEAR = "com.beanstream.payform.payfragment.expiry.year";
+    private final static String EXTRA_EXPIRY_MONTH = "com.bambora.payform.payfragment.expiry.month";
+    private final static String EXTRA_EXPIRY_YEAR = "com.bambora.payform.payfragment.expiry.year";
 
     private CardInfo cardInfo;
 

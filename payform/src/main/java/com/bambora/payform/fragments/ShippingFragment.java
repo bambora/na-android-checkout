@@ -21,8 +21,8 @@ import com.bambora.payform.models.Address;
  */
 public class ShippingFragment extends AddressFragment {
 
-    private final static String EXTRA_BILLING_REQUIRED = "com.beanstream.payform.models.options.billingrequired";
-    private final static String EXTRA_BILLING_SAME_AS_SHIPPING = "com.beanstream.payform.billing.sameas.shipping";
+    private final static String EXTRA_BILLING_REQUIRED = "com.bambora.payform.models.options.billingrequired";
+    private final static String EXTRA_BILLING_SAME_AS_SHIPPING = "com.bambora.payform.billing.sameas.shipping";
 
     private static final OnBillingCheckBoxChangedListener dummyBillingCallback = new OnBillingCheckBoxChangedListener() {
         @Override

@@ -29,9 +29,9 @@ import com.bambora.payform.services.TokenService;
 
 public class PayFormActivity extends BaseActivity implements FragmentManager.OnBackStackChangedListener,
         ShippingFragment.OnBillingCheckBoxChangedListener {
-    public final static String ACTION_PAYFORM_LAUNCH = "com.beanstream.payform.LAUNCH";
+    public final static String ACTION_PAYFORM_LAUNCH = "com.bambora.payform.LAUNCH";
 
-    public final static String EXTRA_PAYFORM_RESULT = "com.beanstream.payform.result";
+    public final static String EXTRA_PAYFORM_RESULT = "com.bambora.payform.result";
 
     public final static int REQUEST_PAYFORM = 1;
 
