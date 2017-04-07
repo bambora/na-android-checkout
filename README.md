@@ -50,13 +50,13 @@ android {
     repositories {
         jcenter()
         maven {
-            url "https://beanstream.jfrog.io/beanstream/libs-release"
+            url "https://bambora.jfrog.io/bambora/na-libs-release"
         }
     }
 }
 
 dependencies {
-    compile(group: 'com.bambora.android', name: 'payform', version: '0.1.2', ext: 'aar')
+    compile(group: 'com.bambora.android', name: 'checkout', version: '0.2.0', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     ...
@@ -68,15 +68,15 @@ From your app you will need to launch the activity with ***options*** and ***pur
 
 ***Example:***
 ```
-private void startPayForm() {
+private void startCheckout() {
   Options options = getOptionsForThisDemo();
   Purchase purchase = getPurchaseForThisDemo();
 
-  Intent intent = new Intent(PayFormActivity.ACTION_PAYFORM_LAUNCH);
-  intent.putExtra(PayFormActivity.EXTRA_OPTIONS, options);
-  intent.putExtra(PayFormActivity.EXTRA_PURCHASE, purchase);
+  Intent intent = new Intent(CheckoutActivity.ACTION_CHECKOUT_LAUNCH);
+  intent.putExtra(CheckoutActivity.EXTRA_OPTIONS, options);
+  intent.putExtra(CheckoutActivity.EXTRA_PURCHASE, purchase);
 
-  startActivityForResult(intent, PayFormActivity.REQUEST_PAYFORM);
+  startActivityForResult(intent, CheckoutActivity.REQUEST_CHECKOUT);
 }
 ```
 #### Step 3: Get the Results
@@ -86,17 +86,17 @@ You will need to collect the ***PayFromResult*** that contains the ***cardInfo.c
 ```
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-  if (requestCode == PayFormActivity.REQUEST_PAYFORM) {
+  if (requestCode == CheckoutActivity.REQUEST_CHECKOUT) {
     String error = "";
-    PayFormResult result = null;
+    CheckoutResult result = null;
 
     if (resultCode == Activity.RESULT_OK) {
-    	result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
+    	result = data.getParcelableExtra(CheckoutActivity.EXTRA_CHECKOUT_RESULT);
     } else if (resultCode == Activity.RESULT_CANCELED) {
-    	error = getResources().getString(R.string.demo_payform_cancelled);
+    	error = getResources().getString(R.string.demo_checkout_cancelled);
     } else {
-    	error = getResources().getString(R.string.demo_payform_error);
-    	result = data.getParcelableExtra(PayFormActivity.EXTRA_PAYFORM_RESULT);
+    	error = getResources().getString(R.string.demo_checkout_error);
+    	result = data.getParcelableExtra(CheckoutActivity.EXTRA_CHECKOUT_RESULT);
     }
 
     showError(error);
@@ -141,17 +141,17 @@ To set custom colors for the payment form you will need to add ***res/values/the
 ```
 <!--res/values/themes.xml-->
 <resources>
-    <style name="Theme.PayForm.Custom" parent="Theme.PayForm">
+    <style name="Theme.Checkout.Custom" parent="Theme.Checkout">
         <!--primary-->
-        <item name="android:textColorPrimary">@color/payformSecondary</item>
-        <item name="colorPrimary">@color/payformPrimary</item>
+        <item name="android:textColorPrimary">@color/checkoutSecondary</item>
+        <item name="colorPrimary">@color/checkoutPrimary</item>
 
         <!--accents-->
-        <item name="colorAccent">@color/payformAccent</item>
+        <item name="colorAccent">@color/checkoutAccent</item>
 
         <!--backgrounds-->
-        <item name="android:colorBackground">@color/payformBackground</item>
-        <item name="android:windowBackground">@color/payformBackground</item>
+        <item name="android:colorBackground">@color/checkoutBackground</item>
+        <item name="android:windowBackground">@color/checkoutBackground</item>
     </style>
 </resources>
 ```
