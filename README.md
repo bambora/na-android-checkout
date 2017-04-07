@@ -36,7 +36,7 @@ By integrating Android Checkout a developer can easily provide a way for users t
 <a name="demo"/>
 
 ## Demo App
-Use this [demo](https://github.com/bambora/na-android-checkout-demo) to see how to integrate NA Android SDK
+Use this [demo](https://github.com/bambora/na-android-checkout-demo) to see how to integrate NA Android Checkout
 
 <a name="integration"/>
 
