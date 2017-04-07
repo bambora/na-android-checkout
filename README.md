@@ -27,9 +27,9 @@ This Android library limits the scope of a merchant's PCI compliance by removing
 <a name="functionality"/>
 
 ## How It Works
-The payment form activity is instantiated and presented by your app code. The resulting payment form may contain input fields for a shipping address, for a billing address and for credit card details.
+The Checkout activity is instantiated and presented by your app code. The resulting form may contain input fields for a shipping address, for a billing address and for credit card details.
 
-Once the user has completed all fields with valid input an onActivityResult, provided by you, is called and passed a PayFromResult containing address information and a token for the credit card details.
+Once the user has completed all fields with valid input an onActivityResult, provided by you, is called and passed a CheckoutResult containing address information and a token for the credit card details.
 
 By integrating Android Checkout a developer can easily provide a way for users to accept payments in an Android app. Checkout provides some client-side validation, smart field data formatting and a design that works in all Android device form factors.
 
@@ -63,7 +63,7 @@ dependencies {
 }
 ```
 
-#### Step 2: Launch Payment Form Activity
+#### Step 2: Launch Checkout Activity
 From your app you will need to launch the activity with ***options*** and ***purchase*** information.
 
 ***Example:***
@@ -80,7 +80,7 @@ private void startCheckout() {
 }
 ```
 #### Step 3: Get the Results
-You will need to collect the ***PayFromResult*** that contains the ***cardInfo.code*** that is your payment processing token.
+You will need to collect the ***CheckoutResult*** that contains the ***cardInfo.code*** that is your payment processing token.
 
 ***Example:***
 ```
@@ -135,7 +135,7 @@ You can supply several parameters to configure the form, such as your company na
 | tokenRequestTimeoutInSeconds  | maximum time to wait during the token request |
 
 ##### Optional Theme Resource
-To set custom colors for the payment form you will need to add ***res/values/themes.xml*** to your project and pass in the resource id to the payment form.
+To set custom colors you will need to add ***res/values/themes.xml*** to your project and pass in the resource id to Checkout.
 
 ***Example:***
 ```
