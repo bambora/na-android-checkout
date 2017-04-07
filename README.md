@@ -56,7 +56,7 @@ android {
 }
 
 dependencies {
-    compile(group: 'com.bambora.android', name: 'checkout', version: '0.2.0', ext: 'aar')
+    compile(group: 'com.bambora.na.android', name: 'checkout', version: '0.2.0', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     ...
