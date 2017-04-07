@@ -1,4 +1,4 @@
-# NA Android SDK
+# NA Android Checkout
 
 ##### Table of Contents
 
@@ -20,7 +20,7 @@
 
 ## Overview
 
-NA Android SDK is a small client-side Android library that handles customer credit card input within the merchant's app. Most apps will let users launch NA Android SDK from something like a button action.
+NA Android Checkout is a small client-side Android library that handles customer credit card input within the merchant's app. Most apps will let users launch Android Checkout from something like a button action.
 
 This Android library limits the scope of a merchant's PCI compliance by removing the need for them to pass the sensitive information (credit card number, CVD, or expiry) through their servers and from having to write and store code that comes in contact with that sensitive information.
 
@@ -31,7 +31,7 @@ The payment form activity is instantiated and presented by your app code. The re
 
 Once the user has completed all fields with valid input an onActivityResult, provided by you, is called and passed a PayFromResult containing address information and a token for the credit card details.
 
-By integrating NA Android SDK a developer can easily provide a way for users to accept payments in an Android app. NA Android SDK provides some client-side validation, smart field data formatting and a design that works in all Android device form factors.
+By integrating Android Checkout a developer can easily provide a way for users to accept payments in an Android app. Checkout provides some client-side validation, smart field data formatting and a design that works in all Android device form factors.
 
 <a name="demo"/>
 
@@ -42,7 +42,7 @@ Use this [demo](https://github.com/bambora/na-android-sdk-demo) to see how to in
 
 ## Integration
 
-#### Step 1: Import NA Android SDK Library
+#### Step 1: Import NA Android Checkout Library
 * Add the following to your app's ***build.gradle***:
 ```
 android {
@@ -160,7 +160,7 @@ To set custom colors for the payment form you will need to add ***res/values/the
 
 ## Building Locally and Contributing
 * Clone repository:
-  * `$ git clone git@github.com:bambora/na-android-sdk.git`
+  * `$ git clone git@github.com:bambora/na-android-checkout.git`
 * Open the cloned repository in Android Studio
 * Fork the repo to commit changes to and issue Pull Requests as needed.
 
