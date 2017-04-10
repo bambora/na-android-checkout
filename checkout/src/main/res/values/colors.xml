@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017 Bambora
+  ~
+  ~ Created by dlight on 2016-08-04.
+  -->
+<resources>
+    <!-- Bambora Colors -->
+    <color name="bicBackground">#FFFFFF</color>
+    <color name="bicButtonText">#FFFFFF</color>
+
+    <color name="bicPrimary">#8247b5</color>
+    <color name="bicPrimaryText">#FFFFFF</color>
+    <color name="bicSecondary">#00a698</color>
+
+    <color name="bicSecureText">#aaaaaa</color>
+    <color name="bicSwitchText">#000000</color>
+</resources>
