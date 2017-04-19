@@ -1,3 +1,5 @@
+<img src="https://cdn.na.bambora.com/resources/logos/bambora-logo180x92.png" />
+
 # NA Android Checkout
 
 ##### Table of Contents
