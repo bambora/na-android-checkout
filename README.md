@@ -52,13 +52,13 @@ android {
     repositories {
         jcenter()
         maven {
-            url "https://bambora.jfrog.io/bambora/na-libs-release"
+            url "https://beanstream.jfrog.io/beanstream/libs-snapshot-local"
         }
     }
 }
 
 dependencies {
-    compile(group: 'com.bambora.na.android', name: 'checkout', version: '0.2.0', ext: 'aar')
+    compile(group: 'com.bambora.na.android', name: 'checkout', version: '0.2.0-SNAPSHOT', ext: 'aar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     ...
