@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017 Bambora
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bic_secured_by"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/secured_by_padding">
+
+    <TextView
+        android:id="@+id/secure_text"
+        style="@style/SecureText"
+        android:text="@string/secured_by" />
+
+    <TextView
+        style="@style/SecureTextBold"
+        android:layout_toEndOf="@id/secure_text"
+        android:text="@string/bambora" />
+</RelativeLayout>

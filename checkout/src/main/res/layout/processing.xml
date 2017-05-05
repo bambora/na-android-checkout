@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2017 Bambora
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_processing"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center" >
+
+    <TextView
+        android:id="@+id/processing_text"
+        style="@style/ProcessingText"
+        android:text="@string/processing_text" />
+
+    <TextView
+        android:id="@+id/processing_amount"
+        style="@style/ProcessingText"
+        android:layout_below="@+id/processing_text"
+        android:text="@string/processing_amount"
+        android:textSize="@dimen/processing_text_size_larger" />
+
+    <ProgressBar
+        android:id="@+id/processing_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/processing_amount"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/processing_target"
+        style="@style/ProcessingText"
+        android:layout_below="@+id/processing_progress_bar"
+        android:text="@string/processing_target" />
+
+    <include
+        layout="@layout/secured_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/processing_target" />
+</RelativeLayout>

@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2017 Bambora
+  -->
+<resources>
+
+    <style name="Theme.Checkout" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--primary-->
+        <item name="android:textColorPrimary">@color/bicPrimary</item>
+        <item name="colorPrimary">@color/bicPrimary</item>
+
+        <!--accents-->
+        <item name="colorAccent">@color/bicSecondary</item>
+
+        <!--backgrounds-->
+        <item name="android:colorBackground">@color/bicBackground</item>
+        <item name="android:windowBackground">@color/bicBackground</item>
+    </style>
+
+    <style name="Toolbar.Checkout" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+</resources>

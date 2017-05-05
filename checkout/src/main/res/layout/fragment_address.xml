@@ -1,0 +1,101 @@
+<!--
+  ~ Copyright (c) 2017 Bambora
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/header_padding"
+    tools:context="com.bambora.na.checkout.fragments.AddressFragment" >
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/title_text"
+        style="@style/TitleText"
+        android:layout_alignParentTop="true"
+        android:text="@string/address_title" />
+
+    <TableLayout
+        android:id="@+id/address_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
+        android:layout_margin="@dimen/activity_padding"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <EditText
+                android:id="@+id/address_name"
+                style="@style/EditText"
+                android:layout_span="2"
+                android:hint="@string/address_hint_name"
+                android:inputType="textPersonName|textNoSuggestions" />
+        </TableRow>
+
+        <TableRow>
+
+            <EditText
+                android:id="@+id/address_street"
+                style="@style/EditText"
+                android:layout_span="2"
+                android:hint="@string/address_hint_street"
+                android:inputType="textPostalAddress|textCapWords" />
+        </TableRow>
+
+        <TableRow>
+
+            <EditText
+                android:id="@+id/address_postal"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                android:hint="@string/address_hint_postal"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:nextFocusDown="@+id/address_city"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/address_city"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_weight=".6"
+                android:hint="@string/address_hint_city"
+                android:inputType="textCapWords"
+                android:nextFocusDown="@+id/address_province" />
+        </TableRow>
+
+        <TableRow>
+
+            <EditText
+                android:id="@+id/address_province"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:hint="@string/address_hint_province"
+                android:inputType="textCapWords"
+                android:nextFocusDown="@+id/address_country" />
+
+            <EditText
+                android:id="@+id/address_country"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_weight=".6"
+                android:hint="@string/address_hint_country"
+                android:inputType="textCapWords" />
+        </TableRow>
+    </TableLayout>
+
+    <!--Billing Toggle-->
+    <CheckBox
+        android:id="@+id/billing_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address_fields"
+        android:layout_margin="@dimen/checkbox_margin"
+        android:text="@string/address_billing_switch_label"
+        android:textColor="@color/bicSwitchText"
+        android:visibility="visible" />
+</RelativeLayout>
