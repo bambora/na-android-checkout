@@ -30,7 +30,7 @@ public class TokenService extends IntentService {
     public final static String EXTRA_RECEIVER = "com.bambora.na.checkout.services.receiver";
     public final static String EXTRA_TOKEN = "com.bambora.na.checkout.services.token";
 
-    private final static String URL_TOKENIZATION = "https://na.bambora.com/scripts/tokenization/tokens";
+    private final static String URL_TOKENIZATION = "https://api.na.bambora.com/scripts/tokenization/tokens";
 
     private final static int SERVICE_ERROR = 22;
 
