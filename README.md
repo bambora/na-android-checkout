@@ -5,6 +5,7 @@
 ##### Table of Contents
 
 * [Platform Support](#platform-support)
+* [TLS 1.2 Suport](#tls12)
 * [Overview](#overview)
 * [How It Works](#functionality)
 * [Demo App](#demo)
@@ -17,6 +18,11 @@
 
 ## Android Support
  * Minimum SDK 19
+
+<a name="tls12"/>
+
+## TLS 1.2 support
+For testing instructions with our TLS1.2-only server, please refer to our [developer portal](https://dev.na.bambora.com/docs/references/payment_SDKs/support_tls12/#android-sdk)
 
 <a name="overview"/>
 
